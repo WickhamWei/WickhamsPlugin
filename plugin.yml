@@ -1,0 +1,72 @@
+name: WickhamsPlugin
+main: com.wickham.minecraftPlugin.WickhamsPlugin
+version: 1.2.4
+api-version: 1.13
+author: Wickham
+load: STARTUP
+permissions:
+  wickhamsplugin.join:
+   default: true
+   description: 注册和登陆的权限
+  wickhamsplugin.tpa:
+   default: true
+   description: 请求传送到某个人身边的权限
+  wickhamsplugin.tpall:
+   default: op
+   description: 传送所有人到你身旁的权限
+  wickhamsplugin.spawn:
+   default: true
+   description: 传送到出生点的权限
+  wickhamsplugin.teleportNoCD: 
+   default: op
+   description: 传送没有cd的权限
+  wickhamsplugin.tp:
+   default: op
+   description: 传送到某人并且不需要对方同意的权限
+  wickhamsplugin.你好:
+   default: true
+  wickhamsplugin.*:
+   default: op
+   description: 所有WickhamsPlugin的权限
+   children: 
+     wickhamsplugin.你好: true
+     wickhamsplugin.tp: true
+     wickhamsplugin.spawn: true
+     wickhamsplugin.tpall: true
+     wickhamsplugin.join: true
+commands:
+  你好:
+   usage: "用法: /<command>"
+   description: 一段简单的输出
+   permission: wickhamsplugin.你好
+   permission-message: 你没有 wickhamsplugin.你好 权限节点来执行此命令
+  tp:
+   description: 传送到某个人身边
+   usage: "用法: /<command> 某个人的名字"
+   permission: wickhamsplugin.tp
+   permission-message: 只有管理员可以传送到某个人身边且不经过对方同意，请使用tpa命令
+  spawn:
+   description: 传送到出生点
+   usage: "用法: /<command>"
+   permission: wickhamsplugin.spawn
+   permission-message: 你没有 wickhamsplugin.spawn 权限节点来执行此命令
+  tpall:
+   description: 传送所有人到你身边
+   usage: "用法: /<command>"
+   permission: wickhamsplugin.tpall
+   permission-message: 你没有 wickhamsplugin.tpall 权限节点来执行此命令
+  join:
+   description: 注册或登陆
+   usage: "用法: /<command> 你的密码"
+   permission: wickhamsplugin.join
+   permission-message: 你没有 wickhamsplugin.join 权限节点来执行此命令
+  tpa:
+   description: 请求传送到某个人身边
+   usage: "用法: /<command> 某个人的名字"
+   permission: wickhamsplugin.tpa
+   permission-message: 你没有 wickhamsplugin.tpa 权限节点来执行此命令
+  tpayes:
+   description: 接受请求
+   usage: "用法: /<command>"
+   permission: wickhamsplugin.tpa
+   permission-message: 你没有 wickhamsplugin.tpa 权限节点来执行此命令
