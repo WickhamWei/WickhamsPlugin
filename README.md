@@ -1,5 +1,4 @@
 # WickhamsPlugin
-Minecraft_Spigot_Plugin
 # 前言
 
 ## 开发背景
@@ -18,5 +17,5 @@ Minecraft_Spigot_Plugin
  7. 死亡是否保留背包内的物品开关，**统一设置，所有世界都生效。**
  8. OP基础传送指令：传送tp、传送所有人tpall。
  9. 玩家基础传送指令：传送请求tpa、答应传送请求tpayes ~~真的简单粗暴~~
- 
- [CSDN](https://blog.csdn.net/weixin_43845039/article/details/88879494)
+ # 下载地址
+ [发布页面](https://github.com/WickhamWei/WickhamsPlugin/releases)
