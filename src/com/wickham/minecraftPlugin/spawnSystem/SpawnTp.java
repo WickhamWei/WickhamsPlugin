@@ -14,13 +14,13 @@ public class SpawnTp extends SpawnMain{
 		if(isWaiting(player)) {
 			return false;
 		}else {
-			newWaiting(player);
 			if(player.hasPermission("wickhamsplugin.teleportNoCD")||SpawnMain.WAITING_TIME==0) {
 				BackMain.recordBackLocation(player, player.getLocation());
 				player.teleport(player.getWorld().getSpawnLocation());
 				player.sendMessage(ChatColor.GREEN+"传送成功");
 				return true;
 			}else {
+				newWaiting(player);
 				Bukkit.getScheduler().runTaskLater(WickhamsPlugin.getMain(), new Runnable() {
 					Player thisPlayer=player;
 					@Override

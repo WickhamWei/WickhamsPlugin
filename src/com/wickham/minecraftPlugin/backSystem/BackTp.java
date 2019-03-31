@@ -15,7 +15,6 @@ public class BackTp extends BackMain{
 		if(isWaiting(player)) {
 			return false;
 		}else {
-			newWaiting(player);
 			if(player.hasPermission("wickhamsplugin.teleportNoCD")||BackMain.WAITING_TIME==0) {
 				if(player.teleport(getOldLocation(player))) {
 					player.sendMessage(ChatColor.GREEN+"传送成功");
@@ -25,6 +24,7 @@ public class BackTp extends BackMain{
 					return false;
 				}
 			}else {
+				newWaiting(player);
 				Bukkit.getScheduler().runTaskLater(WickhamsPlugin.getMain(), new Runnable() {
 					Player thisPlayer=player;
 					@Override

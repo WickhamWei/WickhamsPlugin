@@ -17,7 +17,6 @@ public class TpATp extends TpAMain{
 			return false;
 		}else {
 			cancelRequest(player);
-			newWaiting(player,targe);
 			if(player.hasPermission("wickhamsplugin.teleportNoCD")||TpAMain.WAITING_TIME==0) {
 				BackMain.recordBackLocation(player, player.getLocation());
 				player.teleport(targe.getLocation());
@@ -25,6 +24,7 @@ public class TpATp extends TpAMain{
 				player.sendMessage(ChatColor.GREEN+"传送成功");
 				return true;
 			}else {
+				newWaiting(player,targe);
 				Bukkit.getScheduler().runTaskLater(WickhamsPlugin.getMain(), new Runnable() {
 					Player thisPlayer=player;
 					@Override
