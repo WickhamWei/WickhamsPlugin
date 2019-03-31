@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.wickham.minecraftPlugin.WickhamsPlugin;
+import com.wickham.minecraftPlugin.backSystem.BackMain;
 
 public class TpATp extends TpAMain{
 	@Override
@@ -18,19 +19,18 @@ public class TpATp extends TpAMain{
 			cancelRequest(player);
 			newWaiting(player,targe);
 			if(player.hasPermission("wickhamsplugin.teleportNoCD")||TpAMain.WAITING_TIME==0) {
-				if(player.teleport(targe.getLocation()) ){
-					targe.sendMessage(ChatColor.DARK_GREEN+player.getName()+" 传送成功");
-					player.sendMessage(ChatColor.GREEN+"传送成功");
-					return true;
-				}else {
-					return false;
-				}
+				BackMain.recordBackLocation(player, player.getLocation());
+				player.teleport(targe.getLocation());
+				targe.sendMessage(ChatColor.DARK_GREEN+player.getName()+" 传送成功");
+				player.sendMessage(ChatColor.GREEN+"传送成功");
+				return true;
 			}else {
 				Bukkit.getScheduler().runTaskLater(WickhamsPlugin.getMain(), new Runnable() {
 					Player thisPlayer=player;
 					@Override
 					public void run() {
 						if(isWaitingFirst(thisPlayer)) {
+							BackMain.recordBackLocation(thisPlayer, thisPlayer.getLocation());
 							thisPlayer.teleport(targe.getPlayer());
 							thisPlayer.sendMessage(ChatColor.GREEN+"传送成功");
 							targe.sendMessage(ChatColor.GREEN+player.getName()+" 传送成功");

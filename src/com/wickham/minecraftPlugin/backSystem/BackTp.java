@@ -1,4 +1,4 @@
-package com.wickham.minecraftPlugin.spawnSystem;
+package com.wickham.minecraftPlugin.backSystem;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -6,35 +6,38 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.wickham.minecraftPlugin.WickhamsPlugin;
-import com.wickham.minecraftPlugin.backSystem.BackMain;
 
-public class SpawnTp extends SpawnMain{
+public class BackTp extends BackMain{
+
 	@Override
-	public boolean spawnTeleport(Player player) {
+	public boolean backTeleport(Player player) {
+		// TODO 自动生成的方法存根
 		if(isWaiting(player)) {
 			return false;
 		}else {
 			newWaiting(player);
-			if(player.hasPermission("wickhamsplugin.teleportNoCD")||SpawnMain.WAITING_TIME==0) {
-				BackMain.recordBackLocation(player, player.getLocation());
-				player.teleport(player.getWorld().getSpawnLocation());
-				player.sendMessage(ChatColor.GREEN+"传送成功");
-				return true;
+			if(player.hasPermission("wickhamsplugin.teleportNoCD")||BackMain.WAITING_TIME==0) {
+				if(player.teleport(getOldLocation(player))) {
+					player.sendMessage(ChatColor.GREEN+"传送成功");
+					cleanBackLocation(player);
+					return true;
+				}else {
+					return false;
+				}
 			}else {
 				Bukkit.getScheduler().runTaskLater(WickhamsPlugin.getMain(), new Runnable() {
 					Player thisPlayer=player;
 					@Override
 					public void run() {
 						if(isWaiting(thisPlayer)) {
-							BackMain.recordBackLocation(thisPlayer, thisPlayer.getLocation());
-							thisPlayer.teleport(player.getWorld().getSpawnLocation());
 							thisPlayer.sendMessage(ChatColor.GREEN+"传送成功");
+							cleanBackLocation(thisPlayer);
 							cancelWaiting(thisPlayer);
 						}		
 					}
-				}, SpawnMain.WAITING_TIME*20);
+				}, BackMain.WAITING_TIME*20);
 				BukkitTask COUNT_DOWN=Bukkit.getScheduler().runTaskTimer(WickhamsPlugin.getMain(), new Runnable() {
-					int time=SpawnMain.WAITING_TIME;
+					int time=BackMain.WAITING_TIME;
 					Player thisPlayer=player;
 					@Override
 					public void run() {
@@ -54,9 +57,10 @@ public class SpawnTp extends SpawnMain{
 //						Bukkit.getLogger().info("清除传送事件"+ID);
 						Bukkit.getScheduler().cancelTask(ID);
 					}
-				}, SpawnMain.WAITING_TIME*20);
+				}, BackMain.WAITING_TIME*20);
 				return true;
 			}
 		}
 	}
+	
 }
