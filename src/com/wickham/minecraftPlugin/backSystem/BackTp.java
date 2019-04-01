@@ -30,6 +30,7 @@ public class BackTp extends BackMain{
 					@Override
 					public void run() {
 						if(isWaiting(thisPlayer)) {
+							player.teleport(getOldLocation(player));
 							thisPlayer.sendMessage(ChatColor.GREEN+"传送成功");
 							cleanBackLocation(thisPlayer);
 							cancelWaiting(thisPlayer);

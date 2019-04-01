@@ -1,6 +1,6 @@
 name: WickhamsPlugin
 main: com.wickham.minecraftPlugin.WickhamsPlugin
-version: 1.2.4
+version: 1.2.5
 api-version: 1.13
 author: Wickham
 load: STARTUP
@@ -25,6 +25,9 @@ permissions:
    description: 传送到某人并且不需要对方同意的权限
   wickhamsplugin.你好:
    default: true
+  wickhamsplugin.back:
+   default: true
+   description: 回到上一个位置的权限
   wickhamsplugin.*:
    default: op
    description: 所有WickhamsPlugin的权限
@@ -34,12 +37,14 @@ permissions:
      wickhamsplugin.spawn: true
      wickhamsplugin.tpall: true
      wickhamsplugin.join: true
+     wickhamsplugin.back: true
+     wickhamsplugin.tpa: true
 commands:
   你好:
    usage: "用法: /<command>"
    description: 一段简单的输出
    permission: wickhamsplugin.你好
-   permission-message: 你没有 wickhamsplugin.你好 权限节点来执行此命令
+   permission-message: 你没有  wickhamsplugin.你好 权限节点来执行此命令
   tp:
    description: 传送到某个人身边
    usage: "用法: /<command> 某个人的名字"
@@ -49,24 +54,29 @@ commands:
    description: 传送到出生点
    usage: "用法: /<command>"
    permission: wickhamsplugin.spawn
-   permission-message: 你没有 wickhamsplugin.spawn 权限节点来执行此命令
+   permission-message: 你没有  wickhamsplugin.spawn 权限节点来执行此命令
   tpall:
    description: 传送所有人到你身边
    usage: "用法: /<command>"
    permission: wickhamsplugin.tpall
-   permission-message: 你没有 wickhamsplugin.tpall 权限节点来执行此命令
+   permission-message: 你没有  wickhamsplugin.tpall 权限节点来执行此命令
   join:
    description: 注册或登陆
    usage: "用法: /<command> 你的密码"
    permission: wickhamsplugin.join
-   permission-message: 你没有 wickhamsplugin.join 权限节点来执行此命令
+   permission-message: 你没有  wickhamsplugin.join 权限节点来执行此命令
   tpa:
    description: 请求传送到某个人身边
    usage: "用法: /<command> 某个人的名字"
    permission: wickhamsplugin.tpa
-   permission-message: 你没有 wickhamsplugin.tpa 权限节点来执行此命令
+   permission-message: 你没有  wickhamsplugin.tpa 权限节点来执行此命令
   tpayes:
    description: 接受请求
    usage: "用法: /<command>"
    permission: wickhamsplugin.tpa
-   permission-message: 你没有 wickhamsplugin.tpa 权限节点来执行此命令
+   permission-message: 你没有  wickhamsplugin.tpa 权限节点来执行此命令
+  back:
+   description: 回到上一个位置
+   usage: "用法: /<command>"
+   permission: wickhamsplugin.back
+   permission-message: 你没有 wickhamsplugin.back 权限节点来执行此命令
