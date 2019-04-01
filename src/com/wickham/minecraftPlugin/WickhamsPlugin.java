@@ -7,6 +7,7 @@ import com.wickham.minecraftPlugin.command.TpAll;
 import com.wickham.minecraftPlugin.API.teleport.WTeleportListener;
 import com.wickham.minecraftPlugin.backSystem.BackCommand;
 import com.wickham.minecraftPlugin.command.Hello;
+import com.wickham.minecraftPlugin.command.Home;
 import com.wickham.minecraftPlugin.command.Spawn;
 import com.wickham.minecraftPlugin.event.WorldLoadingEvent;
 import com.wickham.minecraftPlugin.event.LoginEvent;
@@ -130,6 +131,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		this.getCommand("tpall").setExecutor(new TpAll());
 		this.getCommand("join").setExecutor(new LoginCommand());
 		this.getCommand("back").setExecutor(new BackCommand());
+		this.getCommand("home").setExecutor(new Home());
 		this.getCommand("tpa").setExecutor(new TpACommand());
 		this.getCommand("tpayes").setExecutor(new TpACommandYes());// 这里不用判断 因为plugin必须注册指令
 		getLogger().info("读取命令完成");

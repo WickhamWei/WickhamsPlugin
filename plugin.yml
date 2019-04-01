@@ -28,6 +28,9 @@ permissions:
   wickhamsplugin.back:
    default: true
    description: 回到上一个位置的权限
+  wickhamsplugin.home:
+   default: true
+   description: 回到家的权限
   wickhamsplugin.*:
    default: op
    description: 所有WickhamsPlugin的权限
@@ -39,6 +42,7 @@ permissions:
      wickhamsplugin.join: true
      wickhamsplugin.back: true
      wickhamsplugin.tpa: true
+     wickhamsplugin.home: true
 commands:
   你好:
    usage: "用法: /<command>"
@@ -51,10 +55,15 @@ commands:
    permission: wickhamsplugin.tp
    permission-message: 只有管理员可以传送到某个人身边且不经过对方同意，请使用tpa命令
   spawn:
-   description: 传送到出生点
+   description: 传送到当前世界的出生点
    usage: "用法: /<command>"
    permission: wickhamsplugin.spawn
    permission-message: 你没有  wickhamsplugin.spawn 权限节点来执行此命令
+  home:
+   description: 传送到家
+   usage: "用法: /<command>"
+   permission: wickhamsplugin.home
+   permission-message: 你没有  wickhamsplugin.home 权限节点来执行此命令
   tpall:
    description: 传送所有人到你身边
    usage: "用法: /<command>"

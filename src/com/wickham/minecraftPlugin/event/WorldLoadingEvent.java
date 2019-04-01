@@ -48,7 +48,7 @@ public class WorldLoadingEvent implements Listener {
 					for (World aWorld : world) {
 						//Bukkit.broadcastMessage(ChatColor.BLUE + "服务器正在保存地图 " + aWorld.getName());
 						aWorld.save();
-						Bukkit.broadcastMessage(ChatColor.BLUE + "服务器保存地图  " + aWorld.getName() + " 完毕");
+						Bukkit.broadcastMessage(ChatColor.BLUE + "服务器保存地图 " + aWorld.getName() + " 完毕");
 					}
 
 				}
