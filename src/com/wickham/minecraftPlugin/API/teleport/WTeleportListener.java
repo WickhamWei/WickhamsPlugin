@@ -1,4 +1,4 @@
-package com.wickham.minecraftPlugin.event;
+package com.wickham.minecraftPlugin.API.teleport;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -6,18 +6,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import com.wickham.minecraftPlugin.spawnSystem.SpawnMain;
 import com.wickham.minecraftPlugin.tpASystem.TpAMain;
 
-public class TpEvent implements Listener {
+public class WTeleportListener implements Listener {
 	@EventHandler
 	public void spawnStopOn(PlayerMoveEvent event) {
 		Player player=event.getPlayer();
-		if(SpawnMain.isWaiting(player)) {
-			SpawnMain.cancelWaiting(player);
+		if(WTeleportMain.isInWaitingList(player)) {
+			WTeleportMain.removeFromWaitingList(player);
 			stopMoveMsg(player);
 		}
-
 	}
 	@EventHandler
 	public void tpAStopOn(PlayerMoveEvent event) {

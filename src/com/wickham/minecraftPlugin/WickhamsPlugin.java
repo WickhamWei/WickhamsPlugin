@@ -4,9 +4,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.wickham.minecraftPlugin.command.Tp;
 import com.wickham.minecraftPlugin.command.TpAll;
+import com.wickham.minecraftPlugin.API.teleport.WTeleportListener;
 import com.wickham.minecraftPlugin.backSystem.BackCommand;
 import com.wickham.minecraftPlugin.command.Hello;
-import com.wickham.minecraftPlugin.event.TpEvent;
+import com.wickham.minecraftPlugin.command.Spawn;
 import com.wickham.minecraftPlugin.event.WorldLoadingEvent;
 import com.wickham.minecraftPlugin.event.LoginEvent;
 import com.wickham.minecraftPlugin.event.QuitEvent;
@@ -15,7 +16,6 @@ import com.wickham.minecraftPlugin.loginSystem.LoginCommand;
 import com.wickham.minecraftPlugin.loginSystem.LoginLimitEvent;
 import com.wickham.minecraftPlugin.loginSystem.LoginMain;
 import com.wickham.minecraftPlugin.shapedRecipe.HugeRottenFlash;
-import com.wickham.minecraftPlugin.spawnSystem.SpawnCommand;
 import com.wickham.minecraftPlugin.tpASystem.TpACommand;
 import com.wickham.minecraftPlugin.tpASystem.TpACommandYes;
 
@@ -126,7 +126,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		// 调用外部指令
 		this.getCommand("你好").setExecutor(new Hello());
 		this.getCommand("tp").setExecutor(new Tp());
-		this.getCommand("spawn").setExecutor(new SpawnCommand());
+		this.getCommand("spawn").setExecutor(new Spawn());
 		this.getCommand("tpall").setExecutor(new TpAll());
 		this.getCommand("join").setExecutor(new LoginCommand());
 		this.getCommand("back").setExecutor(new BackCommand());
@@ -144,7 +144,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new WorldLoadingEvent(config, this), this);
 		if (config.getBoolean("登陆系统"))
 			getServer().getPluginManager().registerEvents(new LoginLimitEvent(), this);
-		getServer().getPluginManager().registerEvents(new TpEvent(), this);
+		getServer().getPluginManager().registerEvents(new WTeleportListener(), this);
 		getLogger().info("读取事件完成");
 	}
 
