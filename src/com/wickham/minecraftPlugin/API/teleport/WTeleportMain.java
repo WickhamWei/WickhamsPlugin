@@ -10,7 +10,7 @@ import com.wickham.minecraftPlugin.WickhamsPlugin;
 
 public abstract class WTeleportMain {
 	public static HashSet<String> W_TELEPORT_WAITING_LIST=new HashSet<>();//传送等待的存储列表
-	public final int TELEPORT_WAITING_TIME=WickhamsPlugin.getMain().getConfig().getInt("非OP传送等待时间（秒）");
+	public static final int TELEPORT_WAITING_TIME=WickhamsPlugin.getMain().getConfig().getInt("非OP传送等待时间（秒）");
 	//传送等待时间
 	protected void addInWaitingList(Player player) {//将玩家加入传送等待列表
 		W_TELEPORT_WAITING_LIST.add(player.getName());
@@ -24,7 +24,7 @@ public abstract class WTeleportMain {
 	public static void clearWaitingList() {//清理等待列表
 		W_TELEPORT_WAITING_LIST.clear();
 	}
-	public abstract boolean WTeleport(Player mainPlayer,Player targePlayer,Boolean recordLocation);
+	public abstract boolean WTeleport(Player mainPlayer,Player targePlayer);
 	//玩家对玩家的传送方法
 	public abstract boolean WTeleport(Player mainPlayer,Location targeLocation,Boolean recordLocation);
 	//玩家对地址的传送方法
@@ -47,5 +47,11 @@ public abstract class WTeleportMain {
 	}
 	protected void timeLeftMsg(Player mainPlayer,int timeLeft) {
 		mainPlayer.sendMessage(ChatColor.YELLOW+"距离传送还有 "+timeLeft+" 秒，请勿移动");
+	}
+	protected void noOnlineMsg(Player mainPlayer,Player targePlayer) {
+		mainPlayer.sendMessage(ChatColor.RED+targePlayer.getName()+" 目标玩家已下线");
+	}
+	protected void foolishMsg(Player player) {
+		player.sendMessage(ChatColor.YELLOW+"你干了一件蠢事");
 	}
 }

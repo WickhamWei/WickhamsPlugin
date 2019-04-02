@@ -15,7 +15,7 @@ public class Hello implements CommandExecutor {
 		 * test 则args={"1","test"}.
 		 */
 		if (sender instanceof Player) {
-			sender.sendMessage(ChatColor.BLUE+"你好！我是Wickham");
+			sender.sendMessage(ChatColor.BLUE+"你好！我是 Wickham");
 			return true;
 		} else {
 			sender.sendMessage("辛苦腐竹了");
