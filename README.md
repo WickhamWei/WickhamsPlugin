@@ -8,6 +8,6 @@
  6. 怪物与方块及掉落物的交互开关，小黑就偷不走东西了，苦力怕就炸不烂地形了。
  7. 死亡是否保留背包内的物品开关，**统一设置，所有世界都生效。**
  8. OP基础传送指令：传送tp、传送所有人tpall。
- 9. 玩家基础传送指令：tpa、tpayes、spawn、back。
+ 9. 玩家基础传送指令：tpa、tpayes、spawn、back、home。
  ## 下载地址
  [发布页面](https://github.com/WickhamWei/WickhamsPlugin/releases)

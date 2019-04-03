@@ -1,6 +1,6 @@
 name: WickhamsPlugin
 main: com.wickham.minecraftPlugin.WickhamsPlugin
-version: 1.2.6
+version: 1.2.7
 api-version: 1.13
 author: Wickham
 load: STARTUP
@@ -31,6 +31,9 @@ permissions:
   wickhamsplugin.home:
    default: true
    description: 回到家的权限
+  wickhamsplugin.sethome:
+   default: true
+   description: 设置家的权限
   wickhamsplugin.*:
    default: op
    description: 所有WickhamsPlugin的权限
@@ -64,6 +67,11 @@ commands:
    usage: "用法: /<command>"
    permission: wickhamsplugin.home
    permission-message: 你没有  wickhamsplugin.home 权限节点来执行此命令
+  sethome:
+   description: 设置家
+   usage: "用法: /<command>"
+   permission: wickhamsplugin.sethome
+   permission-message: 你没有  wickhamsplugin.sethome 权限节点来执行此命令
   tpall:
    description: 传送所有人到你身边
    usage: "用法: /<command>"

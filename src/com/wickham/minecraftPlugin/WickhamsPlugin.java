@@ -8,11 +8,13 @@ import com.wickham.minecraftPlugin.API.teleport.WTeleportListener;
 import com.wickham.minecraftPlugin.backSystem.BackCommand;
 import com.wickham.minecraftPlugin.command.Hello;
 import com.wickham.minecraftPlugin.command.Home;
+import com.wickham.minecraftPlugin.command.SetHome;
 import com.wickham.minecraftPlugin.command.Spawn;
 import com.wickham.minecraftPlugin.event.WorldLoadingEvent;
 import com.wickham.minecraftPlugin.event.LoginEvent;
 import com.wickham.minecraftPlugin.event.QuitEvent;
 import com.wickham.minecraftPlugin.event.SteppingOnEvent;
+import com.wickham.minecraftPlugin.event.WPlayerDeathEvent;
 import com.wickham.minecraftPlugin.loginSystem.LoginCommand;
 import com.wickham.minecraftPlugin.loginSystem.LoginLimitEvent;
 import com.wickham.minecraftPlugin.loginSystem.LoginMain;
@@ -96,17 +98,17 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 //		getLogger().info("---死亡是否保留背包内的物品" + " " + config.getBoolean("死亡是否保留背包内的物品"));
 		config.addDefault("怪物能否捡起或更换物品", true);
 //		getLogger().info("---怪物能否捡起或更换物品" + " " + config.getBoolean("怪物能否捡起或更换物品"));// Whether creepers, zombies,
-																					// endermen,
-																					// ghasts, withers, ender dragons,
-																					// rabbits, sheep, villagers, and
-																					// snow golems should be able to
-																					// change blocks and whether mobs
-																					// can pick up items
+		// endermen,
+		// ghasts, withers, ender dragons,
+		// rabbits, sheep, villagers, and
+		// snow golems should be able to
+		// change blocks and whether mobs
+		// can pick up items
 		config.addDefault("非OP传送等待时间（秒）", 3);
 //		getLogger().info("---非OP传送等待时间（秒）" + " " + config.getInt("非OP传送等待时间（秒）"));
 		config.addDefault("tpa请求等待时间（秒）", 20);
 //		getLogger().info("---tpa请求等待时间（秒）" + " " + config.getInt("tpa请求等待时间（秒）"));
-		
+
 		// 后处理默认配置文件保存操作
 		config.options().copyDefaults(true);// 如果没有看到上面的内容，拷贝一个进去
 		saveConfig();// 保存
@@ -133,7 +135,8 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		this.getCommand("back").setExecutor(new BackCommand());
 		this.getCommand("home").setExecutor(new Home());
 		this.getCommand("tpa").setExecutor(new TpACommand());
-		this.getCommand("tpayes").setExecutor(new TpACommandYes());// 这里不用判断 因为plugin必须注册指令
+		this.getCommand("tpayes").setExecutor(new TpACommandYes());
+		this.getCommand("sethome").setExecutor(new SetHome());// 这里不用判断 因为plugin必须注册指令
 		getLogger().info("读取命令完成");
 	}
 
@@ -147,6 +150,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		if (config.getBoolean("登陆系统"))
 			getServer().getPluginManager().registerEvents(new LoginLimitEvent(), this);
 		getServer().getPluginManager().registerEvents(new WTeleportListener(), this);
+		getServer().getPluginManager().registerEvents(new WPlayerDeathEvent(config), this);
 		getLogger().info("读取事件完成");
 	}
 
@@ -166,9 +170,10 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 			Bukkit.shutdown();
 		}
 	}
+
 	public void loadNewShapedRecipe() {
 		getLogger().info("正在读取合成表");
 		HugeRottenFlash.newHugeRottenFlash();
-        getLogger().info("读取合成表完成");
+		getLogger().info("读取合成表完成");
 	}
 }
