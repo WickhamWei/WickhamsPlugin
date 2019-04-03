@@ -1,9 +1,12 @@
 package com.wickham.minecraftPlugin.event;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import com.wickham.minecraftPlugin.backSystem.BackMain;
 
 public class WPlayerDeathEvent implements Listener {
 	private boolean keepInventoryBoolean;
@@ -15,6 +18,8 @@ public class WPlayerDeathEvent implements Listener {
 
 	@EventHandler
 	public void keepInventory(PlayerDeathEvent event) {
+		Player player=event.getEntity();
+		BackMain.recordBackLocation(player, player.getLocation());
 		if (keepInventoryBoolean) {
 			if (!event.getKeepInventory()) {
 				event.setKeepInventory(keepInventoryBoolean);
