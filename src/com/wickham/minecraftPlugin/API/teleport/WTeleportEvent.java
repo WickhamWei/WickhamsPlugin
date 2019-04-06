@@ -7,6 +7,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.wickham.minecraftPlugin.WickhamsPlugin;
+import com.wickham.minecraftPlugin.API.chunk.WChunkEvent;
 import com.wickham.minecraftPlugin.backSystem.BackMain;
 
 public class WTeleportEvent extends WTeleportMain{
@@ -28,6 +29,7 @@ public class WTeleportEvent extends WTeleportMain{
 					return false;
 				}
 				BackMain.recordBackLocation(mainPlayer, mainPlayer.getLocation());
+				new WChunkEvent().WChunkLoading(mainPlayer.getLocation(), 2);
 				if(mainPlayer.teleport(targePlayer.getLocation())) {//执行传送
 					teleportSuccessMsg(mainPlayer,targePlayer);
 					return true;
@@ -53,6 +55,7 @@ public class WTeleportEvent extends WTeleportMain{
 								return;
 							}
 							BackMain.recordBackLocation(player, player.getLocation());
+							new WChunkEvent().WChunkLoading(mainPlayer.getLocation(), 2);
 							if(player.teleport(player2.getLocation())) {
 								teleportSuccessMsg(player,player2);
 								removeFromWaitingList(player);
@@ -105,6 +108,7 @@ public class WTeleportEvent extends WTeleportMain{
 				if(recordLocation) {//是否记录旧位置
 					BackMain.recordBackLocation(mainPlayer, mainPlayer.getLocation());
 				}
+				new WChunkEvent().WChunkLoading(mainPlayer.getLocation(), 2);
 				if(mainPlayer.teleport(targeLocation)) {//执行传送
 					teleportSuccessMsg(mainPlayer);
 					if(!recordLocation) {
@@ -127,6 +131,7 @@ public class WTeleportEvent extends WTeleportMain{
 							if(recordLocationBoolean) {
 								BackMain.recordBackLocation(player, player.getLocation());
 							}
+							new WChunkEvent().WChunkLoading(mainPlayer.getLocation(), 2);
 							if(player.teleport(location)) {
 								teleportSuccessMsg(player);
 								if(!recordLocationBoolean) {
