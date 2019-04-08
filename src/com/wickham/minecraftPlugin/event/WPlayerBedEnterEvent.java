@@ -10,7 +10,6 @@ public class WPlayerBedEnterEvent implements Listener {
 	@EventHandler
 	public void playerBedEnter(PlayerBedEnterEvent event) {
 		Player player = event.getPlayer();
-		player.setBedSpawnLocation(player.getLocation(), true);
 		player.sendMessage(ChatColor.GREEN + "已设置家");
 	}
 }

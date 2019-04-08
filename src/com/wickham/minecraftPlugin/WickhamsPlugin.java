@@ -17,7 +17,6 @@ import com.wickham.minecraftPlugin.event.SteppingOnEvent;
 import com.wickham.minecraftPlugin.event.WPlayerDeathEvent;
 import com.wickham.minecraftPlugin.loginSystem.LoginCommand;
 import com.wickham.minecraftPlugin.loginSystem.LoginLimitEvent;
-import com.wickham.minecraftPlugin.loginSystem.LoginMain;
 import com.wickham.minecraftPlugin.shapedRecipe.HugeRottenFlash;
 import com.wickham.minecraftPlugin.tpASystem.TpACommand;
 import com.wickham.minecraftPlugin.tpASystem.TpACommandYes;
@@ -47,19 +46,19 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		loadCommand();// 加载外挂指令
 		loadListener();// 加载事件监听
 //		loadNewShapedRecipe();//加载新合成表
-		getLogger().info("Wickham插件成功启动");
+//		getLogger().info("Wickham插件成功启动");
 	}
 
 	@Override
 	public void onDisable() {// 插件关闭
-		if (config.getBoolean("登陆系统"))
-			LoginMain.cleanPlayerList();// 清除表（没卵用）
+//		if (config.getBoolean("登陆系统"))
+//			LoginMain.cleanPlayerList();// 清除表（没卵用）
 
-		getLogger().info("Wickham插件已关闭");
+//		getLogger().info("Wickham插件已关闭");
 	}
 
 	public void loadConfig() {// 读取配置文件
-		getLogger().info("正在读取配置文件 config");
+//		getLogger().info("正在读取配置文件 config");
 		// 自建配置文件的操作
 		PLAYER_REGISTER_STATUS_CONFIG = playerRegisterStatus;// 静态变量赋值
 		FILE_PLAYER_REGISTER_STATUS_CONFIG = playerRegisterStatusConfig;
@@ -121,11 +120,11 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 			System.out.print("无法读取配置文件 playerRegisterStatusConfig ！服务器即将关闭！");
 			Bukkit.shutdown();
 		}
-		getLogger().info("读取配置文件 config 完成");
+//		getLogger().info("读取配置文件 config 完成");
 	}
 
 	public void loadCommand() {// 读取命令
-		getLogger().info("正在读取命令");
+//		getLogger().info("正在读取命令");
 		// 调用外部指令
 		this.getCommand("你好").setExecutor(new Hello());
 		this.getCommand("tp").setExecutor(new Tp());
@@ -137,11 +136,11 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		this.getCommand("tpa").setExecutor(new TpACommand());
 		this.getCommand("tpayes").setExecutor(new TpACommandYes());
 		this.getCommand("sethome").setExecutor(new SetHome());// 这里不用判断 因为plugin必须注册指令
-		getLogger().info("读取命令完成");
+//		getLogger().info("读取命令完成");
 	}
 
 	public void loadListener() {// 读取事件
-		getLogger().info("正在读取事件");
+//		getLogger().info("正在读取事件");
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new LoginEvent(), this);
 		getServer().getPluginManager().registerEvents(new QuitEvent(), this);
@@ -151,7 +150,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 			getServer().getPluginManager().registerEvents(new LoginLimitEvent(), this);
 		getServer().getPluginManager().registerEvents(new WTeleportListener(), this);
 		getServer().getPluginManager().registerEvents(new WPlayerDeathEvent(config), this);
-		getLogger().info("读取事件完成");
+//		getLogger().info("读取事件完成");
 	}
 
 	public static WickhamsPlugin getMain() {// 外部调用主类方法
