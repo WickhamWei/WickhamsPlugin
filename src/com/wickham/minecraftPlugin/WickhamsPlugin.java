@@ -11,10 +11,11 @@ import com.wickham.minecraftPlugin.command.Home;
 import com.wickham.minecraftPlugin.command.SetHome;
 import com.wickham.minecraftPlugin.command.Spawn;
 import com.wickham.minecraftPlugin.event.WorldLoadingEvent;
-import com.wickham.minecraftPlugin.event.LoginEvent;
 import com.wickham.minecraftPlugin.event.QuitEvent;
 import com.wickham.minecraftPlugin.event.SteppingOnEvent;
 import com.wickham.minecraftPlugin.event.WPlayerDeathEvent;
+import com.wickham.minecraftPlugin.event.WPlayerJoinEvent;
+import com.wickham.minecraftPlugin.event.WPlayerLevelChangeEvent;
 import com.wickham.minecraftPlugin.loginSystem.LoginCommand;
 import com.wickham.minecraftPlugin.loginSystem.LoginLimitEvent;
 import com.wickham.minecraftPlugin.shapedRecipe.HugeRottenFlash;
@@ -45,20 +46,14 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		loadConfig();// 加载配置文件
 		loadCommand();// 加载外挂指令
 		loadListener();// 加载事件监听
-//		loadNewShapedRecipe();//加载新合成表
-//		getLogger().info("Wickham插件成功启动");
+		loadNewShapedRecipe();// 加载新合成表
 	}
 
 	@Override
 	public void onDisable() {// 插件关闭
-//		if (config.getBoolean("登陆系统"))
-//			LoginMain.cleanPlayerList();// 清除表（没卵用）
-
-//		getLogger().info("Wickham插件已关闭");
 	}
 
 	public void loadConfig() {// 读取配置文件
-//		getLogger().info("正在读取配置文件 config");
 		// 自建配置文件的操作
 		PLAYER_REGISTER_STATUS_CONFIG = playerRegisterStatus;// 静态变量赋值
 		FILE_PLAYER_REGISTER_STATUS_CONFIG = playerRegisterStatusConfig;
@@ -70,43 +65,33 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 									// saveDefaultConfig() will not overwrite an existing file.
 		// 内容操作
 		playerRegisterStatus.addDefault("一般情况下禁止修改此文件，文件出错可能导致数据丢失", "此文件保存了玩家的密码");
-
+		config.addDefault("=====温馨提示", "=====");
 		config.addDefault("此文件编码格式为UTF-8", "请注意冒号后面有个空格，如遇到此文件出错，删除此文件即可重置。可以使用颜色代码。");
 		config.addDefault("提示", "本插件自动保存的功能和Bukkit自带的自动保存功能重复，建议把bukkit.yml中autosave的值改为0以节省服务器资源");
 		config.addDefault("不想要有公告/信息？冒号后不要留空，请这样", "");
-		config.addDefault("玩家加入时给玩家的信息开关", false);
-//		getLogger().info("---玩家加入时给玩家的信息开关" + " " + config.getBoolean("玩家加入时给玩家的信息开关"));
-		config.addDefault("玩家加入时给玩家的信息", "欢迎来到Wickham的服务器");
-		config.addDefault("玩家加入时的插件介绍", true);
+		config.addDefault("=====登录系统", "=====");
 		config.addDefault("登陆系统", false);
-//		getLogger().info("---登陆系统" + " " + config.getBoolean("登陆系统"));
+		config.addDefault("=====自动保存", "=====");
 		config.addDefault("自动保存地图", true);
-//		getLogger().info("---自动保存地图" + " " + config.getBoolean("自动保存地图"));
 		config.addDefault("自动保存地图时间间隔，单位分钟", 10);
-//		getLogger().info("---自动保存地图时间间隔（分钟）" + " " + config.getInt("自动保存地图时间间隔，单位分钟"));
+		config.addDefault("=====自动公告", "=====");
 		config.addDefault("自动公告", false);
-//		getLogger().info("---自动公告" + " " + config.getBoolean("自动公告"));
 		config.addDefault("自动公告时间间隔，单位分钟", 1);
-//		getLogger().info("---自动公告时间间隔（分钟）" + " " + config.getInt("自动公告时间间隔，单位分钟"));
 		config.addDefault("公告1", "欢迎来到Wickham的服务器");
 		config.addDefault("公告2", "欢迎来到Wickham的服务器");
 		config.addDefault("公告3", "欢迎来到Wickham的服务器");
+		config.addDefault("=====其他信息", "=====");
+		config.addDefault("玩家加入时给玩家的信息开关", false);
+		config.addDefault("玩家加入时给玩家的信息", "欢迎来到Wickham的服务器");
+		config.addDefault("玩家加入时的插件介绍", true);
+		config.addDefault("=====游戏内容", "=====");
 		config.addDefault("保护耕地不被踩坏", true);
-//		getLogger().info("---保护耕地不被踩坏" + " " + config.getBoolean("保护耕地不被踩坏"));
 		config.addDefault("死亡是否保留背包内的物品", false);
-//		getLogger().info("---死亡是否保留背包内的物品" + " " + config.getBoolean("死亡是否保留背包内的物品"));
-		config.addDefault("怪物能否捡起或更换物品", true);
-//		getLogger().info("---怪物能否捡起或更换物品" + " " + config.getBoolean("怪物能否捡起或更换物品"));// Whether creepers, zombies,
-		// endermen,
-		// ghasts, withers, ender dragons,
-		// rabbits, sheep, villagers, and
-		// snow golems should be able to
-		// change blocks and whether mobs
-		// can pick up items
+		config.addDefault("死亡后扣除一半等级", false);
+		config.addDefault("三十级后每升级一级加血量上限", false);
+		config.addDefault("=====传送系统", "=====");
 		config.addDefault("非OP传送等待时间（秒）", 3);
-//		getLogger().info("---非OP传送等待时间（秒）" + " " + config.getInt("非OP传送等待时间（秒）"));
 		config.addDefault("tpa请求等待时间（秒）", 20);
-//		getLogger().info("---tpa请求等待时间（秒）" + " " + config.getInt("tpa请求等待时间（秒）"));
 
 		// 后处理默认配置文件保存操作
 		config.options().copyDefaults(true);// 如果没有看到上面的内容，拷贝一个进去
@@ -120,12 +105,9 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 			System.out.print("无法读取配置文件 playerRegisterStatusConfig ！服务器即将关闭！");
 			Bukkit.shutdown();
 		}
-//		getLogger().info("读取配置文件 config 完成");
 	}
 
 	public void loadCommand() {// 读取命令
-//		getLogger().info("正在读取命令");
-		// 调用外部指令
 		this.getCommand("你好").setExecutor(new Hello());
 		this.getCommand("tp").setExecutor(new Tp());
 		this.getCommand("spawn").setExecutor(new Spawn());
@@ -135,14 +117,12 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		this.getCommand("home").setExecutor(new Home());
 		this.getCommand("tpa").setExecutor(new TpACommand());
 		this.getCommand("tpayes").setExecutor(new TpACommandYes());
-		this.getCommand("sethome").setExecutor(new SetHome());// 这里不用判断 因为plugin必须注册指令
-//		getLogger().info("读取命令完成");
+		this.getCommand("sethome").setExecutor(new SetHome());
 	}
 
 	public void loadListener() {// 读取事件
-//		getLogger().info("正在读取事件");
 		getServer().getPluginManager().registerEvents(this, this);
-		getServer().getPluginManager().registerEvents(new LoginEvent(), this);
+		getServer().getPluginManager().registerEvents(new WPlayerJoinEvent(config), this);
 		getServer().getPluginManager().registerEvents(new QuitEvent(), this);
 		getServer().getPluginManager().registerEvents(new SteppingOnEvent(config), this);
 		getServer().getPluginManager().registerEvents(new WorldLoadingEvent(config, this), this);
@@ -150,7 +130,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 			getServer().getPluginManager().registerEvents(new LoginLimitEvent(), this);
 		getServer().getPluginManager().registerEvents(new WTeleportListener(), this);
 		getServer().getPluginManager().registerEvents(new WPlayerDeathEvent(config), this);
-//		getLogger().info("读取事件完成");
+		getServer().getPluginManager().registerEvents(new WPlayerLevelChangeEvent(config), this);
 	}
 
 	public static WickhamsPlugin getMain() {// 外部调用主类方法
@@ -171,8 +151,6 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	}
 
 	public void loadNewShapedRecipe() {
-		getLogger().info("正在读取合成表");
 		HugeRottenFlash.newHugeRottenFlash();
-		getLogger().info("读取合成表完成");
 	}
 }

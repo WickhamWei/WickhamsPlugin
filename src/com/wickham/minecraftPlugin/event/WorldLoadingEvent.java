@@ -4,13 +4,11 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
-import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.plugin.Plugin;
 
 public class WorldLoadingEvent implements Listener {
@@ -20,14 +18,6 @@ public class WorldLoadingEvent implements Listener {
 	public WorldLoadingEvent(FileConfiguration config, Plugin plugin) {
 		this.config = config;
 		this.plugin = plugin;
-	}
-
-	@EventHandler
-	public void 怪物能否捡起或更换物品(WorldInitEvent event) {// Whether mobs can pick up items or change blocks.
-		World world = event.getWorld();
-		if (world.setGameRule(GameRule.MOB_GRIEFING, config.getBoolean("怪物能否捡起或更换物品"))) {// 成功执行
-//			plugin.getLogger().info("怪物能否捡起或更换物品在 " + world.getName() + " 设置为 " + config.getBoolean("怪物能否捡起或更换物品"));
-		}
 	}
 
 	@EventHandler

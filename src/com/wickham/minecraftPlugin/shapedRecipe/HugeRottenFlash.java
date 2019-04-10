@@ -19,8 +19,6 @@ public class HugeRottenFlash {
 		ShapedRecipe recipe=new ShapedRecipe(key,hugeRottenFlash);
 		recipe.shape("RRR","RRR","RRR");
 		recipe.setIngredient('R', Material.ROTTEN_FLESH);
-		if(Bukkit.getServer().addRecipe(recipe)) {
-			WickhamsPlugin.getMain().getLogger().info("HugeRottenFlash enable");
-		}
+		Bukkit.addRecipe(recipe);
 	}
 }

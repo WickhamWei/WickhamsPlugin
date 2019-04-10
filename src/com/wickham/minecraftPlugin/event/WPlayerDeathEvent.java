@@ -10,15 +10,16 @@ import com.wickham.minecraftPlugin.backSystem.BackMain;
 
 public class WPlayerDeathEvent implements Listener {
 	private boolean keepInventoryBoolean;
-	private boolean halfLevel = false;
+	private boolean halfLevelBoolean;
 
 	public WPlayerDeathEvent(FileConfiguration mainConfiguration) {
 		keepInventoryBoolean = mainConfiguration.getBoolean("死亡是否保留背包内的物品");
+		halfLevelBoolean = mainConfiguration.getBoolean("死亡后扣除一半等级");
 	}
 
 	@EventHandler
 	public void keepInventory(PlayerDeathEvent event) {
-		Player player=event.getEntity();
+		Player player = event.getEntity();
 		BackMain.recordBackLocation(player, player.getLocation());
 		if (keepInventoryBoolean) {
 			if (!event.getKeepInventory()) {
@@ -39,12 +40,12 @@ public class WPlayerDeathEvent implements Listener {
 
 	@EventHandler
 	public void newLevel(PlayerDeathEvent event) {
-		if (halfLevel) {
-			event.setNewLevel(event.getEntity().getLevel() / 2);
-		} else {
-			event.setKeepLevel(true);
-			return;
+		Player player = event.getEntity();
+		if(event.getKeepLevel()) {
+			event.setKeepLevel(false);
 		}
-
+		if (halfLevelBoolean) {
+			player.setLevel(event.getEntity().getLevel() / 2); 
+		}
 	}
 }
