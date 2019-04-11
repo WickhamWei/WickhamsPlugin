@@ -26,9 +26,11 @@ public class TpACommandYes implements CommandExecutor{
 						 }
 					 }
 					 if(player==null) {
+						 TpAMain.cancelRequest(player);
 						 targe.sendMessage(ChatColor.RED+"玩家已下线");
 						 return true;
 					 }else {
+						 TpAMain.cancelRequest(player);
 						 targe.sendMessage(ChatColor.GREEN+"已答应 "+player.getName()+" 的传送请求，在 "+WTeleportMain.TELEPORT_WAITING_TIME+" 秒后传送到你的位置，请注意");
 						 player.sendMessage(ChatColor.GREEN+targe.getName()+" 已答应你的请求，开始传送");
 						 new WTeleportEvent().WTeleport(player, targe);
