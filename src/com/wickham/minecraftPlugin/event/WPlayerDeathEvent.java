@@ -14,7 +14,7 @@ public class WPlayerDeathEvent implements Listener {
 
 	public WPlayerDeathEvent(FileConfiguration mainConfiguration) {
 		keepInventoryBoolean = mainConfiguration.getBoolean("死亡是否保留背包内的物品");
-		halfLevelBoolean = mainConfiguration.getBoolean("死亡后扣除一半等级");
+		halfLevelBoolean = mainConfiguration.getBoolean("死亡后保留一半等级");
 	}
 
 	@EventHandler

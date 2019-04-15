@@ -12,6 +12,7 @@ import com.wickham.minecraftPlugin.WickhamsPlugin;
 
 public class WPlayerJoinEvent implements Listener{
 	private boolean levelHealthBoolean;
+	private int maxHealth;
 	private boolean welcomeMsgBoolean;
 	private boolean loginSystemBoolean;
 	private boolean versionBoolean;
@@ -22,15 +23,23 @@ public class WPlayerJoinEvent implements Listener{
 		welcomeMsgBoolean =mainConfiguration.getBoolean("玩家加入时给玩家的信息开关");
 		loginSystemBoolean=mainConfiguration.getBoolean("登陆系统");
 		versionBoolean=mainConfiguration.getBoolean("玩家加入时的插件介绍");
+		maxHealth = mainConfiguration.getInt("最大血量上限，一颗心为两个血");
 		this.mainConfiguration=mainConfiguration;
 	}
 	
 	@EventHandler
 	public void levelHealth(PlayerJoinEvent event) {
+		if (maxHealth < 20) {// 不设置小于20
+			maxHealth = 20;
+		}
 		Player player = event.getPlayer();
 		if (levelHealthBoolean) {
 			if (player.getLevel() > 30) {
-				player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(player.getLevel() - 10);
+				if (player.getLevel() - 10 < maxHealth) {
+					player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(player.getLevel() - 10);
+				} else {
+					player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHealth);
+				}
 			} else {
 				player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(20);
 			}

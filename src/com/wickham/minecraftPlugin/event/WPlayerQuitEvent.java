@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class QuitEvent implements Listener {
+public class WPlayerQuitEvent implements Listener {
 	
 	@EventHandler
 	public void versionMsg(PlayerQuitEvent event) {// 欢迎信息

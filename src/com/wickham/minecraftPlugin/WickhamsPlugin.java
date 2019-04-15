@@ -11,8 +11,8 @@ import com.wickham.minecraftPlugin.command.Home;
 import com.wickham.minecraftPlugin.command.SetHome;
 import com.wickham.minecraftPlugin.command.Spawn;
 import com.wickham.minecraftPlugin.event.WorldLoadingEvent;
-import com.wickham.minecraftPlugin.event.QuitEvent;
-import com.wickham.minecraftPlugin.event.SteppingOnEvent;
+import com.wickham.minecraftPlugin.event.WPlayerQuitEvent;
+import com.wickham.minecraftPlugin.event.WPlayerInteractEvent;
 import com.wickham.minecraftPlugin.event.WPlayerDeathEvent;
 import com.wickham.minecraftPlugin.event.WPlayerJoinEvent;
 import com.wickham.minecraftPlugin.event.WPlayerLevelChangeEvent;
@@ -84,11 +84,14 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		config.addDefault("玩家加入时给玩家的信息开关", false);
 		config.addDefault("玩家加入时给玩家的信息", "欢迎来到Wickham的服务器");
 		config.addDefault("玩家加入时的插件介绍", true);
-		config.addDefault("=====游戏内容", "=====");
-		config.addDefault("保护耕地不被踩坏", true);
+		config.addDefault("=====玩家死亡", "=====");
 		config.addDefault("死亡是否保留背包内的物品", false);
-		config.addDefault("死亡后扣除一半等级", false);
+		config.addDefault("死亡后保留一半等级", false);
+		config.addDefault("=====玩家升级", "=====");
 		config.addDefault("三十级后每升级一级加血量上限", false);
+		config.addDefault("最大血量上限，一颗心为两个血", 40);
+		config.addDefault("=====地块保护", "=====");
+		config.addDefault("保护耕地不被踩坏", true);
 		config.addDefault("=====传送系统", "=====");
 		config.addDefault("非OP传送等待时间（秒）", 3);
 		config.addDefault("tpa请求等待时间（秒）", 20);
@@ -123,8 +126,8 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	public void loadListener() {// 读取事件
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new WPlayerJoinEvent(config), this);
-		getServer().getPluginManager().registerEvents(new QuitEvent(), this);
-		getServer().getPluginManager().registerEvents(new SteppingOnEvent(config), this);
+		getServer().getPluginManager().registerEvents(new WPlayerQuitEvent(), this);
+		getServer().getPluginManager().registerEvents(new WPlayerInteractEvent(config), this);
 		getServer().getPluginManager().registerEvents(new WorldLoadingEvent(config, this), this);
 		if (config.getBoolean("登陆系统"))
 			getServer().getPluginManager().registerEvents(new LoginLimitEvent(), this);
