@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.wickham.minecraftPlugin.command.Tp;
 import com.wickham.minecraftPlugin.command.TpAll;
+import com.wickham.minecraftPlugin.command.gm;
 import com.wickham.minecraftPlugin.API.teleport.WTeleportListener;
 import com.wickham.minecraftPlugin.backSystem.BackCommand;
 import com.wickham.minecraftPlugin.command.Hello;
@@ -121,6 +122,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		this.getCommand("tpa").setExecutor(new TpACommand());
 		this.getCommand("tpayes").setExecutor(new TpACommandYes());
 		this.getCommand("sethome").setExecutor(new SetHome());
+		this.getCommand("gm").setExecutor(new gm());
 	}
 
 	public void loadListener() {// 读取事件

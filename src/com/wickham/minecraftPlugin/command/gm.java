@@ -8,8 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.sun.xml.internal.ws.client.SenderException;
-
 public class gm implements CommandExecutor {
 
 	@Override
@@ -18,22 +16,8 @@ public class gm implements CommandExecutor {
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
 				String gamemode = dataStrings[0];
-				switch (gamemode) {
-				case "0":
-					player.setGameMode(GameMode.SURVIVAL);
-					player.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "生存模式");
-					break;
-				case "1":
-					if (player.hasPermission("")) {
-						player.setGameMode(GameMode.CREATIVE);
-						player.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "创造模式");
-					} else {
-						doesntHavePermissionMsg(player);
-					}
-					break;
-				default:
-					player.sendMessage(ChatColor.RED + "参数不存在");
-				}
+				gamemodeSwitch(gamemode, player, player);
+				return true;
 			} else {
 				sender.sendMessage(ChatColor.RED + "你必须是个玩家");
 				return false;
@@ -41,14 +25,20 @@ public class gm implements CommandExecutor {
 		} else if (dataStrings.length == 2) {
 			Player targePlayer = Bukkit.getPlayer(dataStrings[1]);
 			String gamemode = dataStrings[0];
+			if (targePlayer == null) {
+				playerDoesntOnline(sender);
+				return true;
+			}
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
-
+				gamemodeSwitch(gamemode, player, targePlayer);
+				return true;
 			} else {
-
+				gamemodeSwitch(gamemode, sender, targePlayer);
+				return true;
 			}
-		}
-		return false;
+		} else
+			return false;
 	}
 
 	private static void doesntHavePermissionMsg(Player player) {
@@ -57,5 +47,39 @@ public class gm implements CommandExecutor {
 
 	private static void playerDoesntOnline(CommandSender sender) {
 		sender.sendMessage(ChatColor.RED + "目标玩家不在线");
+	}
+
+	private static void gamemodeSwitch(String gamemodeString, Player sendPlayer, Player targePlayer) {
+		switch (gamemodeString) {
+		case "0":
+			targePlayer.setGameMode(GameMode.SURVIVAL);
+			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "生存模式");
+			break;
+		case "1":
+			if (sendPlayer.hasPermission("wickhamsplugin.gm.1")) {
+				targePlayer.setGameMode(GameMode.CREATIVE);
+				targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "创造模式");
+			} else {
+				doesntHavePermissionMsg(sendPlayer);
+			}
+			break;
+		default:
+			sendPlayer.sendMessage(ChatColor.RED + "参数不存在");
+		}
+	}
+
+	private static void gamemodeSwitch(String gamemodeString, CommandSender sender, Player targePlayer) {
+		switch (gamemodeString) {
+		case "0":
+			targePlayer.setGameMode(GameMode.SURVIVAL);
+			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "生存模式");
+			break;
+		case "1":
+			targePlayer.setGameMode(GameMode.CREATIVE);
+			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "创造模式");
+			break;
+		default:
+			sender.sendMessage(ChatColor.RED + "参数不存在");
+		}
 	}
 }

@@ -34,18 +34,12 @@ permissions:
   wickhamsplugin.sethome:
    default: true
    description: 设置家的权限
-  wickhamsplugin.*:
+  wickhamsplugin.gm.1:
    default: op
-   description: 所有WickhamsPlugin的权限
-   children: 
-     wickhamsplugin.你好: true
-     wickhamsplugin.tp: true
-     wickhamsplugin.spawn: true
-     wickhamsplugin.tpall: true
-     wickhamsplugin.join: true
-     wickhamsplugin.back: true
-     wickhamsplugin.tpa: true
-     wickhamsplugin.home: true
+   description: 设置创造模式的权限
+  wickhamsplugin.gm:
+   default: true
+   description: 修改游戏模式的权限
 commands:
   你好:
    usage: "用法: /<command>"
@@ -97,3 +91,8 @@ commands:
    usage: "用法: /<command>"
    permission: wickhamsplugin.back
    permission-message: 你没有 wickhamsplugin.back 权限节点来执行此命令
+  gm:
+   description: 回到上一个位置
+   usage: "用法: /<command> 游戏模式数值 目标玩家"
+   permission: wickhamsplugin.gm
+   permission-message: 你没有 wickhamsplugin.gm 权限节点来执行此命令
