@@ -12,7 +12,7 @@ import com.wickham.minecraftPlugin.backSystem.BackMain;
 
 public class WTeleportEvent extends WTeleportMain{
 	
-	private static final Plugin WICKHAMS_PLUGIN=WickhamsPlugin.getMain();
+	private static final Plugin WICKHAMS_PLUGIN=WickhamsPlugin.MAIN;
 	@Override
 	public boolean WTeleport(Player mainPlayer, Player targePlayer) {
 		if(isInWaitingList(mainPlayer)) {//是否已经在等待传送
@@ -84,7 +84,7 @@ public class WTeleportEvent extends WTeleportMain{
 					}
 				}, 0, 20);
 				final int countDownID=COUNT_DOWN.getTaskId();
-				Bukkit.getScheduler().runTaskLater(WickhamsPlugin.getMain(), new Runnable() {//取消倒计时
+				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {//取消倒计时
 					int ID=countDownID;
 					@Override
 					public void run() {
@@ -163,7 +163,7 @@ public class WTeleportEvent extends WTeleportMain{
 					}
 				}, 0, 20);
 				final int countDownID=COUNT_DOWN.getTaskId();
-				Bukkit.getScheduler().runTaskLater(WickhamsPlugin.getMain(), new Runnable() {//取消倒计时
+				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {//取消倒计时
 					int ID=countDownID;
 					@Override
 					public void run() {

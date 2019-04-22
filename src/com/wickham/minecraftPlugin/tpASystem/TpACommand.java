@@ -26,7 +26,7 @@ public class TpACommand implements CommandExecutor{
 							TpAMain.newRequest(player, targe);
 							player.sendMessage(ChatColor.YELLOW+"请求已发送");
 							targe.sendMessage(ChatColor.GREEN+sender.getName()+ChatColor.YELLOW+" 想传送到你这里，请在 "+TpAMain.REQUEST_WAITING_TIME+" 秒内输入 tpayes 确认，否则将忽略");
-							Bukkit.getScheduler().runTaskLater(WickhamsPlugin.getMain(),new Runnable() {
+							Bukkit.getScheduler().runTaskLater(WickhamsPlugin.MAIN,new Runnable() {
 								Player thisPlayer=player;
 								Player thisTarge=targe;
 								@Override

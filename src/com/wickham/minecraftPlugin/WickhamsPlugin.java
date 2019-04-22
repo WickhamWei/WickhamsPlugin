@@ -27,19 +27,22 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 
 public class WickhamsPlugin extends JavaPlugin implements Listener {
 
-	static WickhamsPlugin MAIN;// 建立主类静态变量
+	public static WickhamsPlugin MAIN;// 建立主类静态变量
 	FileConfiguration config = getConfig();// 加载默认config
 	// 加载自己创建的config
 	static FileConfiguration PLAYER_REGISTER_STATUS_CONFIG;// 建立自建config的静态FileConfiguration变量
 	static File FILE_PLAYER_REGISTER_STATUS_CONFIG;// 建立自建config的静态File变量
 	File playerRegisterStatusConfig = new File(this.getDataFolder(), "playerRegisterStatusConfig.yml");// 创建新File对象
 	FileConfiguration playerRegisterStatus = YamlConfiguration.loadConfiguration(playerRegisterStatusConfig);// 创建新FileConfiguration对象
+	private static File playerPasswordFile;
+	private static FileConfiguration playerPasswordConfig;
 
 	@Override
 	public void onEnable() {// 插件启动
@@ -48,6 +51,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		loadCommand();// 加载外挂指令
 		loadListener();// 加载事件监听
 		loadNewShapedRecipe();// 加载新合成表
+		createPlayerPasswordConfig();
 	}
 
 	@Override
@@ -103,12 +107,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 
 		// 后处理自建配置文件保存操作
 		playerRegisterStatus.options().copyDefaults(true);// 如果没有看到上面的内容，拷贝一个进去
-		try {
-			playerRegisterStatus.save(playerRegisterStatusConfig);// 保存
-		} catch (IOException event) {
-			System.out.print("无法读取配置文件 playerRegisterStatusConfig ！服务器即将关闭！");
-			Bukkit.shutdown();
-		}
+		savePlayerplayerRegisterStatusConfig();
 	}
 
 	public void loadCommand() {// 读取命令
@@ -138,10 +137,6 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new WPlayerLevelChangeEvent(config), this);
 	}
 
-	public static WickhamsPlugin getMain() {// 外部调用主类方法
-		return MAIN;
-	}
-
 	public static FileConfiguration getPlayerplayerRegisterStatusConfig() {// 外部调用配置文件方法
 		return PLAYER_REGISTER_STATUS_CONFIG;
 	}
@@ -158,4 +153,26 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	public void loadNewShapedRecipe() {
 		HugeRottenFlash.newHugeRottenFlash();
 	}
+	
+	private void createPlayerPasswordConfig() {
+		playerPasswordFile=new File(getDataFolder(), "playerPassword.yml");
+		if(!playerPasswordFile.exists()) {
+			playerPasswordFile.getParentFile().mkdirs();
+            saveResource("custom.yml", false);
+		}
+		playerPasswordConfig= new YamlConfiguration();
+        try {
+            playerPasswordConfig.load(playerPasswordFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	public static FileConfiguration getPlayerPasswordConfig() {
+        return playerPasswordConfig;
+    }
+	
+	public static File getPlayerPasswordFile() {
+        return playerPasswordFile;
+    }
 }

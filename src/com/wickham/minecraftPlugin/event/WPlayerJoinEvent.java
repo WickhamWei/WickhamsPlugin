@@ -60,7 +60,7 @@ public class WPlayerJoinEvent implements Listener {
 			Bukkit.broadcastMessage(ChatColor.GREEN + event.getPlayer().getName() + " 加入了游戏");
 			if (versionBoolean)
 				event.getPlayer().sendMessage(ChatColor.GREEN
-						+ ("服务器基础插件由Wickham提供技术支持，插件版本号V" + WickhamsPlugin.getMain().getDescription().getVersion()));
+						+ ("服务器基础插件由Wickham提供技术支持，插件版本号V" + WickhamsPlugin.MAIN.getDescription().getVersion()));
 			return;
 		} else {// 由登录插件接管
 			;

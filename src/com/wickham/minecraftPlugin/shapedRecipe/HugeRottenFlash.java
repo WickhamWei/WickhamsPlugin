@@ -15,7 +15,7 @@ public class HugeRottenFlash {
 		ItemMeta hugeRottenFlashMeta=hugeRottenFlash.getItemMeta();
 		hugeRottenFlashMeta.setDisplayName("巨大的腐肉");
 		hugeRottenFlash.setItemMeta(hugeRottenFlashMeta);
-		NamespacedKey key=new NamespacedKey(WickhamsPlugin.getMain(),"huge_rotten_flesh");
+		NamespacedKey key=new NamespacedKey(WickhamsPlugin.MAIN,"huge_rotten_flesh");
 		ShapedRecipe recipe=new ShapedRecipe(key,hugeRottenFlash);
 		recipe.shape("RRR","RRR","RRR");
 		recipe.setIngredient('R', Material.ROTTEN_FLESH);

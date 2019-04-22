@@ -10,7 +10,7 @@ import com.wickham.minecraftPlugin.WickhamsPlugin;
 
 public abstract class WTeleportMain {
 	public static HashSet<String> W_TELEPORT_WAITING_LIST=new HashSet<>();//传送等待的存储列表
-	public static final int TELEPORT_WAITING_TIME=WickhamsPlugin.getMain().getConfig().getInt("非OP传送等待时间（秒）");
+	public static final int TELEPORT_WAITING_TIME=WickhamsPlugin.MAIN.getConfig().getInt("非OP传送等待时间（秒）");
 	//传送等待时间
 	protected void addInWaitingList(Player player) {//将玩家加入传送等待列表
 		W_TELEPORT_WAITING_LIST.add(player.getName());

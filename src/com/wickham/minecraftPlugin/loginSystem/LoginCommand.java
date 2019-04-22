@@ -14,7 +14,7 @@ public class LoginCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] arg3) {
-		if (WickhamsPlugin.getMain().getConfig().getBoolean("登陆系统")) {
+		if (WickhamsPlugin.MAIN.getConfig().getBoolean("登陆系统")) {
 			if (sender instanceof Player) {
 				if (cmd.getName().equalsIgnoreCase("join") && arg3.length == 1) {
 					if (LoginMain.isLogin(sender.getName())) {
@@ -25,8 +25,8 @@ public class LoginCommand implements CommandExecutor {
 									&& LoginMain.checkPassworldReal(sender.getName(), arg3[0])) {
 								LoginMain.playerLogin(((Player) sender));
 								sender.sendMessage(ChatColor.GREEN + "登陆成功");
-								if (WickhamsPlugin.getMain().getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
-									sender.sendMessage(ChatColor.GREEN+WickhamsPlugin.getMain().getConfig().getString("玩家加入时给玩家的信息"));
+								if (WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
+									sender.sendMessage(ChatColor.GREEN+WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息"));
 								}
 								Bukkit.broadcastMessage(ChatColor.GREEN+sender.getName()+" 加入了游戏");
 								((Player) sender).getPlayer().setGameMode(GameMode.SURVIVAL);
@@ -41,8 +41,8 @@ public class LoginCommand implements CommandExecutor {
 								LoginMain.playerLogin(sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "注册成功，已登陆成功");
 								((Player) sender).getPlayer().getPlayer().setGameMode(GameMode.SURVIVAL);
-								if (WickhamsPlugin.getMain().getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
-									sender.sendMessage(ChatColor.GREEN+WickhamsPlugin.getMain().getConfig().getString("玩家加入时给玩家的信息"));
+								if (WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
+									sender.sendMessage(ChatColor.GREEN+WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息"));
 								}
 								Bukkit.broadcastMessage(ChatColor.GREEN+sender.getName()+" 加入了游戏");
 								return true;

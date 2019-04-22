@@ -8,7 +8,7 @@ import com.wickham.minecraftPlugin.WickhamsPlugin;
 public abstract class TpAMain{
 	public static HashMap<String, String> requestList = new HashMap<>();//存储传送事件
 	
-	static final int REQUEST_WAITING_TIME=WickhamsPlugin.getMain().getConfig().getInt("tpa请求等待时间（秒）");
+	static final int REQUEST_WAITING_TIME=WickhamsPlugin.MAIN.getConfig().getInt("tpa请求等待时间（秒）");
 
 	public static void newRequest(Player player,Player targe) {
 		requestList.put(player.getName(),targe.getName());

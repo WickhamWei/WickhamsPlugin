@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitTask;
 import com.wickham.minecraftPlugin.WickhamsPlugin;
 
 public class WChunkEvent extends WChunkMain {
-	private static final Plugin WICKHAMS_PLUGIN = WickhamsPlugin.getMain();
+	private static final Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
 
 	@Override
 	public void WChunkLoading(Location chunkLocation, int keepSecond) {
