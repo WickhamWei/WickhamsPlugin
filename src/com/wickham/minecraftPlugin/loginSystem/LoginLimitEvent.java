@@ -3,6 +3,7 @@ package com.wickham.minecraftPlugin.loginSystem;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -31,8 +32,9 @@ public class LoginLimitEvent implements Listener {
 
 	@EventHandler
 	public void listen(PlayerJoinEvent event) {// 玩家加入
-		event.getPlayer().setGameMode(GameMode.SPECTATOR);
-		LoginMain.newPlayer(event.getPlayer().getName());
+		Player player=event.getPlayer();
+		player.setGameMode(GameMode.SPECTATOR);
+		LoginMain.newPlayer(player);
 		if (LoginMain.isRegister(event.getPlayer().getName())==true)
 			noLogin(event.getPlayer());
 		else
@@ -42,7 +44,6 @@ public class LoginLimitEvent implements Listener {
 
 	@EventHandler
 	public void listen(PlayerQuitEvent event) {// 玩家退出
-		LoginMain.removePlayer(event.getPlayer().getName());
 		return;
 	}
 

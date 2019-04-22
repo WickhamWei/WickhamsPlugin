@@ -1,30 +1,32 @@
 package com.wickham.minecraftPlugin.loginSystem;
 
-import java.util.HashMap;
+import java.util.HashSet;
+
+import org.bukkit.entity.Player;
 
 import com.wickham.minecraftPlugin.WickhamsPlugin;
 
 public class LoginMain {
-	public static HashMap<String, Boolean> LoginList = new HashMap<String, Boolean>();
+	public static HashSet<String> unLoginList = new HashSet<String>();
 
-	public static void newPlayer(String playerName) {// 新建玩家
-		LoginList.put(playerName, false);
+	public static void newPlayer(Player player) {// 新建玩家
+		unLoginList.add(player.getName());
 	}
 
-	public static boolean isLogin(String playerName) {// 是否登陆
-		return LoginList.get(playerName);
+	public static boolean isLogin(Player player) {// 是否登陆
+		return !unLoginList.contains(player.getName());
+	}
+	
+	public static boolean isLogin(String playerNameString) {// 是否登陆
+		return !unLoginList.contains(playerNameString);
 	}
 
-	public static void setPlayerLoginStatus(String playerName, boolean flag) {// 设置登陆状态
-		LoginList.put(playerName, flag);
+	public static void playerLogin(Player player) {// 设置登陆状态
+		unLoginList.remove(player.getName());
 	}
-
-	public static void removePlayer(String playerName) {// 从Map移除玩家
-		LoginList.remove(playerName);
-	}
-
-	public static void cleanPlayerList() {// 清理缓存-没毛用
-		LoginList.clear();
+	
+	public static void playerLogin(String playerNameString) {// 设置登陆状态
+		unLoginList.remove(playerNameString);
 	}
 
 	public static boolean isRegister(String playerName) {// 是否注册

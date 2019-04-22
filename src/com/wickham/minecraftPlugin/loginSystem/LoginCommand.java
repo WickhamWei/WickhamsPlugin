@@ -23,7 +23,7 @@ public class LoginCommand implements CommandExecutor {
 						if (LoginMain.isRegister(sender.getName())) {
 							if (LoginMain.checkPassworldDtell(arg3[0])
 									&& LoginMain.checkPassworldReal(sender.getName(), arg3[0])) {
-								LoginMain.setPlayerLoginStatus(sender.getName(), true);
+								LoginMain.playerLogin(((Player) sender));
 								sender.sendMessage(ChatColor.GREEN + "登陆成功");
 								if (WickhamsPlugin.getMain().getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
 									sender.sendMessage(ChatColor.GREEN+WickhamsPlugin.getMain().getConfig().getString("玩家加入时给玩家的信息"));
@@ -38,7 +38,7 @@ public class LoginCommand implements CommandExecutor {
 						} else {
 							if (LoginMain.checkPassworldDtell(arg3[0])) {
 								LoginMain.register(sender.getName(), arg3[0]);
-								LoginMain.setPlayerLoginStatus(sender.getName(), true);
+								LoginMain.playerLogin(sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "注册成功，已登陆成功");
 								((Player) sender).getPlayer().getPlayer().setGameMode(GameMode.SURVIVAL);
 								if (WickhamsPlugin.getMain().getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
