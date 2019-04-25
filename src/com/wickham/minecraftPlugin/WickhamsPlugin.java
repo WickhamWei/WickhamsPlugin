@@ -158,7 +158,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		playerPasswordFile=new File(getDataFolder(), "playerPassword.yml");
 		if(!playerPasswordFile.exists()) {
 			playerPasswordFile.getParentFile().mkdirs();
-            saveResource("custom.yml", false);
+            saveResource("playerPassword.yml", false);
 		}
 		playerPasswordConfig= new YamlConfiguration();
         try {

@@ -91,7 +91,7 @@ public class LoginMain {
 //	https://cloud.tencent.com/developer/article/1128214
 	private static String MD(String s) {
 		try {
-			MessageDigest md = MessageDigest.getInstance("666");
+			MessageDigest md = MessageDigest.getInstance("md5");
 			md.update(s.getBytes("utf-8"));
 			byte[] bytes = md.digest(s.getBytes("utf-8"));
 			return toHex(bytes);
