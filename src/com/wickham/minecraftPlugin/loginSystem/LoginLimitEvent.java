@@ -19,7 +19,6 @@ import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 public class LoginLimitEvent implements Listener {
 	public void noRegister(HumanEntity humanEntity) {// 未注册的信息
@@ -39,11 +38,6 @@ public class LoginLimitEvent implements Listener {
 			noLogin(event.getPlayer());
 		else
 			noRegister(event.getPlayer());
-		return;
-	}
-
-	@EventHandler
-	public void listen(PlayerQuitEvent event) {// 玩家退出
 		return;
 	}
 
