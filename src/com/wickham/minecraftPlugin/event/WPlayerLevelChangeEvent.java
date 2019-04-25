@@ -13,7 +13,7 @@ public class WPlayerLevelChangeEvent implements Listener {
 
 	public WPlayerLevelChangeEvent(FileConfiguration mainConfiguration) {
 		levelHealthBoolean = mainConfiguration.getBoolean("三十级后每升级一级加血量上限");
-		maxHealth = mainConfiguration.getInt("最大血量上限，一颗心为两个血");
+		maxHealth = mainConfiguration.getInt("最大血量上限");
 	}
 
 	@EventHandler

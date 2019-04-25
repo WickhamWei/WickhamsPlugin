@@ -53,12 +53,14 @@ public class gm implements CommandExecutor {
 		switch (gamemodeString) {
 		case "0":
 			targePlayer.setGameMode(GameMode.SURVIVAL);
-			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "生存模式");
+			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为 " + ChatColor.YELLOW + "生存模式");
+			sendPlayer.sendMessage(targePlayer.getName() + " 的游戏模式被设置为 " + ChatColor.YELLOW + "生存模式");
 			break;
 		case "1":
 			if (sendPlayer.hasPermission("wickhamsplugin.gm.1")) {
 				targePlayer.setGameMode(GameMode.CREATIVE);
-				targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "创造模式");
+				targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为 " + ChatColor.YELLOW + "创造模式");
+				sendPlayer.sendMessage(targePlayer.getName() + " 的游戏模式被设置为 " + ChatColor.YELLOW + "创造模式");
 			} else {
 				doesntHavePermissionMsg(sendPlayer);
 			}
@@ -72,11 +74,13 @@ public class gm implements CommandExecutor {
 		switch (gamemodeString) {
 		case "0":
 			targePlayer.setGameMode(GameMode.SURVIVAL);
-			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "生存模式");
+			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为 " + ChatColor.YELLOW + "生存模式");
+			sender.sendMessage(targePlayer.getName() + " 的游戏模式被设置为 " + ChatColor.YELLOW + "生存模式");
 			break;
 		case "1":
 			targePlayer.setGameMode(GameMode.CREATIVE);
-			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为" + ChatColor.YELLOW + "创造模式");
+			targePlayer.sendMessage(ChatColor.GREEN + "你的游戏模式被设置为 " + ChatColor.YELLOW + "创造模式");
+			sender.sendMessage(targePlayer.getName() + " 的游戏模式被设置为 " + ChatColor.YELLOW + "创造模式");
 			break;
 		default:
 			sender.sendMessage(ChatColor.RED + "参数不存在");

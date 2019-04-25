@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,49 +15,58 @@ import org.bukkit.plugin.Plugin;
 import com.wickham.minecraftPlugin.WickhamsPlugin;
 
 public class LoginMain {
-	private static final Plugin WICKHAMS_PLUGIN=WickhamsPlugin.MAIN;
+	private static final Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
 	private static File playerPasswordFile;
 	private static FileConfiguration playerPasswordConfig;
-	
+
 	public static void createPlayerPasswordConfig() {
-		playerPasswordFile=new File(WICKHAMS_PLUGIN.getDataFolder(), "playerPassword.yml");
-		if(!playerPasswordFile.exists()) {
+		playerPasswordFile = new File(WICKHAMS_PLUGIN.getDataFolder(), "playerPassword.yml");
+		if (!playerPasswordFile.exists()) {
 			playerPasswordFile.getParentFile().mkdirs();
-            WICKHAMS_PLUGIN.saveResource("playerPassword.yml", false);
+			WICKHAMS_PLUGIN.saveResource("playerPassword.yml", false);
 		}
-		playerPasswordConfig= new YamlConfiguration();
-        try {
-            playerPasswordConfig.load(playerPasswordFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-        playerPasswordConfig.addDefault("一般情况下禁止修改此文件，文件出错可能导致数据丢失", "此文件保存了玩家的密码");
-        playerPasswordConfig.options().copyDefaults(true);// 如果没有看到上面的内容，拷贝一个进去
-        savePlayerPasswordConfig();
+		playerPasswordConfig = new YamlConfiguration();
+		try {
+			playerPasswordConfig.load(playerPasswordFile);
+		} catch (IOException | InvalidConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public static FileConfiguration getPlayerPasswordConfig() {
-        return playerPasswordConfig;
-    }
-	
+		return playerPasswordConfig;
+	}
+
 	public static File getPlayerPasswordFile() {
-        return playerPasswordFile;
-    }
-	
-	public static boolean copyOldPasswordFile() {
+		return playerPasswordFile;
+	}
+
+	public static void copyOldPasswordFile() {
 		File playerRegisterStatusConfigFile = new File(WickhamsPlugin.MAIN.getDataFolder(),
 				"playerRegisterStatusConfig.yml");
 		if (!playerRegisterStatusConfigFile.exists()) {
-			return false;
+			return;
 		} else {
-			FileConfiguration playerOldPasswordConfiguration=YamlConfiguration.loadConfiguration(playerRegisterStatusConfigFile);
-			List<String> playerList=playerOldPasswordConfiguration.getStringList("playerName");
-			for(String playerName:playerList) {
-				String password = playerOldPasswordConfiguration.getString("playerName." + playerName);
-				playerPasswordConfig.set("playerName." + playerName, encryptPassword(password));
-				savePlayerPasswordConfig();
+			WICKHAMS_PLUGIN.getLogger().info("找到旧的密码文件，正在自动加密");
+			FileConfiguration playerOldPasswordConfiguration = YamlConfiguration
+					.loadConfiguration(playerRegisterStatusConfigFile);
+			Set<String> playerList = playerOldPasswordConfiguration.getConfigurationSection("playerName")
+					.getKeys(false);
+			if (playerList.isEmpty()) {
+				WICKHAMS_PLUGIN.getLogger().info("文件为空，已忽略");
+				return;
 			}
-			return true;
+			for (String playerName : playerList) {
+				String password = playerOldPasswordConfiguration.getString("playerName." + playerName);
+				if (password != null) {
+					playerPasswordConfig.set("playerName." + playerName, encryptPassword(password));
+					WICKHAMS_PLUGIN.getLogger().info("已经加密玩家 " + playerName + " 的密码");
+				}
+			}
+			savePlayerPasswordConfig();
+			playerRegisterStatusConfigFile.delete();
+			WICKHAMS_PLUGIN.getLogger().info("已经删除旧的密码文件");
+			return;
 		}
 	}
 
@@ -66,7 +75,7 @@ public class LoginMain {
 	public static void newPlayer(Player player) {// 新建玩家
 		unLoginList.add(player.getName());
 	}
-	
+
 	public static void newPlayer(String playerNameString) {// 新建玩家
 		unLoginList.add(playerNameString);
 	}
@@ -86,7 +95,7 @@ public class LoginMain {
 	public static void playerLogin(String playerNameString) {// 设置登陆状态
 		unLoginList.remove(playerNameString);
 	}
-	
+
 	public static void playerQuit(Player player) {// 设置登陆状态
 		unLoginList.remove(player.getName());
 	}
@@ -102,7 +111,7 @@ public class LoginMain {
 			return false;
 		}
 	}
-	
+
 	public static boolean isRegister(Player player) {// 是否注册
 		if (playerPasswordConfig.contains("playerName." + player.getName())) {
 			return true;
@@ -120,9 +129,9 @@ public class LoginMain {
 			return true;
 		}
 	}
-	
+
 	public static boolean register(Player player, String password) {// 注册
-		String playerName=player.getName();
+		String playerName = player.getName();
 		if (isRegister(playerName)) {
 			return false;
 		} else {
@@ -144,9 +153,9 @@ public class LoginMain {
 			}
 		}
 	}
-	
+
 	public static boolean checkPasswordReal(Player player, String password) {// 检查密码
-		String playerName=player.getName();
+		String playerName = player.getName();
 		if (!isRegister(playerName)) {
 			return false;
 		} else {
