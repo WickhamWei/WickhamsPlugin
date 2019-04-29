@@ -63,7 +63,7 @@ public class WPlayerJoinEvent implements Listener {
 		}
 		if (versionBoolean)
 			event.getPlayer().sendMessage(ChatColor.GREEN
-					+ ("服务器基础插件由Wickham提供技术支持，插件版本号V" + WickhamsPlugin.MAIN.getDescription().getVersion()));
+					+ ("服务器基础插件由Wickham提供技术支持，插件版本号 V" + WickhamsPlugin.MAIN.getDescription().getVersion()));
 		return;
 	}
 }

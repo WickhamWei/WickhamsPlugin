@@ -11,7 +11,7 @@ import com.wickham.minecraftPlugin.command.Hello;
 import com.wickham.minecraftPlugin.command.Home;
 import com.wickham.minecraftPlugin.command.SetHome;
 import com.wickham.minecraftPlugin.command.Spawn;
-import com.wickham.minecraftPlugin.event.WorldLoadingEvent;
+import com.wickham.minecraftPlugin.event.WServerLoadEvent;
 import com.wickham.minecraftPlugin.event.WPlayerQuitEvent;
 import com.wickham.minecraftPlugin.event.WPlayerInteractEvent;
 import com.wickham.minecraftPlugin.event.WPlayerDeathEvent;
@@ -76,18 +76,18 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		mainServer.getPluginManager().registerEvents(new WPlayerJoinEvent(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerQuitEvent(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerInteractEvent(mainConfiguration), this);
-		mainServer.getPluginManager().registerEvents(new WorldLoadingEvent(mainConfiguration, this), this);
+		mainServer.getPluginManager().registerEvents(new WServerLoadEvent(mainConfiguration, this), this);
 		if (mainConfiguration.getBoolean("登陆系统")) {
 			mainServer.getPluginManager().registerEvents(new LoginLimitEvent(), this);
 		}
-			
 		mainServer.getPluginManager().registerEvents(new WTeleportListener(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerDeathEvent(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerLevelChangeEvent(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new HugeRottenFlash(), this);
 	}
 
 	public void loadNewShapedRecipe() {
-		HugeRottenFlash.newHugeRottenFlash();
+		;
 	}
 	
 	public static FileConfiguration getPlayerPasswordConfig() {

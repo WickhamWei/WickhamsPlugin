@@ -11,11 +11,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.plugin.Plugin;
 
-public class WorldLoadingEvent implements Listener {
+import com.wickham.minecraftPlugin.WickhamsPlugin;
+
+public class WServerLoadEvent implements Listener {
 	private FileConfiguration config;
 	private Plugin plugin;
 
-	public WorldLoadingEvent(FileConfiguration config, Plugin plugin) {
+	public WServerLoadEvent(FileConfiguration config, Plugin plugin) {
 		this.config = config;
 		this.plugin = plugin;
 	}
@@ -63,5 +65,10 @@ public class WorldLoadingEvent implements Listener {
 			}, config.getInt("自动公告时间间隔，单位分钟") * 60 * 20 * 2, config.getInt("自动公告时间间隔，单位分钟") * 60 * 20 * 3);// 三次错开执行
 		} else
 			return;
+	}
+	
+	@EventHandler
+	public void pluginMsg(ServerLoadEvent event) {
+		WickhamsPlugin.MAIN.getLogger().info("WickhamsPlugin 加载完成，版本 V" + WickhamsPlugin.MAIN.getDescription().getVersion());
 	}
 }
