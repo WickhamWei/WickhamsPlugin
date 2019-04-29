@@ -20,17 +20,19 @@ import com.wickham.minecraftPlugin.event.WPlayerLevelChangeEvent;
 import com.wickham.minecraftPlugin.loginSystem.LoginCommand;
 import com.wickham.minecraftPlugin.loginSystem.LoginLimitEvent;
 import com.wickham.minecraftPlugin.loginSystem.LoginMain;
-import com.wickham.minecraftPlugin.shapedRecipe.HugeRottenFlash;
+import com.wickham.minecraftPlugin.recipe.HugeRottenFlash;
 import com.wickham.minecraftPlugin.tpASystem.TpACommand;
 import com.wickham.minecraftPlugin.tpASystem.TpACommandYes;
 
+import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 
 public class WickhamsPlugin extends JavaPlugin implements Listener {
 
 	public static WickhamsPlugin MAIN;// 建立主类静态变量
-	public FileConfiguration config = getConfig();// 加载默认config
+	public final FileConfiguration mainConfiguration = getConfig();
+	public final Server mainServer = getServer();
 
 	@Override
 	public void onEnable() {// 插件启动
@@ -49,7 +51,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		this.saveDefaultConfig();// You can create a copy of config.yml from the jar into the plugin's data
 									// folder by invoking JavaPlugin's saveDefaultConfig() method.
 									// saveDefaultConfig() will not overwrite an existing file.
-		if (config.getBoolean("登陆系统")) {
+		if (mainConfiguration.getBoolean("登陆系统")) {
 			LoginMain.createPlayerPasswordConfig();
 			LoginMain.copyOldPasswordFile();
 		}
@@ -70,16 +72,18 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	}
 
 	public void loadListener() {// 读取事件
-		getServer().getPluginManager().registerEvents(this, this);
-		getServer().getPluginManager().registerEvents(new WPlayerJoinEvent(config), this);
-		getServer().getPluginManager().registerEvents(new WPlayerQuitEvent(), this);
-		getServer().getPluginManager().registerEvents(new WPlayerInteractEvent(config), this);
-		getServer().getPluginManager().registerEvents(new WorldLoadingEvent(config, this), this);
-		if (config.getBoolean("登陆系统"))
-			getServer().getPluginManager().registerEvents(new LoginLimitEvent(), this);
-		getServer().getPluginManager().registerEvents(new WTeleportListener(), this);
-		getServer().getPluginManager().registerEvents(new WPlayerDeathEvent(config), this);
-		getServer().getPluginManager().registerEvents(new WPlayerLevelChangeEvent(config), this);
+		mainServer.getPluginManager().registerEvents(this, this);
+		mainServer.getPluginManager().registerEvents(new WPlayerJoinEvent(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new WPlayerQuitEvent(), this);
+		mainServer.getPluginManager().registerEvents(new WPlayerInteractEvent(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new WorldLoadingEvent(mainConfiguration, this), this);
+		if (mainConfiguration.getBoolean("登陆系统")) {
+			mainServer.getPluginManager().registerEvents(new LoginLimitEvent(), this);
+		}
+			
+		mainServer.getPluginManager().registerEvents(new WTeleportListener(), this);
+		mainServer.getPluginManager().registerEvents(new WPlayerDeathEvent(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new WPlayerLevelChangeEvent(mainConfiguration), this);
 	}
 
 	public void loadNewShapedRecipe() {

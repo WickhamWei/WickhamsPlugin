@@ -25,6 +25,7 @@ public class WPlayerQuitEvent implements Listener {
 				return;
 			}else {
 				Bukkit.broadcastMessage(ChatColor.YELLOW + event.getPlayer().getName() + " 退出了游戏");
+				LoginMain.countDownWhenPlayerLeft(player);
 				LoginMain.playerQuit(player);
 				return;
 			}

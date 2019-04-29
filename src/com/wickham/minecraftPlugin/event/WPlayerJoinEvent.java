@@ -24,7 +24,7 @@ public class WPlayerJoinEvent implements Listener {
 		welcomeMsgBoolean = mainConfiguration.getBoolean("玩家加入时给玩家的信息开关");
 		loginSystemBoolean = mainConfiguration.getBoolean("登陆系统");
 		versionBoolean = mainConfiguration.getBoolean("玩家加入时的插件介绍");
-		maxHealth = mainConfiguration.getInt("最大血量上限，一颗心为两个血");
+		maxHealth = mainConfiguration.getInt("最大血量上限");
 		this.mainConfiguration = mainConfiguration;
 	}
 
@@ -58,13 +58,12 @@ public class WPlayerJoinEvent implements Listener {
 		}
 		if (!loginSystemBoolean) {
 			Bukkit.broadcastMessage(ChatColor.GREEN + event.getPlayer().getName() + " 加入了游戏");
-			if (versionBoolean)
-				event.getPlayer().sendMessage(ChatColor.GREEN
-						+ ("服务器基础插件由Wickham提供技术支持，插件版本号V" + WickhamsPlugin.MAIN.getDescription().getVersion()));
-			return;
 		} else {// 由登录插件接管
 			;
 		}
+		if (versionBoolean)
+			event.getPlayer().sendMessage(ChatColor.GREEN
+					+ ("服务器基础插件由Wickham提供技术支持，插件版本号V" + WickhamsPlugin.MAIN.getDescription().getVersion()));
 		return;
 	}
 }

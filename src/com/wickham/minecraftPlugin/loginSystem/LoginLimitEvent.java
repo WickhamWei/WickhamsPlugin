@@ -1,5 +1,6 @@
 package com.wickham.minecraftPlugin.loginSystem;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.HumanEntity;
@@ -20,6 +21,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import com.wickham.minecraftPlugin.WickhamsPlugin;
+
 public class LoginLimitEvent implements Listener {
 	public void noRegister(HumanEntity humanEntity) {// 未注册的信息
 		humanEntity.sendMessage(ChatColor.RED + "你还没注册，输入/join 你的密码 来注册");
@@ -33,12 +36,22 @@ public class LoginLimitEvent implements Listener {
 	public void listen(PlayerJoinEvent event) {// 玩家加入
 		Player player=event.getPlayer();
 		player.setGameMode(GameMode.SPECTATOR);
-		LoginMain.newPlayer(player);
-		if (LoginMain.isRegister(event.getPlayer().getName())==true)
-			noLogin(event.getPlayer());
-		else
-			noRegister(event.getPlayer());
-		return;
+		if(!LoginMain.checkPlayerIPAddress(player)) {
+			LoginMain.newPlayer(player);
+			if (LoginMain.isRegister(event.getPlayer().getName())==true)
+				noLogin(event.getPlayer());
+			else
+				noRegister(event.getPlayer());
+			return;
+		}else {
+			player.sendMessage(ChatColor.GREEN+"已自动为你登录，欢迎回来");
+			if (WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
+				player.sendMessage(ChatColor.GREEN+WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息"));
+			}
+			Bukkit.broadcastMessage(ChatColor.GREEN+player.getName()+" 加入了游戏");
+			player.getPlayer().setGameMode(GameMode.SURVIVAL);
+			return;
+		}
 	}
 
 	@EventHandler
