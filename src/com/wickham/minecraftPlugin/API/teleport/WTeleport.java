@@ -7,14 +7,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.wickham.minecraftPlugin.WickhamsPlugin;
-import com.wickham.minecraftPlugin.API.chunk.WChunkEvent;
+import com.wickham.minecraftPlugin.API.chunk.WChunk;
 import com.wickham.minecraftPlugin.backSystem.BackMain;
 
-public class WTeleportEvent extends WTeleportMain{
+public class WTeleport extends WTeleportMain{
 	
 	private static final Plugin WICKHAMS_PLUGIN=WickhamsPlugin.MAIN;
 	@Override
-	public boolean WTeleport(Player mainPlayer, Player targePlayer) {
+	public boolean teleport(Player mainPlayer, Player targePlayer) {
 		if(isInWaitingList(mainPlayer)) {//是否已经在等待传送
 			busyMsg(mainPlayer);
 			return false;
@@ -29,7 +29,7 @@ public class WTeleportEvent extends WTeleportMain{
 					return false;
 				}
 				BackMain.recordBackLocation(mainPlayer, mainPlayer.getLocation());
-				new WChunkEvent().WChunkLoading(mainPlayer.getLocation(), 10);
+				new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
 				if(mainPlayer.teleport(targePlayer.getLocation())) {//执行传送
 					teleportSuccessMsg(mainPlayer,targePlayer);
 					return true;
@@ -55,7 +55,7 @@ public class WTeleportEvent extends WTeleportMain{
 								return;
 							}
 							BackMain.recordBackLocation(player, player.getLocation());
-							new WChunkEvent().WChunkLoading(mainPlayer.getLocation(), 10);
+							new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
 							if(player.teleport(player2.getLocation())) {
 								teleportSuccessMsg(player,player2);
 								removeFromWaitingList(player);
@@ -99,7 +99,7 @@ public class WTeleportEvent extends WTeleportMain{
 	}
 
 	@Override
-	public boolean WTeleport(Player mainPlayer, Location targeLocation, Boolean recordLocation) {
+	public boolean teleport(Player mainPlayer, Location targeLocation, Boolean recordLocation) {
 		if(isInWaitingList(mainPlayer)) {//是否已经在等待传送
 			busyMsg(mainPlayer);
 			return false;
@@ -108,7 +108,7 @@ public class WTeleportEvent extends WTeleportMain{
 				if(recordLocation) {//是否记录旧位置
 					BackMain.recordBackLocation(mainPlayer, mainPlayer.getLocation());
 				}
-				new WChunkEvent().WChunkLoading(mainPlayer.getLocation(), 10);
+				new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
 				if(mainPlayer.teleport(targeLocation)) {//执行传送
 					teleportSuccessMsg(mainPlayer);
 					if(!recordLocation) {
@@ -131,7 +131,7 @@ public class WTeleportEvent extends WTeleportMain{
 							if(recordLocationBoolean) {
 								BackMain.recordBackLocation(player, player.getLocation());
 							}
-							new WChunkEvent().WChunkLoading(mainPlayer.getLocation(), 10);
+							new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
 							if(player.teleport(location)) {
 								teleportSuccessMsg(player);
 								if(!recordLocationBoolean) {

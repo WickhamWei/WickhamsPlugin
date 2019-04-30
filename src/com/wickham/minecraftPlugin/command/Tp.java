@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.wickham.minecraftPlugin.API.teleport.WTeleportEvent;
+import com.wickham.minecraftPlugin.API.teleport.WTeleport;
 
 public class Tp implements CommandExecutor {
 	@Override
@@ -15,7 +15,7 @@ public class Tp implements CommandExecutor {
 			if ((arg3.length == 1)) {// 检查参数是否为空或过多参数
 				Player player = (Player) sender;
 				Player targe = Bukkit.getServer().getPlayer(arg3[0]);// 目标
-				new WTeleportEvent().WTeleport(player, targe);
+				new WTeleport().teleport(player, targe);
 				return true;
 			}else {
 				return false;

@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.wickham.minecraftPlugin.API.teleport.WTeleportEvent;
+import com.wickham.minecraftPlugin.API.teleport.WTeleport;
 
 public class Spawn implements CommandExecutor{
 
@@ -15,7 +15,7 @@ public class Spawn implements CommandExecutor{
 		if (sender instanceof Player) {
 			Player player=(Player) sender;
 			if (arg3.length==0) {
-				new WTeleportEvent().WTeleport(player, player.getWorld().getSpawnLocation(), true);
+				new WTeleport().teleport(player, player.getWorld().getSpawnLocation(), true);
 				return true;
 			}else
 				return false;

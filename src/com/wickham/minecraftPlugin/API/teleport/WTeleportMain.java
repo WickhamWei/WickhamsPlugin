@@ -24,9 +24,9 @@ public abstract class WTeleportMain {
 	public static void clearWaitingList() {//清理等待列表
 		W_TELEPORT_WAITING_LIST.clear();
 	}
-	public abstract boolean WTeleport(Player mainPlayer,Player targePlayer);
+	public abstract boolean teleport(Player mainPlayer,Player targePlayer);
 	//玩家对玩家的传送方法
-	public abstract boolean WTeleport(Player mainPlayer,Location targeLocation,Boolean recordLocation);
+	public abstract boolean teleport(Player mainPlayer,Location targeLocation,Boolean recordLocation);
 	//玩家对地址的传送方法
 	protected void busyMsg(Player player) {
 		player.sendMessage(ChatColor.RED+"你的传送请求过于频繁，已自动取消多余的请求");

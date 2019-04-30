@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.wickham.minecraftPlugin.API.teleport.WTeleportEvent;
+import com.wickham.minecraftPlugin.API.teleport.WTeleport;
 
 public class BackCommand implements CommandExecutor{
 
@@ -17,7 +17,7 @@ public class BackCommand implements CommandExecutor{
 			if(arg3.length==0) {
 				Player player=(Player) sender;
 				if (BackMain.hasBackLocation(player)) {
-					new WTeleportEvent().WTeleport(player, BackMain.getOldLocation(player), false);
+					new WTeleport().teleport(player, BackMain.getOldLocation(player), false);
 					return true;
 				}else {
 					player.sendMessage(ChatColor.RED+"没有位置可以返回");

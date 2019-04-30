@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.wickham.minecraftPlugin.API.teleport.WTeleportEvent;
+import com.wickham.minecraftPlugin.API.teleport.WTeleport;
 
 public class Home implements CommandExecutor {
 
@@ -19,7 +19,7 @@ public class Home implements CommandExecutor {
 					player.sendMessage(ChatColor.RED + "你还没在床上睡过觉，请先睡一夜，或者使用 sethome 设置家");
 					return true;
 				} else {
-					new WTeleportEvent().WTeleport(player, player.getBedSpawnLocation(), true);
+					new WTeleport().teleport(player, player.getBedSpawnLocation(), true);
 					return true;
 				}
 			} else

@@ -8,11 +8,11 @@ import org.bukkit.scheduler.BukkitTask;
 
 import com.wickham.minecraftPlugin.WickhamsPlugin;
 
-public class WChunkEvent extends WChunkMain {
+public class WChunk extends WChunkMain {
 	private static final Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
 
 	@Override
-	public void WChunkLoading(Location chunkLocation, int keepSecond) {
+	public void chunkLoading(Location chunkLocation, int keepSecond) {
 		chunkLocation.getChunk().load();
 		BukkitTask keepLoadingChunkBukkitTask = Bukkit.getScheduler().runTaskTimer(WICKHAMS_PLUGIN, new Runnable() {
 			Location location = chunkLocation;
