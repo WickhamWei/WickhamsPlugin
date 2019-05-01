@@ -14,7 +14,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.FurnaceInventory;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import com.wickham.minecraftPlugin.WickhamsPlugin;
@@ -25,18 +24,17 @@ public class WFurnaceRecipe extends WFurnaceRecipeMain implements Listener{
 	private ItemStack sourceItemStack;
 	private Material sourceMaterial;
 	
-	public void furnaveRecipe(Material sourceMaterial,ItemMeta sourceItemMeta,String sourceKeyNameString,ItemStack result​ItemStack,float experience, int cookingTimeSecond) {
-		sourceItemStack=new ItemStack(sourceMaterial);
-		this.sourceMaterial=sourceMaterial;
-		sourceItemStack.setItemMeta(sourceItemMeta);
-		NamespacedKey key = new NamespacedKey(wickhamsPlugin, sourceKeyNameString+"_furnaceRecipe");
+	public void furnaveRecipe(String recipeKeyNameString,ItemStack sourceItemStack,ItemStack result​ItemStack,float experience, int cookingTimeSecond) {
+		sourceMaterial=sourceItemStack.getType();
+		this.sourceItemStack=sourceItemStack;
+		NamespacedKey key = new NamespacedKey(wickhamsPlugin, recipeKeyNameString+"_furnaceRecipe");
 		FurnaceRecipe fRecipe=new FurnaceRecipe(key, result​ItemStack, sourceMaterial, experience, cookingTimeSecond*20);
 		Bukkit.addRecipe(fRecipe);
 		wickhamsPlugin.getServer().getPluginManager().registerEvents(this, wickhamsPlugin);
 	}
 	
 	@EventHandler
-	public void eventFurnaveRecipe(FurnaceSmeltEvent event) {//物品生成
+	public void eventFurnaveRecipe(FurnaceSmeltEvent event) {//目标物品生成
 		if(event.getSource().getType().equals(sourceMaterial)) {
 			if(!event.getSource().isSimilar(sourceItemStack)) {
 				event.setCancelled(true);

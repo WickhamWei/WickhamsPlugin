@@ -40,7 +40,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		loadConfig();// 加载配置文件
 		loadCommand();// 加载外挂指令
 		loadListener();// 加载事件监听
-		loadNewShapedRecipe();// 加载新合成表
+		loadRecipe();// 加载新合成表
 	}
 
 	@Override
@@ -72,25 +72,20 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	}
 
 	public void loadListener() {// 读取事件
+		if (mainConfiguration.getBoolean("登陆系统")) {
+			mainServer.getPluginManager().registerEvents(new LoginLimitEvent(), this);
+		}
 		mainServer.getPluginManager().registerEvents(this, this);
 		mainServer.getPluginManager().registerEvents(new WPlayerJoinEvent(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerQuitEvent(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerInteractEvent(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WServerLoadEvent(mainConfiguration, this), this);
-		if (mainConfiguration.getBoolean("登陆系统")) {
-			mainServer.getPluginManager().registerEvents(new LoginLimitEvent(), this);
-		}
 		mainServer.getPluginManager().registerEvents(new WTeleportListener(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerDeathEvent(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerLevelChangeEvent(mainConfiguration), this);
-		mainServer.getPluginManager().registerEvents(new HugeRottenFlash(), this);
 	}
 
-	public void loadNewShapedRecipe() {
-		;
-	}
-	
-	public static FileConfiguration getPlayerPasswordConfig() {
-		return LoginMain.getPlayerPasswordConfig();
+	public void loadRecipe() {
+		mainServer.getPluginManager().registerEvents(new HugeRottenFlash(), this);
 	}
 }

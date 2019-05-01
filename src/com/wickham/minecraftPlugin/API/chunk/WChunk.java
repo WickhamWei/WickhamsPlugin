@@ -3,18 +3,13 @@ package com.wickham.minecraftPlugin.API.chunk;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitTask;
-
-import com.wickham.minecraftPlugin.WickhamsPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class WChunk extends WChunkMain {
-	private static final Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
-
 	@Override
 	public void chunkLoading(Location chunkLocation, int keepSecond) {
 		chunkLocation.getChunk().load();
-		BukkitTask keepLoadingChunkBukkitTask = Bukkit.getScheduler().runTaskTimer(WICKHAMS_PLUGIN, new Runnable() {
+		BukkitRunnable keepLoadingChunkBukkitRunnable = new BukkitRunnable() {
 			Location location = chunkLocation;
 			Chunk chunk = location.getChunk();
 
@@ -26,15 +21,17 @@ public class WChunk extends WChunkMain {
 					chunk.load();
 				}
 			}
-		}, 0, 0);
-		int KLCBT_ID = keepLoadingChunkBukkitTask.getTaskId();
-		Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {
+		};
+		keepLoadingChunkBukkitRunnable.runTaskTimer(WICKHAMS_PLUGIN, 0, 0);
+		int KLCBT_ID = keepLoadingChunkBukkitRunnable.getTaskId();
+		BukkitRunnable stopKeepLoadingChunk = new BukkitRunnable() {
 			int ID = KLCBT_ID;
 
 			@Override
 			public void run() {
 				Bukkit.getScheduler().cancelTask(ID);
 			}
-		}, keepSecond * 20);
+		};
+		stopKeepLoadingChunk.runTaskLater(WICKHAMS_PLUGIN, keepSecond * 20);
 	}
 }

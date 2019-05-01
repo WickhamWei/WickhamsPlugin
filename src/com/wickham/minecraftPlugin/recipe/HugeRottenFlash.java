@@ -27,7 +27,7 @@ public class HugeRottenFlash implements Listener {
 		ShapelessRecipe recipe = new ShapelessRecipe(key, hugeRottenFlash);
 		recipe.addIngredient(9, Material.ROTTEN_FLESH);
 		Bukkit.addRecipe(recipe);
-		new WFurnaceRecipe().furnaveRecipe(hugeRottenFlash.getType(), hugeRottenFlashMeta, "hugeRottenFlash", new ItemStack(Material.LEATHER), 20, 10);
+		new WFurnaceRecipe().furnaveRecipe("huge_rotten_flash_to_leather", hugeRottenFlash, new ItemStack(Material.LEATHER), 20, 10);
 	}
 	
 	/*
