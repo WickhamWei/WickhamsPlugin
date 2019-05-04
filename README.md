@@ -13,3 +13,13 @@
 
 ## 下载地址
  [发布页面](https://github.com/WickhamWei/WickhamsPlugin/releases)
+
+## 一些API介绍  
+  
+  1. chunkLoading  
+  将指定位置的区块加载指定的秒数，使用方法：new WChunk().chunkLoading(Location chunkLocation, int keepSecond);  
+  2. furnaveRecipe  
+  将ItemStack作为furnaveRecipe的source，使用方法：new WFurnaceRecipe().furnaveRecipe(String recipeKeyNameString, ItemStack sourceItemStack, ItemStack result​ItemStack,
+			float experience, int cookingTimeSecond);  
+  3. teleport  
+  传送时检查权限，未有权限的玩家在指定秒数延迟后才进行传送，使用方法：teleport(Player mainPlayer, Player targePlayer);或者teleport(Player mainPlayer, Location targeLocation, Boolean recordLocation);后者可以选择是否记录位置，记录的位置将保存在/back命令里。
