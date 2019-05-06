@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -256,5 +258,35 @@ public abstract class LoginMain {
 			countDownBukkitRunnable.runTaskLater(WICKHAMS_PLUGIN, 20 * 60 * loginKeepTime);
 			keepPlayerLoginHashMap.put(player.getName(), countDownBukkitRunnable.getTaskId());
 		}
+	}
+
+	public static void savePlayerLastLocation(Player player, Location location) {
+		if (isLogin(player)) {
+			String world = location.getWorld().getName();
+			double X = location.getX();
+			double Y = location.getY();
+			double Z = location.getZ();
+			playerPasswordConfig.set("playerLastLocation.playerName." + player.getName() + ".world", world);
+			playerPasswordConfig.set("playerLastLocation.playerName." + player.getName() + ".X", X);
+			playerPasswordConfig.set("playerLastLocation.playerName." + player.getName() + ".Y", Y);
+			playerPasswordConfig.set("playerLastLocation.playerName." + player.getName() + ".Z", Z);
+			savePlayerPasswordConfig();
+		}
+	}
+
+	public static boolean teleportPlayerAfterLogin(Player player) {
+		if (isLogin(player)) {
+			if (playerPasswordConfig.contains(
+					playerPasswordConfig.getString("playerLastLocation.playerName." + player.getName() + ".world"))) {
+				World world = Bukkit.getWorld(
+						playerPasswordConfig.getString("playerLastLocation.playerName." + player.getName() + ".world"));
+				double X = playerPasswordConfig.getDouble("playerLastLocation.playerName." + player.getName() + ".X");
+				double Y = playerPasswordConfig.getDouble("playerLastLocation.playerName." + player.getName() + ".Y");
+				double Z = playerPasswordConfig.getDouble("playerLastLocation.playerName." + player.getName() + ".Z");
+				player.teleport(new Location(world, X, Y, Z));
+				return true;
+			}
+		}
+		return false;
 	}
 }

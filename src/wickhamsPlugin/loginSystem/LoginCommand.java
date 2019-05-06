@@ -31,6 +31,11 @@ public class LoginCommand implements CommandExecutor {
 								}
 								Bukkit.broadcastMessage(ChatColor.GREEN + sender.getName() + " 加入了游戏");
 								((Player) sender).getPlayer().setGameMode(GameMode.SURVIVAL);
+								if (LoginMain.teleportPlayerAfterLogin(((Player) sender))) {
+									sender.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
+								} else {
+									sender.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
+								}
 								return true;
 							} else {
 								sender.sendMessage(ChatColor.RED + "密码错误");

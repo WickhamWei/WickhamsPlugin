@@ -36,6 +36,9 @@ public class LoginLimitEvent implements Listener {
 	public void listen(PlayerJoinEvent event) {// 玩家加入
 		Player player = event.getPlayer();
 		player.setGameMode(GameMode.SPECTATOR);
+		if(!player.teleport(player.getBedSpawnLocation())) {
+			player.teleport(player.getWorld().getSpawnLocation());
+		}
 		if (!LoginMain.checkPlayerIPAddress(player)) {
 			LoginMain.newPlayer(player);
 			if (LoginMain.isRegister(event.getPlayer().getName()) == true)
@@ -50,6 +53,7 @@ public class LoginLimitEvent implements Listener {
 			}
 			Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
 			player.getPlayer().setGameMode(GameMode.SURVIVAL);
+			LoginMain.teleportPlayerAfterLogin(player);
 			return;
 		}
 	}
