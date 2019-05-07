@@ -1,6 +1,6 @@
 name: WickhamsPlugin
-main: com.wickham.minecraftPlugin.WickhamsPlugin
-version: 1.2.9.3
+main: wickhamsPlugin.WickhamsPlugin
+version: 1.2.9.4
 api-version: 1.13
 author: Wickham
 load: STARTUP

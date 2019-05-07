@@ -48,12 +48,16 @@ public class LoginLimitEvent implements Listener {
 			return;
 		} else {
 			player.sendMessage(ChatColor.GREEN + "已自动为你登录，欢迎回来");
+			Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
 			if (WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
 				player.sendMessage(ChatColor.GREEN + WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息"));
 			}
-			Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
 			player.getPlayer().setGameMode(GameMode.SURVIVAL);
-			LoginMain.teleportPlayerAfterLogin(player);
+			if (LoginMain.teleportPlayerAfterLogin(player)) {
+				player.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
+			} else {
+				player.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
+			}
 			return;
 		}
 	}

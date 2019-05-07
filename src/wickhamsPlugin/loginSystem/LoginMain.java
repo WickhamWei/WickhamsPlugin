@@ -276,15 +276,13 @@ public abstract class LoginMain {
 
 	public static boolean teleportPlayerAfterLogin(Player player) {
 		if (isLogin(player)) {
-			if (playerPasswordConfig.contains(
-					playerPasswordConfig.getString("playerLastLocation.playerName." + player.getName() + ".world"))) {
+			if (playerPasswordConfig.contains("playerLastLocation.playerName." + player.getName() + ".world")){
 				World world = Bukkit.getWorld(
 						playerPasswordConfig.getString("playerLastLocation.playerName." + player.getName() + ".world"));
 				double X = playerPasswordConfig.getDouble("playerLastLocation.playerName." + player.getName() + ".X");
 				double Y = playerPasswordConfig.getDouble("playerLastLocation.playerName." + player.getName() + ".Y");
 				double Z = playerPasswordConfig.getDouble("playerLastLocation.playerName." + player.getName() + ".Z");
-				player.teleport(new Location(world, X, Y, Z));
-				return true;
+				return player.teleport(new Location(world, X, Y, Z));
 			}
 		}
 		return false;
