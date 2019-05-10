@@ -14,19 +14,18 @@ import org.bukkit.plugin.Plugin;
 import wickhamsPlugin.WickhamsPlugin;
 
 public class WServerLoadEvent implements Listener {
-	private FileConfiguration config;
-	private Plugin plugin;
-
-	public WServerLoadEvent(FileConfiguration config, Plugin plugin) {
-		this.config = config;
-		this.plugin = plugin;
-	}
+	private Plugin mainPlugin=WickhamsPlugin.MAIN;
+	private FileConfiguration config=mainPlugin.getConfig();
+	private final boolean saveBoolean=mainPlugin.getConfig().getBoolean("自动保存地图");
+	private final int saveTimes=mainPlugin.getConfig().getInt("自动保存地图时间间隔，单位分钟");
+	private final boolean msgBoolean=mainPlugin.getConfig().getBoolean("自动公告");
+	private final int msgTimes=mainPlugin.getConfig().getInt("自动公告时间间隔，单位分钟");
 
 	@EventHandler
 	public void 自动保存地图计时器(ServerLoadEvent event) {// 服务器启动完成后执行
-		if (config.getBoolean("自动保存地图")) {
-			List<World> world = plugin.getServer().getWorlds();
-			Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+		if (saveBoolean) {
+			List<World> world = mainPlugin.getServer().getWorlds();
+			Bukkit.getScheduler().runTaskTimer(mainPlugin, new Runnable() {
 				@Override
 				public void run() {
 					for (World aWorld : world) {
@@ -36,7 +35,7 @@ public class WServerLoadEvent implements Listener {
 					}
 
 				}
-			}, config.getInt("自动保存地图时间间隔，单位分钟") * 60 * 20, config.getInt("自动保存地图时间间隔，单位分钟") * 60 * 20);
+			}, saveTimes * 60 * 20, saveTimes * 60 * 20);
 		} else
 			return;
 
@@ -44,25 +43,25 @@ public class WServerLoadEvent implements Listener {
 
 	@EventHandler
 	public void 自动公告计时器(ServerLoadEvent event) {
-		if (config.getBoolean("自动公告")) {
-			Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+		if (msgBoolean) {
+			Bukkit.getScheduler().runTaskTimer(mainPlugin, new Runnable() {
 				@Override
 				public void run() {
 					Bukkit.broadcastMessage(config.getString("公告1"));
 				}
-			}, 0, config.getInt("自动公告时间间隔，单位分钟") * 60 * 20 * 3);// 三次错开执行
-			Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+			}, 0, msgTimes * 60 * 20 * 3);// 三次错开执行
+			Bukkit.getScheduler().runTaskTimer(mainPlugin, new Runnable() {
 				@Override
 				public void run() {
 					Bukkit.broadcastMessage(config.getString("公告2"));
 				}
-			}, config.getInt("自动公告时间间隔，单位分钟") * 60 * 20, config.getInt("自动公告时间间隔，单位分钟") * 60 * 20 * 3);// 三次错开执行
-			Bukkit.getScheduler().runTaskTimer(plugin, new Runnable() {
+			}, msgTimes * 60 * 20, msgTimes * 60 * 20 * 3);// 三次错开执行
+			Bukkit.getScheduler().runTaskTimer(mainPlugin, new Runnable() {
 				@Override
 				public void run() {
 					Bukkit.broadcastMessage(config.getString("公告3"));
 				}
-			}, config.getInt("自动公告时间间隔，单位分钟") * 60 * 20 * 2, config.getInt("自动公告时间间隔，单位分钟") * 60 * 20 * 3);// 三次错开执行
+			}, msgTimes * 60 * 20 * 2, msgTimes * 60 * 20 * 3);// 三次错开执行
 		} else
 			return;
 	}
@@ -70,6 +69,6 @@ public class WServerLoadEvent implements Listener {
 	@EventHandler
 	public void pluginMsg(ServerLoadEvent event) {
 		WickhamsPlugin.MAIN.getLogger()
-				.info("WickhamsPlugin 加载完成，版本 V" + WickhamsPlugin.MAIN.getDescription().getVersion());
+				.info("WickhamsPlugin 加载完成，版本 V" + mainPlugin.getDescription().getVersion());
 	}
 }

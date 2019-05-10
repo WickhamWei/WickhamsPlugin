@@ -105,7 +105,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		mainServer.getPluginManager().registerEvents(new WPlayerJoinEvent(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerQuitEvent(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerInteractEvent(mainConfiguration), this);
-		mainServer.getPluginManager().registerEvents(new WServerLoadEvent(mainConfiguration, this), this);
+		mainServer.getPluginManager().registerEvents(new WServerLoadEvent(), this);
 		mainServer.getPluginManager().registerEvents(new WTeleportListener(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerDeathEvent(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerLevelChangeEvent(mainConfiguration), this);
