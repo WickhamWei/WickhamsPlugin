@@ -227,6 +227,9 @@ public abstract class LoginMain {
 
 	public static boolean checkPlayerIPAddress(Player player) {
 		if (!keepPlayerLoginHashMap.containsKey(player.getName())) {
+			if(!isRegister(player)) {
+				return false;
+			}
 			recordPlayerIPAddress(player);
 			return false;
 		}

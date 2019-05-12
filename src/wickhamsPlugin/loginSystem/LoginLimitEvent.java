@@ -36,12 +36,10 @@ public class LoginLimitEvent implements Listener {
 	public void listen(PlayerJoinEvent event) {// 玩家加入
 		Player player = event.getPlayer();
 		player.setGameMode(GameMode.SPECTATOR);
-		if(!player.teleport(player.getBedSpawnLocation())) {
-			player.teleport(player.getWorld().getSpawnLocation());
-		}
+		player.teleport(player.getWorld().getSpawnLocation());
 		if (!LoginMain.checkPlayerIPAddress(player)) {
 			LoginMain.newPlayer(player);
-			if (LoginMain.isRegister(event.getPlayer().getName()) == true)
+			if (LoginMain.isRegister(event.getPlayer().getName()))
 				noLogin(event.getPlayer());
 			else
 				noRegister(event.getPlayer());

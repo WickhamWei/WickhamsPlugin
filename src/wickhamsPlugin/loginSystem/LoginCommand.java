@@ -46,6 +46,7 @@ public class LoginCommand implements CommandExecutor {
 								LoginMain.register(sender.getName(), arg3[0]);
 								LoginMain.playerLogin(sender.getName());
 								sender.sendMessage(ChatColor.GREEN + "注册成功，已登陆成功");
+								LoginMain.checkPlayerIPAddress((Player) sender);
 								((Player) sender).getPlayer().getPlayer().setGameMode(GameMode.SURVIVAL);
 								if (WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
 									sender.sendMessage(
