@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 
 import wickhamsPlugin.WickhamsPlugin;
 import wickhamsPlugin.event.WPlayerRegisterEvent;
-import wickhamsPlugin.loginSystem.LoginMain;
 
 public class WPlayerRegisterEventListener implements Listener{
 	
@@ -19,7 +18,6 @@ public class WPlayerRegisterEventListener implements Listener{
 	@EventHandler
 	public void onPlayerRegister(WPlayerRegisterEvent event) {
 		Player player=event.getPlayer();
-		LoginMain.playerLogin(player);
 		player.sendMessage(ChatColor.GREEN + "注册成功，已登陆成功");
 		player.getPlayer().setGameMode(GameMode.SURVIVAL);
 		if (joinMsgBoolean) {
