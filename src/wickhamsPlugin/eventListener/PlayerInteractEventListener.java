@@ -1,4 +1,4 @@
-package wickhamsPlugin.event;
+package wickhamsPlugin.eventListener;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -9,10 +9,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 @SuppressWarnings("unused")
-public class WPlayerInteractEvent implements Listener {// 导入config
+public class PlayerInteractEventListener implements Listener {// 导入config
 	private boolean protectFarmlandBoolean;
 
-	public WPlayerInteractEvent(FileConfiguration config) {
+	public PlayerInteractEventListener(FileConfiguration config) {
 		protectFarmlandBoolean = config.getBoolean("保护耕地不被踩坏");
 	}
 

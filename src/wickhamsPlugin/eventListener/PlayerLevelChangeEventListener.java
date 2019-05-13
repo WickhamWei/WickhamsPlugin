@@ -1,4 +1,4 @@
-package wickhamsPlugin.event;
+package wickhamsPlugin.eventListener;
 
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -7,11 +7,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 
-public class WPlayerLevelChangeEvent implements Listener {
+public class PlayerLevelChangeEventListener implements Listener {
 	private boolean levelHealthBoolean;
 	private int maxHealth;
 
-	public WPlayerLevelChangeEvent(FileConfiguration mainConfiguration) {
+	public PlayerLevelChangeEventListener(FileConfiguration mainConfiguration) {
 		levelHealthBoolean = mainConfiguration.getBoolean("三十级后每升级一级加血量上限");
 		maxHealth = mainConfiguration.getInt("最大血量上限");
 	}

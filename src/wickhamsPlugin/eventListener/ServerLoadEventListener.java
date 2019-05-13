@@ -1,4 +1,4 @@
-package wickhamsPlugin.event;
+package wickhamsPlugin.eventListener;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.bukkit.plugin.Plugin;
 
 import wickhamsPlugin.WickhamsPlugin;
 
-public class WServerLoadEvent implements Listener {
+public class ServerLoadEventListener implements Listener {
 	private Plugin mainPlugin=WickhamsPlugin.MAIN;
 	private FileConfiguration config=mainPlugin.getConfig();
 	private final boolean saveBoolean=mainPlugin.getConfig().getBoolean("自动保存地图");

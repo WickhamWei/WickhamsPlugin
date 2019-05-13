@@ -11,14 +11,16 @@ import wickhamsPlugin.command.Spawn;
 import wickhamsPlugin.command.Tp;
 import wickhamsPlugin.command.TpAll;
 import wickhamsPlugin.command.gm;
-import wickhamsPlugin.event.WPlayerDeathEvent;
-import wickhamsPlugin.event.WPlayerInteractEvent;
-import wickhamsPlugin.event.WPlayerJoinEvent;
-import wickhamsPlugin.event.WPlayerLevelChangeEvent;
-import wickhamsPlugin.event.WPlayerQuitEvent;
-import wickhamsPlugin.event.WServerLoadEvent;
+import wickhamsPlugin.eventListener.PlayerDeathEventListener;
+import wickhamsPlugin.eventListener.PlayerInteractEventListener;
+import wickhamsPlugin.eventListener.PlayerJoinEventListener;
+import wickhamsPlugin.eventListener.PlayerLevelChangeEventListener;
+import wickhamsPlugin.eventListener.PlayerQuitEventListener;
+import wickhamsPlugin.eventListener.ServerLoadEventListener;
+import wickhamsPlugin.eventListener.WPlayerLoginEventListener;
+import wickhamsPlugin.eventListener.WPlayerRegisterEventListener;
 import wickhamsPlugin.loginSystem.LoginCommand;
-import wickhamsPlugin.loginSystem.LoginLimitEvent;
+import wickhamsPlugin.loginSystem.LoginLimitListener;
 import wickhamsPlugin.loginSystem.LoginMain;
 import wickhamsPlugin.recipe.HugeRottenFlash;
 import wickhamsPlugin.tpASystem.TpACommand;
@@ -99,16 +101,18 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 
 	public void loadListener() {// 读取事件
 		if (mainConfiguration.getBoolean("登陆系统")) {
-			mainServer.getPluginManager().registerEvents(new LoginLimitEvent(), this);
+			mainServer.getPluginManager().registerEvents(new LoginLimitListener(), this);
 		}
 		mainServer.getPluginManager().registerEvents(this, this);
-		mainServer.getPluginManager().registerEvents(new WPlayerJoinEvent(mainConfiguration), this);
-		mainServer.getPluginManager().registerEvents(new WPlayerQuitEvent(), this);
-		mainServer.getPluginManager().registerEvents(new WPlayerInteractEvent(mainConfiguration), this);
-		mainServer.getPluginManager().registerEvents(new WServerLoadEvent(), this);
+		mainServer.getPluginManager().registerEvents(new PlayerJoinEventListener(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new PlayerQuitEventListener(), this);
+		mainServer.getPluginManager().registerEvents(new PlayerInteractEventListener(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new ServerLoadEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new WTeleportListener(), this);
-		mainServer.getPluginManager().registerEvents(new WPlayerDeathEvent(mainConfiguration), this);
-		mainServer.getPluginManager().registerEvents(new WPlayerLevelChangeEvent(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new PlayerDeathEventListener(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new PlayerLevelChangeEventListener(mainConfiguration), this);
+		mainServer.getPluginManager().registerEvents(new WPlayerLoginEventListener(), this);
+		mainServer.getPluginManager().registerEvents(new WPlayerRegisterEventListener(), this);
 	}
 
 	public void loadRecipe() {// 读取新的合成表

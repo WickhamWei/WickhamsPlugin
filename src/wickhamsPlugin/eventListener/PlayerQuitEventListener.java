@@ -1,4 +1,4 @@
-package wickhamsPlugin.event;
+package wickhamsPlugin.eventListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,7 @@ import org.bukkit.plugin.Plugin;
 import wickhamsPlugin.WickhamsPlugin;
 import wickhamsPlugin.loginSystem.LoginMain;
 
-public class WPlayerQuitEvent implements Listener {
+public class PlayerQuitEventListener implements Listener {
 
 	private static final Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
 

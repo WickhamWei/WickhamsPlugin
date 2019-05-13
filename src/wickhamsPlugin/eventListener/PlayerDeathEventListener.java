@@ -1,4 +1,4 @@
-package wickhamsPlugin.event;
+package wickhamsPlugin.eventListener;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -8,11 +8,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 import wickhamsPlugin.backSystem.BackMain;
 
-public class WPlayerDeathEvent implements Listener {
+public class PlayerDeathEventListener implements Listener {
 	private boolean keepInventoryBoolean;
 	private boolean halfLevelBoolean;
 
-	public WPlayerDeathEvent(FileConfiguration mainConfiguration) {
+	public PlayerDeathEventListener(FileConfiguration mainConfiguration) {
 		keepInventoryBoolean = mainConfiguration.getBoolean("死亡是否保留背包内的物品");
 		halfLevelBoolean = mainConfiguration.getBoolean("死亡后保留一半等级");
 	}

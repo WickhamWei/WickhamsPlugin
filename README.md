@@ -22,4 +22,4 @@
   将ItemStack作为furnaveRecipe的source，使用方法：new WFurnaceRecipe().furnaveRecipe(String recipeKeyNameString, ItemStack sourceItemStack, ItemStack result​ItemStack,
 			float experience, int cookingTimeSecond);  
   3. teleport  
-  传送时检查权限，未有权限的玩家在本插件配置文件中指定的秒数延迟后才进行传送，使用方法：new WTeleport().teleport(Player mainPlayer, Player targePlayer); 或者teleport(Player mainPlayer, Location targeLocation, Boolean recordLocation); 前者自动记录/back，后者可以选择是否记录。
+  传送时检查权限，未有权限的玩家在本插件配置文件中指定的秒数延迟后才进行传送，使用方法：new WTeleport().teleport(Player mainPlayer, Player targePlayer); 或者new WTeleport().teleport(Player mainPlayer, Location targeLocation, Boolean recordLocation); 前者自动记录/back，后者可以选择是否记录。

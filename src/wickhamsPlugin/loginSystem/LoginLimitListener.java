@@ -21,9 +21,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import wickhamsPlugin.WickhamsPlugin;
+import wickhamsPlugin.event.WPlayerLoginEvent;
 
-public class LoginLimitEvent implements Listener {
+public class LoginLimitListener implements Listener {
 	public void noRegister(HumanEntity humanEntity) {// 未注册的信息
 		humanEntity.sendMessage(ChatColor.RED + "你还没注册，输入/join 你的密码 来注册");
 	}
@@ -37,7 +37,7 @@ public class LoginLimitEvent implements Listener {
 		Player player = event.getPlayer();
 		player.setGameMode(GameMode.SPECTATOR);
 		player.teleport(player.getWorld().getSpawnLocation());
-		if (!LoginMain.checkPlayerIPAddress(player)) {
+		if (!LoginMain.isKeepPlayerLogin(player)) {
 			LoginMain.newPlayer(player);
 			if (LoginMain.isRegister(event.getPlayer().getName()))
 				noLogin(event.getPlayer());
@@ -46,16 +46,7 @@ public class LoginLimitEvent implements Listener {
 			return;
 		} else {
 			player.sendMessage(ChatColor.GREEN + "已自动为你登录，欢迎回来");
-			Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
-			if (WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
-				player.sendMessage(ChatColor.GREEN + WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息"));
-			}
-			player.getPlayer().setGameMode(GameMode.SURVIVAL);
-			if (LoginMain.teleportPlayerAfterLogin(player)) {
-				player.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
-			} else {
-				player.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
-			}
+			Bukkit.getPluginManager().callEvent(new WPlayerLoginEvent(player));
 			return;
 		}
 	}

@@ -2,13 +2,14 @@ package wickhamsPlugin.loginSystem;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import wickhamsPlugin.WickhamsPlugin;
+import wickhamsPlugin.event.WPlayerLoginEvent;
+import wickhamsPlugin.event.WPlayerRegisterEvent;
 
 public class LoginCommand implements CommandExecutor {
 
@@ -23,19 +24,8 @@ public class LoginCommand implements CommandExecutor {
 						if (LoginMain.isRegister(sender.getName())) {
 							if (LoginMain.checkPasswordDtell(arg3[0])
 									&& LoginMain.checkPasswordReal(sender.getName(), arg3[0])) {
-								LoginMain.playerLogin(((Player) sender));
-								sender.sendMessage(ChatColor.GREEN + "登陆成功");
-								if (WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
-									sender.sendMessage(
-											ChatColor.GREEN + WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息"));
-								}
-								Bukkit.broadcastMessage(ChatColor.GREEN + sender.getName() + " 加入了游戏");
-								((Player) sender).getPlayer().setGameMode(GameMode.SURVIVAL);
-								if (LoginMain.teleportPlayerAfterLogin(((Player) sender))) {
-									sender.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
-								} else {
-									sender.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
-								}
+								LoginMain.playerLogin((Player) sender);
+								Bukkit.getPluginManager().callEvent(new WPlayerLoginEvent((Player) sender));
 								return true;
 							} else {
 								sender.sendMessage(ChatColor.RED + "密码错误");
@@ -43,16 +33,9 @@ public class LoginCommand implements CommandExecutor {
 							}
 						} else {
 							if (LoginMain.checkPasswordDtell(arg3[0])) {
-								LoginMain.register(sender.getName(), arg3[0]);
-								LoginMain.playerLogin(sender.getName());
-								sender.sendMessage(ChatColor.GREEN + "注册成功，已登陆成功");
-								LoginMain.checkPlayerIPAddress((Player) sender);
-								((Player) sender).getPlayer().getPlayer().setGameMode(GameMode.SURVIVAL);
-								if (WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关")) {
-									sender.sendMessage(
-											ChatColor.GREEN + WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息"));
-								}
-								Bukkit.broadcastMessage(ChatColor.GREEN + sender.getName() + " 加入了游戏");
+								LoginMain.register((Player) sender, arg3[0]);
+								LoginMain.playerLogin((Player) sender);
+								Bukkit.getPluginManager().callEvent(new WPlayerRegisterEvent((Player) sender));
 								return true;
 							} else {
 								sender.sendMessage(ChatColor.RED + "格式有误，密码长度不能小于5或大于20");

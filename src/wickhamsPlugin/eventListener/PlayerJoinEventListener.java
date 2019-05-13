@@ -1,4 +1,4 @@
-package wickhamsPlugin.event;
+package wickhamsPlugin.eventListener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import wickhamsPlugin.WickhamsPlugin;
 
-public class WPlayerJoinEvent implements Listener {
+public class PlayerJoinEventListener implements Listener {
 	private boolean levelHealthBoolean;
 	private int maxHealth;
 	private boolean welcomeMsgBoolean;
@@ -19,7 +19,7 @@ public class WPlayerJoinEvent implements Listener {
 	private boolean versionBoolean;
 	private FileConfiguration mainConfiguration;
 
-	public WPlayerJoinEvent(FileConfiguration mainConfiguration) {
+	public PlayerJoinEventListener(FileConfiguration mainConfiguration) {
 		levelHealthBoolean = mainConfiguration.getBoolean("三十级后每升级一级加血量上限");
 		welcomeMsgBoolean = mainConfiguration.getBoolean("玩家加入时给玩家的信息开关");
 		loginSystemBoolean = mainConfiguration.getBoolean("登陆系统");

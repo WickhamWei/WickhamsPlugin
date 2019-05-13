@@ -219,29 +219,32 @@ public abstract class LoginMain {
 		return ret.toString();
 	}
 
-	private static void recordPlayerIPAddress(Player player) {
+	public static void recordPlayerIPAddressInConfig(Player player) {
 		String IPString = player.getAddress().getAddress().getHostAddress();
 		playerPasswordConfig.set("playerIP.playerName." + player.getName(), encryptPassword(IPString));
 		savePlayerPasswordConfig();
 	}
-
-	public static boolean checkPlayerIPAddress(Player player) {
+	
+	public static boolean hasPlayerIPAddressInConfig(Player player) {
+		return playerPasswordConfig.contains("playerIP.playerName." + player.getName());
+	}
+	
+	private static String getPlayerIPAddress(Player player) {
+		return player.getAddress().getAddress().getHostAddress();
+	}
+	
+	public static boolean isKeepPlayerLogin(Player player) {
 		if (!keepPlayerLoginHashMap.containsKey(player.getName())) {
-			if(!isRegister(player)) {
-				return false;
-			}
-			recordPlayerIPAddress(player);
 			return false;
 		}
 		String lastIPString = playerPasswordConfig.getString("playerIP.playerName." + player.getName());
-		if (encryptPassword(player.getAddress().getAddress().getHostAddress()).equals(lastIPString)) {
+		if (encryptPassword(getPlayerIPAddress(player)).equals(lastIPString)) {
 			Bukkit.getScheduler().cancelTask(keepPlayerLoginHashMap.get(player.getName()));
 			keepPlayerLoginHashMap.remove(player.getName());
 			return true;
 		} else {
 			Bukkit.getScheduler().cancelTask(keepPlayerLoginHashMap.get(player.getName()));
 			keepPlayerLoginHashMap.remove(player.getName());
-			recordPlayerIPAddress(player);
 			return false;
 		}
 	}
