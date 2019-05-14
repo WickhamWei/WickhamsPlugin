@@ -45,8 +45,18 @@ public class LoginLimitListener implements Listener {
 				noRegister(event.getPlayer());
 			return;
 		} else {
-			player.sendMessage(ChatColor.GREEN + "已自动为你登录，欢迎回来");
-			Bukkit.getPluginManager().callEvent(new WPlayerLoginEvent(player));
+			WPlayerLoginEvent wPlayerLoginEvent=new WPlayerLoginEvent(player);
+			Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
+			if (!(wPlayerLoginEvent.isCancelled())) {
+				player.sendMessage(ChatColor.GREEN + "已自动为你登录，欢迎回来");
+				Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
+				player.setGameMode(GameMode.SURVIVAL);
+				if (LoginMain.teleportPlayerAfterLogin((player))) {
+					player.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
+				} else {
+					player.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
+				}
+			}
 			return;
 		}
 	}

@@ -25,6 +25,8 @@ public abstract class LoginMain {
 	private static FileConfiguration playerPasswordConfig;
 	private static HashMap<String, Integer> keepPlayerLoginHashMap = new HashMap<String, Integer>();
 	private static int loginKeepTime;
+	protected static boolean joinMsgBoolean = WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关");
+	protected static String joinMsgString=WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息");
 
 	public static void createPlayerPasswordConfig() {
 		playerPasswordFile = new File(WICKHAMS_PLUGIN.getDataFolder(), "playerPassword.yml");

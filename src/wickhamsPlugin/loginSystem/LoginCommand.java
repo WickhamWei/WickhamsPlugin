@@ -2,6 +2,7 @@ package wickhamsPlugin.loginSystem;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,15 +18,30 @@ public class LoginCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] arg3) {
 		if (WickhamsPlugin.MAIN.getConfig().getBoolean("登陆系统")) {
 			if (sender instanceof Player) {
+				Player player=(Player) sender;
 				if (cmd.getName().equalsIgnoreCase("join") && arg3.length == 1) {
-					if (LoginMain.isLogin(sender.getName())) {
-						sender.sendMessage(ChatColor.YELLOW + "你已经登陆啦");
+					if (LoginMain.isLogin(player.getName())) {
+						player.sendMessage(ChatColor.YELLOW + "你已经登陆啦");
 					} else {
-						if (LoginMain.isRegister(sender.getName())) {
+						if (LoginMain.isRegister(player.getName())) {
 							if (LoginMain.checkPasswordDtell(arg3[0])
-									&& LoginMain.checkPasswordReal(sender.getName(), arg3[0])) {
-								LoginMain.playerLogin((Player) sender);
-								Bukkit.getPluginManager().callEvent(new WPlayerLoginEvent((Player) sender));
+									&& LoginMain.checkPasswordReal(player.getName(), arg3[0])) {
+								WPlayerLoginEvent wPlayerLoginEvent=new WPlayerLoginEvent(player);
+								Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
+								if (!(wPlayerLoginEvent.isCancelled())) {
+									LoginMain.playerLogin(player);
+									player.sendMessage(ChatColor.GREEN + "登陆成功");
+									if (LoginMain.joinMsgBoolean) {
+										player.sendMessage(ChatColor.GREEN + LoginMain.joinMsgString);
+									}
+									Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
+									player.setGameMode(GameMode.SURVIVAL);
+									if (LoginMain.teleportPlayerAfterLogin((player))) {
+										player.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
+									} else {
+										player.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
+									}
+								}
 								return true;
 							} else {
 								sender.sendMessage(ChatColor.RED + "密码错误");
@@ -33,9 +49,19 @@ public class LoginCommand implements CommandExecutor {
 							}
 						} else {
 							if (LoginMain.checkPasswordDtell(arg3[0])) {
-								LoginMain.register((Player) sender, arg3[0]);
-								LoginMain.playerLogin((Player) sender);
-								Bukkit.getPluginManager().callEvent(new WPlayerRegisterEvent((Player) sender));
+								WPlayerRegisterEvent wPlayerRegisterEvent=new WPlayerRegisterEvent(player);
+								Bukkit.getPluginManager().callEvent(wPlayerRegisterEvent);
+								if (!(wPlayerRegisterEvent.isCancelled())) {
+									LoginMain.register(player, arg3[0]);
+									LoginMain.playerLogin(player);
+									player.sendMessage(ChatColor.GREEN + "注册成功，已登陆成功");
+									player.setGameMode(GameMode.SURVIVAL);
+									if (LoginMain.joinMsgBoolean) {
+										player.sendMessage(
+												ChatColor.GREEN + LoginMain.joinMsgString);
+									}
+									Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
+								}
 								return true;
 							} else {
 								sender.sendMessage(ChatColor.RED + "格式有误，密码长度不能小于5或大于20");

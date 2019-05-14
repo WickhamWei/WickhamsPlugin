@@ -5,15 +5,25 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class WPlayerLoginEvent extends Event {
-	
+
 	private final Player player;
-	
+	private boolean isCancelled;
+
 	public WPlayerLoginEvent(Player player) {
-		this.player=player;
+		this.player = player;
+		this.isCancelled = false;
 	}
-	
+
 	public Player getPlayer() {
 		return player;
+	}
+
+	public boolean isCancelled() {
+		return this.isCancelled;
+	}
+
+	public void setCancelled(boolean isCancelled) {
+		this.isCancelled = isCancelled;
 	}
 
 	// This seems like all you need to do at a first glance, but after running your
@@ -32,5 +42,5 @@ public class WPlayerLoginEvent extends Event {
 	}
 
 	// 以上为默认必须操作
-	
+
 }
