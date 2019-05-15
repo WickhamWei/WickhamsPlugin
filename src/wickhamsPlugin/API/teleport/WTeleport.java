@@ -99,19 +99,19 @@ public class WTeleport extends WTeleportMain {
 	}
 
 	@Override
-	public boolean teleport(Player mainPlayer, Location targeLocation, Boolean recordLocation) {
+	public boolean teleport(Player mainPlayer, Location targeLocation, Boolean recordOldLocation) {
 		if (isInWaitingList(mainPlayer)) {// 是否已经在等待传送
 			busyMsg(mainPlayer);
 			return false;
 		} else {
 			if (mainPlayer.hasPermission("wickhamsplugin.teleportNoCD") || TELEPORT_WAITING_TIME == 0) {// 是否忽略CD
-				if (recordLocation) {// 是否记录旧位置
+				if (recordOldLocation) {// 是否记录旧位置
 					BackMain.recordBackLocation(mainPlayer, mainPlayer.getLocation());
 				}
 				new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
 				if (mainPlayer.teleport(targeLocation)) {// 执行传送
 					teleportSuccessMsg(mainPlayer);
-					if (!recordLocation) {
+					if (!recordOldLocation) {
 						BackMain.cleanBackLocation(mainPlayer);
 					}
 					return true;
@@ -124,7 +124,7 @@ public class WTeleport extends WTeleportMain {
 				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {// 在设定的秒数后执行传送
 					Player player = mainPlayer;
 					Location location = targeLocation;
-					Boolean recordLocationBoolean = recordLocation;
+					Boolean recordLocationBoolean = recordOldLocation;
 
 					@Override
 					public void run() {

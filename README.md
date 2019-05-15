@@ -11,10 +11,11 @@
  8. 玩家指令：tpa、tpayes、spawn、back、home、sethome。
  9. 可选血量随着等级而增加。
 
-## 下载地址
+## 下载地址  
+
  [发布页面](https://github.com/WickhamWei/WickhamsPlugin/releases)
 
-## 一些API介绍  
+## API  
   
   1. chunkLoading  
   将指定位置的区块加载指定的秒数，使用方法：new WChunk().chunkLoading(Location chunkLocation, int keepSecond);  
@@ -22,4 +23,9 @@
   将ItemStack作为furnaveRecipe的source，使用方法：new WFurnaceRecipe().furnaveRecipe(String recipeKeyNameString, ItemStack sourceItemStack, ItemStack result​ItemStack,
 			float experience, int cookingTimeSecond);  
   3. teleport  
-  传送时检查权限，未有权限的玩家在本插件配置文件中指定的秒数延迟后才进行传送，使用方法：new WTeleport().teleport(Player mainPlayer, Player targePlayer); 或者new WTeleport().teleport(Player mainPlayer, Location targeLocation, Boolean recordLocation); 前者自动记录/back，后者可以选择是否记录。
+  传送时检查权限，未有权限的玩家在本插件配置文件中指定的秒数延迟后才进行传送，使用方法：new WTeleport().teleport(Player mainPlayer, Player targePlayer); 或者new WTeleport().teleport(Player mainPlayer, Location targeLocation, Boolean recordLocation); 前者自动记录/back，后者可以选择是否记录。  
+    
+## Event  
+
+  1. WPlayerLoginEvent: 在玩家登陆时召唤
+  2. WPlayerRegisterEvent: 在玩家注册时召唤
