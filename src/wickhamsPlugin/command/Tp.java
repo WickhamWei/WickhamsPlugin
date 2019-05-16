@@ -15,7 +15,7 @@ public class Tp implements CommandExecutor {
 			if ((arg3.length == 1)) {// 检查参数是否为空或过多参数
 				Player player = (Player) sender;
 				Player targe = Bukkit.getServer().getPlayer(arg3[0]);// 目标
-				new WTeleport().teleport(player, targe);
+				WTeleport.teleport(player, targe);
 				return true;
 			} else {
 				return false;

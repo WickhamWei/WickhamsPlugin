@@ -17,7 +17,7 @@ public class BackCommand implements CommandExecutor {
 			if (arg3.length == 0) {
 				Player player = (Player) sender;
 				if (BackMain.hasBackLocation(player)) {
-					new WTeleport().teleport(player, BackMain.getOldLocation(player), false);
+					WTeleport.teleport(player, BackMain.getOldLocation(player), false);
 					return true;
 				} else {
 					player.sendMessage(ChatColor.RED + "没有位置可以返回");

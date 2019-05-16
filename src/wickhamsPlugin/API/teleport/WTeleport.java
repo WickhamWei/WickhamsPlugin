@@ -8,10 +8,9 @@ import org.bukkit.scheduler.BukkitTask;
 import wickhamsPlugin.API.chunk.WChunk;
 import wickhamsPlugin.backSystem.BackMain;
 
-public class WTeleport extends WTeleportMain {
+public abstract class WTeleport extends WTeleportMain{
 
-	@Override
-	public boolean teleport(Player mainPlayer, Player targePlayer) {
+	public static boolean teleport(Player mainPlayer, Player targePlayer) {
 		if (isInWaitingList(mainPlayer)) {// 是否已经在等待传送
 			busyMsg(mainPlayer);
 			return false;
@@ -82,7 +81,7 @@ public class WTeleport extends WTeleportMain {
 						}
 					}
 				}, 0, 20);
-				final int countDownID = COUNT_DOWN.getTaskId();
+				int countDownID = COUNT_DOWN.getTaskId();
 				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {// 取消倒计时
 					int ID = countDownID;
 
@@ -98,8 +97,7 @@ public class WTeleport extends WTeleportMain {
 		}
 	}
 
-	@Override
-	public boolean teleport(Player mainPlayer, Location targeLocation, Boolean recordOldLocation) {
+	public static boolean teleport(Player mainPlayer, Location targeLocation, Boolean recordOldLocation) {
 		if (isInWaitingList(mainPlayer)) {// 是否已经在等待传送
 			busyMsg(mainPlayer);
 			return false;
@@ -164,7 +162,7 @@ public class WTeleport extends WTeleportMain {
 						}
 					}
 				}, 0, 20);
-				final int countDownID = COUNT_DOWN.getTaskId();
+				int countDownID = COUNT_DOWN.getTaskId();
 				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {// 取消倒计时
 					int ID = countDownID;
 

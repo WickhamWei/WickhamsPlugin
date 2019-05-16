@@ -19,7 +19,7 @@ public class Home implements CommandExecutor {
 					player.sendMessage(ChatColor.RED + "你还没在床上睡过觉，请先睡一夜，或者使用 sethome 设置家");
 					return true;
 				} else {
-					new WTeleport().teleport(player, player.getBedSpawnLocation(), true);
+					WTeleport.teleport(player, player.getBedSpawnLocation(), true);
 					return true;
 				}
 			} else

@@ -15,7 +15,7 @@ public class Spawn implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			if (arg3.length == 0) {
-				new WTeleport().teleport(player, player.getWorld().getSpawnLocation(), true);
+				WTeleport.teleport(player, player.getWorld().getSpawnLocation(), true);
 				return true;
 			} else
 				return false;
