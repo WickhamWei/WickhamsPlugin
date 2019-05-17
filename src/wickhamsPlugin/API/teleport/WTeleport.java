@@ -3,14 +3,14 @@ package wickhamsPlugin.API.teleport;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import wickhamsPlugin.API.chunk.WChunk;
 import wickhamsPlugin.backSystem.BackMain;
 
-public abstract class WTeleport extends WTeleportMain{
+public class WTeleport extends WTeleportMain {
 
-	public static boolean teleport(Player mainPlayer, Player targePlayer) {
+	public static Boolean teleport(Player mainPlayer, Player targePlayer) {
 		if (isInWaitingList(mainPlayer)) {// 是否已经在等待传送
 			busyMsg(mainPlayer);
 			return false;
@@ -25,7 +25,7 @@ public abstract class WTeleport extends WTeleportMain{
 					return false;
 				}
 				BackMain.recordBackLocation(mainPlayer, mainPlayer.getLocation());
-				new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
+				WChunk.chunkLoading(mainPlayer.getLocation(), 10);
 				if (mainPlayer.teleport(targePlayer.getLocation())) {// 执行传送
 					teleportSuccessMsg(mainPlayer, targePlayer);
 					return true;
@@ -34,8 +34,7 @@ public abstract class WTeleport extends WTeleportMain{
 					return false;
 				}
 			} else {
-				addInWaitingList(mainPlayer);// 加入等待传送列表
-				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {// 在设定的秒数后执行传送
+				BukkitRunnable teleportBukkitRunnable = new BukkitRunnable() {
 					Player player = mainPlayer;
 					Player player2 = targePlayer;
 
@@ -52,7 +51,7 @@ public abstract class WTeleport extends WTeleportMain{
 								return;
 							}
 							BackMain.recordBackLocation(player, player.getLocation());
-							new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
+							WChunk.chunkLoading(mainPlayer.getLocation(), 5);
 							if (player.teleport(player2.getLocation())) {
 								teleportSuccessMsg(player, player2);
 								removeFromWaitingList(player);
@@ -66,8 +65,9 @@ public abstract class WTeleport extends WTeleportMain{
 							return;
 						}
 					}
-				}, TELEPORT_WAITING_TIME * 20);
-				BukkitTask COUNT_DOWN = Bukkit.getScheduler().runTaskTimer(WICKHAMS_PLUGIN, new Runnable() {// 倒计时
+				};
+				teleportBukkitRunnable.runTaskLater(WICKHAMS_PLUGIN, TELEPORT_WAITING_TIME * 20);
+				BukkitRunnable countDownBukkitRunnable = new BukkitRunnable() {
 					int timeLeft = TELEPORT_WAITING_TIME;
 					Player player = mainPlayer;
 
@@ -77,21 +77,14 @@ public abstract class WTeleport extends WTeleportMain{
 							timeLeftMsg(player, timeLeft);
 							timeLeft--;
 						} else {
-							return;
+							cancel();
 						}
 					}
-				}, 0, 20);
-				int countDownID = COUNT_DOWN.getTaskId();
-				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {// 取消倒计时
-					int ID = countDownID;
-
-					@Override
-					public void run() {
-//						Bukkit.getLogger().info("清除传送事件"+ID);
-						Bukkit.getScheduler().cancelTask(ID);
-						return;
-					}
-				}, TELEPORT_WAITING_TIME * 20);
+				};
+				countDownBukkitRunnable.runTaskTimer(WICKHAMS_PLUGIN, 0, 20);
+				int teleportTaskID = teleportBukkitRunnable.getTaskId();
+				int countDownTaskID = countDownBukkitRunnable.getTaskId();
+				addInWaitingList(mainPlayer, teleportTaskID, countDownTaskID);
 				return true;
 			}
 		}
@@ -106,7 +99,7 @@ public abstract class WTeleport extends WTeleportMain{
 				if (recordOldLocation) {// 是否记录旧位置
 					BackMain.recordBackLocation(mainPlayer, mainPlayer.getLocation());
 				}
-				new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
+				WChunk.chunkLoading(mainPlayer.getLocation(), 10);
 				if (mainPlayer.teleport(targeLocation)) {// 执行传送
 					teleportSuccessMsg(mainPlayer);
 					if (!recordOldLocation) {
@@ -118,8 +111,7 @@ public abstract class WTeleport extends WTeleportMain{
 					return false;
 				}
 			} else {
-				addInWaitingList(mainPlayer);// 加入等待传送列表
-				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {// 在设定的秒数后执行传送
+				BukkitRunnable teleportBukkitRunnable = new BukkitRunnable() {
 					Player player = mainPlayer;
 					Location location = targeLocation;
 					Boolean recordLocationBoolean = recordOldLocation;
@@ -130,7 +122,7 @@ public abstract class WTeleport extends WTeleportMain{
 							if (recordLocationBoolean) {
 								BackMain.recordBackLocation(player, player.getLocation());
 							}
-							new WChunk().chunkLoading(mainPlayer.getLocation(), 10);
+							WChunk.chunkLoading(mainPlayer.getLocation(), 5);
 							if (player.teleport(location)) {
 								teleportSuccessMsg(player);
 								if (!recordLocationBoolean) {
@@ -147,8 +139,9 @@ public abstract class WTeleport extends WTeleportMain{
 							return;
 						}
 					}
-				}, TELEPORT_WAITING_TIME * 20);
-				BukkitTask COUNT_DOWN = Bukkit.getScheduler().runTaskTimer(WICKHAMS_PLUGIN, new Runnable() {// 倒计时
+				};
+				teleportBukkitRunnable.runTaskLater(WICKHAMS_PLUGIN, TELEPORT_WAITING_TIME * 20);
+				BukkitRunnable countDownBukkitRunnable = new BukkitRunnable() {
 					int timeLeft = TELEPORT_WAITING_TIME;
 					Player player = mainPlayer;
 
@@ -158,21 +151,14 @@ public abstract class WTeleport extends WTeleportMain{
 							timeLeftMsg(player, timeLeft);
 							timeLeft--;
 						} else {
-							return;
+							cancel();
 						}
 					}
-				}, 0, 20);
-				int countDownID = COUNT_DOWN.getTaskId();
-				Bukkit.getScheduler().runTaskLater(WICKHAMS_PLUGIN, new Runnable() {// 取消倒计时
-					int ID = countDownID;
-
-					@Override
-					public void run() {
-//						Bukkit.getLogger().info("清除传送事件"+ID);
-						Bukkit.getScheduler().cancelTask(ID);
-						return;
-					}
-				}, TELEPORT_WAITING_TIME * 20);
+				};
+				countDownBukkitRunnable.runTaskTimer(WICKHAMS_PLUGIN, 0, 20);
+				int teleportTaskID = teleportBukkitRunnable.getTaskId();
+				int countDownTaskID = countDownBukkitRunnable.getTaskId();
+				addInWaitingList(mainPlayer, teleportTaskID, countDownTaskID);
 				return true;
 			}
 		}

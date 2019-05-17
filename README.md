@@ -19,12 +19,12 @@
 ## API  
   
   1. chunkLoading  
-  将指定位置的区块加载指定的秒数，使用方法：new WChunk().chunkLoading(Location chunkLocation, int keepSecond);  
+  将指定位置的区块加载指定的秒数，使用方法：WChunk.chunkLoading(Location chunkLocation, int keepSecond);  
   2. furnaveRecipe  
   将ItemStack作为furnaveRecipe的source，使用方法：new WFurnaceRecipe().furnaveRecipe(String recipeKeyNameString, ItemStack sourceItemStack, ItemStack result​ItemStack,
 			float experience, int cookingTimeSecond);  
   3. teleport  
-  传送时检查权限，未有权限的玩家在本插件配置文件中指定的秒数延迟后才进行传送，使用方法：new WTeleport().teleport(Player mainPlayer, Player targePlayer); 或者new WTeleport().teleport(Player mainPlayer, Location targeLocation, Boolean recordOldLocation); 前者自动记录/back，后者可以选择是否记录。  
+  传送时检查权限，未有权限的玩家在本插件配置文件中指定的秒数延迟后才进行传送，使用方法：WTeleport.teleport(Player mainPlayer, Player targePlayer); 或者WTeleport.teleport(Player mainPlayer, Location targeLocation, Boolean recordOldLocation); 前者自动记录/back，后者可以选择是否记录。  
     
 ## Event  
 

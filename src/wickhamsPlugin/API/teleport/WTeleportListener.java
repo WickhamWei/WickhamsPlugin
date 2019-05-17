@@ -1,5 +1,6 @@
 package wickhamsPlugin.API.teleport;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,8 @@ public class WTeleportListener implements Listener {
 	public void spawnStopOn(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		if (WTeleportMain.isInWaitingList(player)) {
+			Bukkit.getScheduler().cancelTask(WTeleportMain.getTeleportTaskID(player));
+			Bukkit.getScheduler().cancelTask(WTeleportMain.getCountDownTaskID(player));
 			WTeleportMain.removeFromWaitingList(player);
 			stopMoveMsg(player);
 		}

@@ -3,11 +3,15 @@ package wickhamsPlugin.API.chunk;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class WChunk extends WChunkMain {
-	@Override
-	public void chunkLoading(Location chunkLocation, int keepSecond) {//保持加载某区块指定的秒
+import wickhamsPlugin.WickhamsPlugin;
+
+public abstract class WChunk {
+	protected static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
+
+	public static void chunkLoading(Location chunkLocation, int keepSecond) {// 保持加载某区块指定的秒
 		chunkLocation.getChunk().load();
 		BukkitRunnable keepLoadingChunkBukkitRunnable = new BukkitRunnable() {
 			Location location = chunkLocation;
@@ -22,7 +26,7 @@ public class WChunk extends WChunkMain {
 				}
 			}
 		};
-		keepLoadingChunkBukkitRunnable.runTaskTimer(WICKHAMS_PLUGIN, 0, 0);//不间断执行加载
+		keepLoadingChunkBukkitRunnable.runTaskTimer(WICKHAMS_PLUGIN, 0, 0);// 不间断执行加载
 		int KLCBT_ID = keepLoadingChunkBukkitRunnable.getTaskId();
 		BukkitRunnable stopKeepLoadingChunk = new BukkitRunnable() {
 			int ID = KLCBT_ID;
@@ -32,6 +36,6 @@ public class WChunk extends WChunkMain {
 				Bukkit.getScheduler().cancelTask(ID);
 			}
 		};
-		stopKeepLoadingChunk.runTaskLater(WICKHAMS_PLUGIN, keepSecond * 20);//指定的秒数后停止
+		stopKeepLoadingChunk.runTaskLater(WICKHAMS_PLUGIN, keepSecond * 20);// 指定的秒数后停止
 	}
 }
