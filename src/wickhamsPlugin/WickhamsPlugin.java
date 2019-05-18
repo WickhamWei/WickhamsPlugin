@@ -11,6 +11,7 @@ import wickhamsPlugin.command.Spawn;
 import wickhamsPlugin.command.Tp;
 import wickhamsPlugin.command.TpAll;
 import wickhamsPlugin.command.gm;
+import wickhamsPlugin.eventListener.ExplosionPrimeEventListener;
 import wickhamsPlugin.eventListener.PlayerBedEnterEventListener;
 import wickhamsPlugin.eventListener.PlayerDeathEventListener;
 import wickhamsPlugin.eventListener.PlayerInteractEventListener;
@@ -81,6 +82,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		checkConfigurationSectionExist(mainConfiguration, "非OP传送等待时间（秒）");
 		checkConfigurationSectionExist(mainConfiguration, "tpa请求等待时间（秒）");
 		checkConfigurationSectionExist(mainConfiguration, "登录限制时间");
+		checkConfigurationSectionExist(mainConfiguration, "阻止jj怪爆炸破坏地形");
 		if (mainConfiguration.getBoolean("登陆系统")) {
 			LoginMain.createPlayerPasswordConfig();
 			LoginMain.copyOldPasswordFile();// ⑨的登录系统配置文件迁移、加密、删除
@@ -105,6 +107,9 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		if (mainConfiguration.getBoolean("登陆系统")) {
 			mainServer.getPluginManager().registerEvents(new LoginLimitListener(), this);
 		}
+		if (mainConfiguration.getBoolean("阻止jj怪爆炸破坏地形")) {
+			mainServer.getPluginManager().registerEvents(new ExplosionPrimeEventListener(), this);
+		}
 		mainServer.getPluginManager().registerEvents(this, this);
 		mainServer.getPluginManager().registerEvents(new PlayerBedEnterEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new PlayerJoinEventListener(mainConfiguration), this);
@@ -119,7 +124,9 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	}
 
 	public void loadRecipe() {// 读取新的合成表
-		mainServer.getPluginManager().registerEvents(new HugeRottenFlash(), this);
+		if (mainConfiguration.getBoolean("巨大腐肉")) {
+			mainServer.getPluginManager().registerEvents(new HugeRottenFlash(), this);
+		}
 	}
 
 	public static void checkConfigurationSectionExist(FileConfiguration configuration,
