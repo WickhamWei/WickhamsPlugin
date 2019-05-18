@@ -20,7 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import wickhamsPlugin.WickhamsPlugin;
 
 public abstract class LoginMain {
-	private static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
+	protected static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
 	private static File playerPasswordFile;
 	private static FileConfiguration playerPasswordConfig;
 	private static HashMap<String, Integer> keepPlayerLoginHashMap = new HashMap<String, Integer>();

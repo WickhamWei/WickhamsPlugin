@@ -24,11 +24,11 @@ public class WFurnaceRecipe extends WFurnaceRecipeMain implements Listener {
 			float experience, int cookingTimeSecond) {// 将物品合成表载入
 		sourceMaterial = sourceItemStack.getType();
 		this.sourceItemStack = sourceItemStack;
-		NamespacedKey key = new NamespacedKey(wickhamsPlugin, recipeKeyNameString + "_furnaceRecipe");
+		NamespacedKey key = new NamespacedKey(WICKHAMS_PLUGIN, recipeKeyNameString + "_furnaceRecipe");
 		FurnaceRecipe fRecipe = new FurnaceRecipe(key, result​ItemStack, sourceMaterial, experience,
 				cookingTimeSecond * 20);
 		Bukkit.addRecipe(fRecipe);
-		wickhamsPlugin.getServer().getPluginManager().registerEvents(this, wickhamsPlugin);
+		WICKHAMS_PLUGIN.getServer().getPluginManager().registerEvents(this, WICKHAMS_PLUGIN);
 	}
 
 	@EventHandler

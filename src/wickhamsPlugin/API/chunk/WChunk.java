@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import wickhamsPlugin.WickhamsPlugin;
 
 public abstract class WChunk {
-	protected static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
+	protected final static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
 
 	public static void chunkLoading(Location chunkLocation, int keepSecond) {// 保持加载某区块指定的秒
 		chunkLocation.getChunk().load();

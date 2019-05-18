@@ -30,11 +30,11 @@ public class LoginCommand implements CommandExecutor {
 								Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
 								if (!(wPlayerLoginEvent.isCancelled())) {
 									LoginMain.playerLogin(player);
-									player.sendMessage(ChatColor.GREEN + "登陆成功");
+									player.sendMessage(wPlayerLoginEvent.getLoginSuccessMsg());
 									if (LoginMain.joinMsgBoolean) {
 										player.sendMessage(ChatColor.GREEN + LoginMain.joinMsgString);
 									}
-									Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
+									Bukkit.broadcastMessage(wPlayerLoginEvent.getJoinMsg());
 									player.setGameMode(GameMode.SURVIVAL);
 									if (LoginMain.teleportPlayerAfterLogin((player))) {
 										player.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
@@ -54,13 +54,13 @@ public class LoginCommand implements CommandExecutor {
 								if (!(wPlayerRegisterEvent.isCancelled())) {
 									LoginMain.register(player, arg3[0]);
 									LoginMain.playerLogin(player);
-									player.sendMessage(ChatColor.GREEN + "注册成功，已登陆成功");
+									player.sendMessage(wPlayerRegisterEvent.getRegisterSuccessMsg());
 									player.setGameMode(GameMode.SURVIVAL);
 									if (LoginMain.joinMsgBoolean) {
 										player.sendMessage(
 												ChatColor.GREEN + LoginMain.joinMsgString);
 									}
-									Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
+									Bukkit.broadcastMessage(wPlayerRegisterEvent.getJoinMsg());
 								}
 								return true;
 							} else {

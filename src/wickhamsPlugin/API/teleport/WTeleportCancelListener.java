@@ -7,15 +7,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class WTeleportListener implements Listener {
+public class WTeleportCancelListener implements Listener {
 	@EventHandler
 	public void spawnStopOn(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		if (WTeleportMain.isInWaitingList(player)) {
-			Bukkit.getScheduler().cancelTask(WTeleportMain.getTeleportTaskID(player));
-			Bukkit.getScheduler().cancelTask(WTeleportMain.getCountDownTaskID(player));
-			WTeleportMain.removeFromWaitingList(player);
+		if (WTeleport.isInWaitingList(player)) {
+			Bukkit.getScheduler().cancelTask(WTeleport.getTeleportTaskID(player));
+			Bukkit.getScheduler().cancelTask(WTeleport.getCountDownTaskID(player));
+			WTeleport.removeFromWaitingList(player);
 			stopMoveMsg(player);
+		}else {
+			return;
 		}
 	}
 

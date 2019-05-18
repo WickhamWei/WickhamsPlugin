@@ -2,7 +2,7 @@ package wickhamsPlugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import wickhamsPlugin.API.teleport.WTeleportListener;
+import wickhamsPlugin.API.teleport.WTeleportCancelListener;
 import wickhamsPlugin.backSystem.BackCommand;
 import wickhamsPlugin.command.Hello;
 import wickhamsPlugin.command.Home;
@@ -11,6 +11,7 @@ import wickhamsPlugin.command.Spawn;
 import wickhamsPlugin.command.Tp;
 import wickhamsPlugin.command.TpAll;
 import wickhamsPlugin.command.gm;
+import wickhamsPlugin.eventListener.PlayerBedEnterEventListener;
 import wickhamsPlugin.eventListener.PlayerDeathEventListener;
 import wickhamsPlugin.eventListener.PlayerInteractEventListener;
 import wickhamsPlugin.eventListener.PlayerJoinEventListener;
@@ -79,6 +80,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		checkConfigurationSectionExist(mainConfiguration, "保护耕地不被踩坏");
 		checkConfigurationSectionExist(mainConfiguration, "非OP传送等待时间（秒）");
 		checkConfigurationSectionExist(mainConfiguration, "tpa请求等待时间（秒）");
+		checkConfigurationSectionExist(mainConfiguration, "登录限制时间");
 		if (mainConfiguration.getBoolean("登陆系统")) {
 			LoginMain.createPlayerPasswordConfig();
 			LoginMain.copyOldPasswordFile();// ⑨的登录系统配置文件迁移、加密、删除
@@ -104,11 +106,12 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 			mainServer.getPluginManager().registerEvents(new LoginLimitListener(), this);
 		}
 		mainServer.getPluginManager().registerEvents(this, this);
+		mainServer.getPluginManager().registerEvents(new PlayerBedEnterEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new PlayerJoinEventListener(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new PlayerQuitEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new PlayerInteractEventListener(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new ServerLoadEventListener(), this);
-		mainServer.getPluginManager().registerEvents(new WTeleportListener(), this);
+		mainServer.getPluginManager().registerEvents(new WTeleportCancelListener(), this);
 		mainServer.getPluginManager().registerEvents(new PlayerDeathEventListener(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new PlayerLevelChangeEventListener(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerLoginEventListener(), this);
@@ -122,6 +125,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	public static void checkConfigurationSectionExist(FileConfiguration configuration,
 			String configurationSectionString) {// 检查配置项
 		if (configuration.contains(configurationSectionString)) {
+//			WickhamsPlugin.MAIN.getLogger().log(Level.INFO,configurationSectionString+" done");
 			return;
 		} else {
 			WickhamsPlugin.MAIN.getLogger().log(Level.WARNING,

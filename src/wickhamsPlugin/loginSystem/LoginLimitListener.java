@@ -15,8 +15,6 @@ import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerEditBookEvent;
-import org.bukkit.event.player.PlayerEggThrowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -39,6 +37,7 @@ public class LoginLimitListener implements Listener {
 		player.teleport(player.getWorld().getSpawnLocation());
 		if (!LoginMain.isKeepPlayerLogin(player)) {
 			LoginMain.newPlayer(player);
+			LoginTimeLimit.loginTimeLimit(player);
 			if (LoginMain.isRegister(event.getPlayer().getName()))
 				noLogin(event.getPlayer());
 			else
@@ -49,7 +48,7 @@ public class LoginLimitListener implements Listener {
 			Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
 			if (!(wPlayerLoginEvent.isCancelled())) {
 				player.sendMessage(ChatColor.GREEN + "已自动为你登录，欢迎回来");
-				Bukkit.broadcastMessage(ChatColor.GREEN + player.getName() + " 加入了游戏");
+				Bukkit.broadcastMessage(wPlayerLoginEvent.getJoinMsg());
 				player.setGameMode(GameMode.SURVIVAL);
 				if (LoginMain.teleportPlayerAfterLogin((player))) {
 					player.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
@@ -173,31 +172,6 @@ public class LoginLimitListener implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void stop(PlayerEditBookEvent event) {
-		if (LoginMain.isLogin(event.getPlayer().getName())) {
-			return;
-		} else if (!LoginMain.isRegister(event.getPlayer().getName())) {
-			noRegister(event.getPlayer());
-			event.setCancelled(true);
-		} else {
-			noLogin(event.getPlayer());
-			event.setCancelled(true);
-		}
-	}
-
-	@EventHandler
-	public void stop(PlayerEggThrowEvent event) {
-		if (LoginMain.isLogin(event.getPlayer().getName())) {
-			return;
-		} else if (!LoginMain.isRegister(event.getPlayer().getName())) {
-			noRegister(event.getPlayer());
-			event.setHatching(false);
-		} else {
-			noLogin(event.getPlayer());
-			event.setHatching(false);
-		}
-	}
 
 	@EventHandler
 	public void stop(PlayerInteractEvent event) {

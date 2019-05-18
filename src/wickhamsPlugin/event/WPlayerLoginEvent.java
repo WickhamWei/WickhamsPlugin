@@ -1,5 +1,6 @@
 package wickhamsPlugin.event;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -8,10 +9,14 @@ public class WPlayerLoginEvent extends Event {
 
 	private final Player player;
 	private boolean isCancelled;
+	private String joinMsgString;
+	private String loginSuccessMsgString;
 
 	public WPlayerLoginEvent(Player player) {
 		this.player = player;
 		this.isCancelled = false;
+		this.joinMsgString = ChatColor.GREEN + player.getName() + " 加入了游戏";
+		this.loginSuccessMsgString = ChatColor.GREEN + "登陆成功";
 	}
 
 	public Player getPlayer() {
@@ -24,6 +29,22 @@ public class WPlayerLoginEvent extends Event {
 
 	public void setCancelled(boolean isCancelled) {
 		this.isCancelled = isCancelled;
+	}
+	
+	public String getJoinMsg() {
+		return joinMsgString;
+	}
+	
+	public void setJoinMsg(String joinMsgString) {
+		this.joinMsgString=joinMsgString;
+	}
+	
+	public String getLoginSuccessMsg() {
+		return loginSuccessMsgString;
+	}
+	
+	public void setLoginSuccessMsg(String loginSuccessMsgString) {
+		this.loginSuccessMsgString=loginSuccessMsgString;
 	}
 
 	// This seems like all you need to do at a first glance, but after running your
