@@ -14,9 +14,12 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.FurnaceInventory;
 import org.bukkit.inventory.FurnaceRecipe;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 
-public class WFurnaceRecipe extends WFurnaceRecipeMain implements Listener {
+import wickhamsPlugin.WickhamsPlugin;
 
+public class WFurnaceRecipe implements Listener {
+	protected final static Plugin WICKHAMS_PLUGIN=WickhamsPlugin.MAIN;
 	private ItemStack sourceItemStack;
 	private Material sourceMaterial;
 

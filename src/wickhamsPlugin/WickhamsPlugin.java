@@ -11,7 +11,7 @@ import wickhamsPlugin.command.Spawn;
 import wickhamsPlugin.command.Tp;
 import wickhamsPlugin.command.TpAll;
 import wickhamsPlugin.command.gm;
-import wickhamsPlugin.eventListener.ExplosionPrimeEventListener;
+import wickhamsPlugin.eventListener.EntityExplodeEventListener;
 import wickhamsPlugin.eventListener.PlayerBedEnterEventListener;
 import wickhamsPlugin.eventListener.PlayerDeathEventListener;
 import wickhamsPlugin.eventListener.PlayerInteractEventListener;
@@ -108,7 +108,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 			mainServer.getPluginManager().registerEvents(new LoginLimitListener(), this);
 		}
 		if (mainConfiguration.getBoolean("阻止jj怪爆炸破坏地形")) {
-			mainServer.getPluginManager().registerEvents(new ExplosionPrimeEventListener(), this);
+			mainServer.getPluginManager().registerEvents(new EntityExplodeEventListener(), this);
 		}
 		mainServer.getPluginManager().registerEvents(this, this);
 		mainServer.getPluginManager().registerEvents(new PlayerBedEnterEventListener(), this);

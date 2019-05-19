@@ -27,7 +27,7 @@ public class gm implements CommandExecutor {
 			String gamemode = dataStrings[0];
 			if (targePlayer == null) {
 				playerDoesntOnline(sender);
-				return true;
+				return false;
 			}
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
