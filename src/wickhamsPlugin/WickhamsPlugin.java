@@ -2,6 +2,7 @@ package wickhamsPlugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import wickhamsPlugin.API.shapedRecipe.TestWay;
 import wickhamsPlugin.API.teleport.WTeleportCancelListener;
 import wickhamsPlugin.backSystem.BackCommand;
 import wickhamsPlugin.command.Hello;
@@ -121,6 +122,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		mainServer.getPluginManager().registerEvents(new PlayerLevelChangeEventListener(mainConfiguration), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerLoginEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerRegisterEventListener(), this);
+		mainServer.getPluginManager().registerEvents(new TestWay(), this);
 	}
 
 	public void loadRecipe() {// 读取新的合成表

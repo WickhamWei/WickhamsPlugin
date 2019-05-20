@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import wickhamsPlugin.WickhamsPlugin;
 import wickhamsPlugin.API.furnaceRecipe.WFurnaceRecipe;
+import wickhamsPlugin.API.shapedRecipe.Test;
 
 public class HugeRottenFlash implements Listener {
 
@@ -29,6 +30,9 @@ public class HugeRottenFlash implements Listener {
 		Bukkit.addRecipe(recipe);
 		new WFurnaceRecipe().furnaveRecipe("huge_rotten_flash_to_leather", hugeRottenFlash,
 				new ItemStack(Material.LEATHER), 20, 10);
+		Test test=new Test(new ItemStack(Material.DIAMOND));
+		test.shape(2, hugeRottenFlash);
+		test.addRecipeToServer();
 	}
 
 	/*
