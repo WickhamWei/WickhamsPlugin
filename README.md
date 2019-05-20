@@ -34,20 +34,17 @@
   前者自动记录/back，后者可以选择是否记录。  
     
   4. shapedRecipe  
-   WShapedRecipe(NamespacedKey recipeNamespacedKey,ItemStack itemResult,Boolean loadingAtServerLoadBoolean)  
-   loadingAtServerLoadBoolean为真，将在ServerLoadEvent内注册Recipe。为假则立刻注册Recipe。  
- 将ItemStark作为shapedRecipe的recipeSource，例如  
+   自定义合成表，将ItemStark作为ShapedRecipe的RecipeSource  
+   举例：  将巨大的腐肉放在合成台第二格，将生成钻石。
   
-> WShapedRecipe testRecipe=new WShapedRecipe(new NamespacedKey(WickhamsPlugin.MAIN, "test"), new ItemStack(Material.DIAMOND_SWORD),false);  
-testRecipe.shape("BAB", "BBB", "BBB");  ##如有空，不要忽略任何一个空格 ，或者指定B为Material.AIR   
- testRecipe.shape2(2, hugeRottenFlash);  ##指定shape的具体物品，类似合成表，排序方式为   
- 123  
- 456  
- 789  
- testRecipe.setIngredient('A', hugeRottenFlash);  
- testRecipe.addRecipe();  
-   
-*上述代码将九个巨大的腐肉合成一个钻石剑 * 
+> WShapedRecipe test=new WShapedRecipe(new ItemStack(Material.DIAMOND));  
+		test.shape(2, hugeRottenFlash);  
+		合成表格子所对应的数字  
+		123  
+		456  
+		789  
+		test.addRecipeToServer();  
+		
    
 ## Event  
 
