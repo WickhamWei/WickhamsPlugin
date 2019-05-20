@@ -27,17 +27,21 @@ public class WShapedRecipeListener implements Listener {
 		ItemStack itemResult;//存储合成结果为空
 		for (ItemStack[] contents : allRecipe) {//遍历所有自定义配方
 			if (getItemStacks.length!=contents.length) {//检查合成表大小
-				return;
+				continue;
 			}
 			itemResult = contents[0];//设置目的产物
+			boolean pass=true;
 			for (int i = 1; i < getItemStacks.length; i++) {//检查每个格子
 				if (!(getItemStacks[i].isSimilar(contents[i])
 						|| (getItemStacks[i].getType() == Material.AIR && contents[i] == null))) {
-					return;//不正确直接返回
+					pass=false;
+					break;//不正确直接返回
 				}
 			}
-			event.getInventory().setResult(itemResult);//正确时设置目的产物后返回
-			return;
+			if(pass) {
+				event.getInventory().setResult(itemResult);//正确时设置目的产物后返回
+				return;
+			}
 		}
 	}
 }
