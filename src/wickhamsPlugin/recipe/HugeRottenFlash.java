@@ -29,9 +29,6 @@ public class HugeRottenFlash implements Listener {
 		Bukkit.addRecipe(recipe);
 		new WFurnaceRecipe().furnaveRecipe("huge_rotten_flash_to_leather", hugeRottenFlash,
 				new ItemStack(Material.LEATHER), 20, 10);
-		new 基础铁碎片();
-		new 基础木柄();
-		new 破损的铁剑();
 	}
 
 	/*

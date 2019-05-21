@@ -15,20 +15,21 @@ import org.bukkit.plugin.Plugin;
 
 import wickhamsPlugin.WickhamsPlugin;
 
-public class 基础铁碎片 {
+public class JiChuTieSuiPian {
 	public final static Plugin WICKHAMS_PLUGIN=WickhamsPlugin.MAIN;
 	public static ItemStack itemStack;
-	public 基础铁碎片() {
-		ItemStack itemStack=new ItemStack(Material.IRON_NUGGET);
+	public JiChuTieSuiPian() {
+		itemStack=new ItemStack(Material.IRON_NUGGET);
 		ItemMeta meta = itemStack.getItemMeta();
 		meta.setDisplayName(ChatColor.RESET+"基础铁碎片");
 		meta.addEnchant(Enchantment.DURABILITY, 1, false);
 		List<String> lore=new ArrayList<>();
+		lore.add(ChatColor.WHITE+" ");
 		lore.add(ChatColor.WHITE+"合成武器的常见材料");
 		lore.add(ChatColor.RESET+"稀有度： "+ChatColor.WHITE+"普通");
 		meta.setLore(lore);
 		itemStack.setItemMeta(meta);
-		ShapelessRecipe recipe=new ShapelessRecipe(new NamespacedKey(WICKHAMS_PLUGIN, "nomal_iron_nugget"),itemStack);
+		ShapelessRecipe recipe=new ShapelessRecipe(new NamespacedKey(WICKHAMS_PLUGIN, "JiChuTieSuiPian"),itemStack);
 		recipe.addIngredient(8,Material.IRON_NUGGET);
 		Bukkit.addRecipe(recipe);
 	}

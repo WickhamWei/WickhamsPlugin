@@ -15,20 +15,21 @@ import org.bukkit.plugin.Plugin;
 
 import wickhamsPlugin.WickhamsPlugin;
 
-public class 基础木柄 {
+public class JiChuMuBin {
 	public final static Plugin WICKHAMS_PLUGIN=WickhamsPlugin.MAIN;
 	public static ItemStack itemStack;
-	public 基础木柄() {
-		ItemStack itemStack=new ItemStack(Material.STICK);
+	public JiChuMuBin() {
+		itemStack=new ItemStack(Material.STICK);
 		ItemMeta meta = itemStack.getItemMeta();
 		meta.setDisplayName(ChatColor.RESET+"基础木柄");
 		meta.addEnchant(Enchantment.DURABILITY, 1, false);
 		List<String> lore=new ArrayList<>();
+		lore.add(ChatColor.WHITE+" ");
 		lore.add(ChatColor.WHITE+"合成武器的常见材料");
 		lore.add(ChatColor.RESET+"稀有度： "+ChatColor.WHITE+"普通");
 		meta.setLore(lore);
 		itemStack.setItemMeta(meta);
-		ShapedRecipe recipe=new ShapedRecipe(new NamespacedKey(WICKHAMS_PLUGIN, "nomal_iron_nugget"),itemStack);
+		ShapedRecipe recipe=new ShapedRecipe(new NamespacedKey(WICKHAMS_PLUGIN, "JiChuMuBin"),itemStack);
 		recipe.shape(" A "," A "," A ");
 		recipe.setIngredient('A', Material.STICK);
 		Bukkit.addRecipe(recipe);

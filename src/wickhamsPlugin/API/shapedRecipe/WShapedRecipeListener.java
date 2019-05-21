@@ -23,8 +23,10 @@ public class WShapedRecipeListener implements Listener {
 		if (allRecipe.isEmpty()) {
 			return;
 		}
+		
 		ItemStack[] getItemStacks = event.getInventory().getContents();//获取玩家合成台上的物品
 		ItemStack itemResult;//存储合成结果为空
+		
 		for (ItemStack[] contents : allRecipe) {//遍历所有自定义配方
 			if (getItemStacks.length!=contents.length) {//检查合成表大小
 				continue;
@@ -32,8 +34,9 @@ public class WShapedRecipeListener implements Listener {
 			itemResult = contents[0];//设置目的产物
 			boolean pass=true;
 			for (int i = 1; i < getItemStacks.length; i++) {//检查每个格子
-				if (!(getItemStacks[i].isSimilar(contents[i])
-						|| (getItemStacks[i].getType() == Material.AIR && contents[i] == null))) {
+				if (getItemStacks[i].isSimilar(contents[i]) || (getItemStacks[i].getType() == Material.AIR && contents[i] == null)) {
+					;
+				}else {
 					pass=false;
 					break;//不正确直接返回
 				}
