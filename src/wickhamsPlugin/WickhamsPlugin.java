@@ -27,6 +27,7 @@ import wickhamsPlugin.loginSystem.LoginLimitListener;
 import wickhamsPlugin.loginSystem.LoginMain;
 import wickhamsPlugin.recipe.HugeRottenFlash;
 import wickhamsPlugin.recipe.LoadingAllRecipeListener;
+import wickhamsPlugin.recipe.WeaponLevelLimitListener;
 import wickhamsPlugin.tpASystem.TpACommand;
 import wickhamsPlugin.tpASystem.TpACommandYes;
 
@@ -125,6 +126,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		mainServer.getPluginManager().registerEvents(new WPlayerRegisterEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new WShapedRecipeListener(), this);
 		mainServer.getPluginManager().registerEvents(new LoadingAllRecipeListener(), this);
+		mainServer.getPluginManager().registerEvents(new WeaponLevelLimitListener(), this);
 	}
 
 	public void loadRecipe() {// 读取新的合成表

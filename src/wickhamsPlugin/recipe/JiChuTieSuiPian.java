@@ -26,7 +26,7 @@ public class JiChuTieSuiPian {
 		List<String> lore=new ArrayList<>();
 		lore.add(ChatColor.WHITE+" ");
 		lore.add(ChatColor.WHITE+"合成武器的常见材料");
-		lore.add(ChatColor.RESET+"稀有度： "+ChatColor.WHITE+"普通");
+		lore.add(ChatColor.RESET+"稀有度："+ChatColor.WHITE+"普通");
 		meta.setLore(lore);
 		itemStack.setItemMeta(meta);
 		ShapelessRecipe recipe=new ShapelessRecipe(new NamespacedKey(WICKHAMS_PLUGIN, "JiChuTieSuiPian"),itemStack);
