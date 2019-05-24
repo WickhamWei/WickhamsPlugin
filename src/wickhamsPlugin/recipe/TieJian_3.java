@@ -32,15 +32,17 @@ public class TieJian_3 {
 		List<String> lore = new ArrayList<>();
 		lore.add(ChatColor.RESET + " ");
 		lore.add(ChatColor.RESET + "稀有度：" + ChatColor.WHITE + "普通");
-		lore.add(ChatColor.RESET + "所需等级：14");
-		level = 14;
+		lore.add(ChatColor.RESET + "所需等级：15");
+		level = 15;
 		lore.add(ChatColor.RESET + "绑定：自由交易");
 		lore.add(ChatColor.RESET+ "最大耐久：350");
+		lore.add(ChatColor.RESET+ "基础伤害：7");
+		lore.add(ChatColor.RESET+ "基础攻速：0.625");
 		lore.add(ChatColor.YELLOW + "" + ChatColor.ITALIC + "再破旧的剑， 也可以在火炉里得到重生。 --辛达");
 		meta.setLore(lore);
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.06,
+		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.15,
 				AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(1, 2), "2", 1.1,
+		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(1, 2), "2", 1.5,
 				AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 		if (meta instanceof Damageable) {
 			((Damageable) meta).setDamage(350);

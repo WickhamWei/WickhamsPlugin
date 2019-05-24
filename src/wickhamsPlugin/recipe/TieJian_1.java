@@ -36,11 +36,13 @@ public class TieJian_1 {
 		level = 1;
 		lore.add(ChatColor.RESET + "绑定：自由交易");
 		lore.add(ChatColor.RESET+ "最大耐久：350");
+		lore.add(ChatColor.RESET+ "基础伤害：7");
+		lore.add(ChatColor.RESET+ "基础攻速：0.625");
 		lore.add(ChatColor.YELLOW + "" + ChatColor.ITALIC + "喂！ 不要磨蹭了， 让我帮你修理吧。 --林纳斯");
 		meta.setLore(lore);
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.02,
+		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.05,
 				AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(1, 2), "2", 0.17,
+		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(1, 2), "2", 0.5,
 				AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 		if (meta instanceof Damageable) {
 			((Damageable) meta).setDamage(350);

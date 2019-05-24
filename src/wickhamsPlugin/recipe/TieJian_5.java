@@ -24,7 +24,7 @@ public class TieJian_5 {
 	public static int level;
 
 	public TieJian_5() {
-		itemStack = new ItemStack(Material.GOLDEN_SWORD);
+		itemStack = new ItemStack(Material.IRON_SWORD);
 		ItemMeta meta = itemStack.getItemMeta();
 
 		meta.setDisplayName(ChatColor.RESET + "劣质的钛剑");
@@ -32,14 +32,16 @@ public class TieJian_5 {
 		List<String> lore = new ArrayList<>();
 		lore.add(ChatColor.RESET + " ");
 		lore.add(ChatColor.RESET + "稀有度：" + ChatColor.WHITE + "普通");
-		lore.add(ChatColor.RESET + "所需等级：40");
+		lore.add(ChatColor.RESET + ""+ChatColor.LIGHT_PURPLE+"所需等级：40");
 		level = 40;
 		lore.add(ChatColor.RESET + "绑定：自由交易");
 		lore.add(ChatColor.RESET+ "最大耐久：350");
+		lore.add(ChatColor.RESET+ "基础伤害：7");
+		lore.add(ChatColor.RESET+ "基础攻速：0.625");
 		meta.setLore(lore);
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.1,
+		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.25,
 				AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(1, 2), "2", 3.08,
+		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(1, 2), "2", 3,
 				AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 		if (meta instanceof Damageable) {
 			((Damageable) meta).setDamage(350);

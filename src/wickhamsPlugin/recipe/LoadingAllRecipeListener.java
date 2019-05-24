@@ -21,7 +21,6 @@ public class LoadingAllRecipeListener implements Listener {
 		new TieJian_4();
 		new TieJian_5();
 		new TieJian_6();
-		new TieJian_7();
 		addInWeaponList();
 	}
 
@@ -30,5 +29,8 @@ public class LoadingAllRecipeListener implements Listener {
 		allWeaponAndLevel.put(TieJian_2.getItemStack(), TieJian_2.level);
 		allWeaponAndLevel.put(TieJian_3.getItemStack(), TieJian_3.level);
 		allWeaponAndLevel.put(TieJian_4.getItemStack(), TieJian_4.level);
+		allWeaponAndLevel.put(TieJian_5.getItemStack(), TieJian_5.level);
+		allWeaponAndLevel.put(TieJian_6.getItemStack(), TieJian_6.level);
+		
 	}
 }

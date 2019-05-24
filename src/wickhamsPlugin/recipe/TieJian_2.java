@@ -32,15 +32,17 @@ public class TieJian_2 {
 		List<String> lore = new ArrayList<>();
 		lore.add(ChatColor.RESET + " ");
 		lore.add(ChatColor.RESET + "稀有度：" + ChatColor.WHITE + "普通");
-		lore.add(ChatColor.RESET + "所需等级：3");
+		lore.add(ChatColor.RESET + "所需等级：5");
 		level = 3;
 		lore.add(ChatColor.RESET + "绑定：自由交易");
 		lore.add(ChatColor.RESET+ "最大耐久：350");
+		lore.add(ChatColor.RESET+ "基础伤害：7");
+		lore.add(ChatColor.RESET+ "基础攻速：0.625");
 		lore.add(ChatColor.YELLOW + "" + ChatColor.ITALIC + "啧啧， 生锈成这样， 怎么砍人？");
 		meta.setLore(lore);
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.04,
+		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.1,
 				AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));
-		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(1, 2), "2", 0.27,
+		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(new UUID(1, 2), "2", 1,
 				AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 		if (meta instanceof Damageable) {
 			((Damageable) meta).setDamage(350);
