@@ -8,6 +8,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import wickhamsPlugin.loginSystem.LoginMain;
+
 public class gm implements CommandExecutor {
 
 	@Override
@@ -25,7 +27,7 @@ public class gm implements CommandExecutor {
 		} else if (dataStrings.length == 2) {
 			Player targePlayer = Bukkit.getPlayer(dataStrings[1]);
 			String gamemode = dataStrings[0];
-			if (targePlayer == null) {
+			if (targePlayer == null||!LoginMain.isLogin(targePlayer)) {
 				playerDoesntOnline(sender);
 				return false;
 			}

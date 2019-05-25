@@ -19,13 +19,13 @@ public class JiChuMuBin {
 	public final static Plugin WICKHAMS_PLUGIN=WickhamsPlugin.MAIN;
 	public static ItemStack itemStack;
 	public JiChuMuBin() {
-		itemStack=new ItemStack(Material.STICK);
+		itemStack=new ItemStack(Material.STICK,1);
 		ItemMeta meta = itemStack.getItemMeta();
 		meta.setDisplayName(ChatColor.RESET+"基础木柄");
 		meta.addEnchant(Enchantment.DURABILITY, 1, false);
 		List<String> lore=new ArrayList<>();
 		lore.add(ChatColor.WHITE+" ");
-		lore.add(ChatColor.WHITE+"合成武器的常见材料");
+		lore.add(ChatColor.YELLOW+"普通级/强化级稀有度武器的基本材料");
 		lore.add(ChatColor.RESET+"稀有度："+ChatColor.WHITE+"普通");
 		meta.setLore(lore);
 		itemStack.setItemMeta(meta);
