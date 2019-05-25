@@ -14,6 +14,7 @@ import wickhamsPlugin.recipe.强化.TieJian_32;
 import wickhamsPlugin.recipe.强化.TieJian_42;
 import wickhamsPlugin.recipe.强化.TieJian_52;
 import wickhamsPlugin.recipe.强化.TieJian_62;
+import wickhamsPlugin.recipe.普通.JiChuMuBin;
 import wickhamsPlugin.recipe.普通.JiChuTieSuiPian;
 import wickhamsPlugin.recipe.普通.TieJian_1;
 import wickhamsPlugin.recipe.普通.TieJian_2;

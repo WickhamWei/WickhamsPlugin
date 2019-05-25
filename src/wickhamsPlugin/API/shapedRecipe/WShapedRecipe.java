@@ -15,6 +15,7 @@ public class WShapedRecipe {
 			return;
 		}
 		contentsItemStacks[InventoryNumber]=item;
+		WShapedRecipeListener.allSourceHashSet.add(item);
 	}
 	
 	public void addRecipeToServer() {

@@ -12,7 +12,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import wickhamsPlugin.API.shapedRecipe.WShapedRecipe;
-import wickhamsPlugin.recipe.JiChuMuBin;
 
 public class TieJian_6 {
 

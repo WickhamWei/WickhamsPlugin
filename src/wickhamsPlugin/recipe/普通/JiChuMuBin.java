@@ -1,4 +1,4 @@
-package wickhamsPlugin.recipe;
+package wickhamsPlugin.recipe.普通;
 
 import java.util.ArrayList;
 import java.util.List;
