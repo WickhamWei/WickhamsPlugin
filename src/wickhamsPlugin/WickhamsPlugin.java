@@ -25,10 +25,10 @@ import wickhamsPlugin.eventListener.WPlayerRegisterEventListener;
 import wickhamsPlugin.loginSystem.LoginCommand;
 import wickhamsPlugin.loginSystem.LoginLimitListener;
 import wickhamsPlugin.loginSystem.LoginMain;
-import wickhamsPlugin.recipe.EntityDeathEventListener;
 import wickhamsPlugin.recipe.HugeRottenFlash;
-import wickhamsPlugin.recipe.LoadingAllRecipeListener;
-import wickhamsPlugin.recipe.WeaponLevelLimitListener;
+import wickhamsPlugin.recipe.DNFWeapons.WDNFEntityDropItemListener;
+import wickhamsPlugin.recipe.DNFWeapons.WDNFLoadingAllRecipeListener;
+import wickhamsPlugin.recipe.DNFWeapons.WDNFWeaponLevelLimitListener;
 import wickhamsPlugin.tpASystem.TpACommand;
 import wickhamsPlugin.tpASystem.TpACommandYes;
 
@@ -87,6 +87,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		checkConfigurationSectionExist(mainConfiguration, "tpa请求等待时间（秒）");
 		checkConfigurationSectionExist(mainConfiguration, "登录限制时间");
 		checkConfigurationSectionExist(mainConfiguration, "阻止jj怪爆炸破坏地形");
+		checkConfigurationSectionExist(mainConfiguration, "仿DNF武器功能");
 		if (mainConfiguration.getBoolean("登陆系统")) {
 			LoginMain.createPlayerPasswordConfig();
 			LoginMain.copyOldPasswordFile();// ⑨的登录系统配置文件迁移、加密、删除
@@ -126,9 +127,12 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		mainServer.getPluginManager().registerEvents(new WPlayerLoginEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerRegisterEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new WShapedRecipeListener(), this);
-		mainServer.getPluginManager().registerEvents(new LoadingAllRecipeListener(), this);
-		mainServer.getPluginManager().registerEvents(new WeaponLevelLimitListener(), this);
-		mainServer.getPluginManager().registerEvents(new EntityDeathEventListener(), this);
+
+		if (mainConfiguration.getBoolean("仿DNF武器功能")) {
+			mainServer.getPluginManager().registerEvents(new WDNFLoadingAllRecipeListener(), this);
+			mainServer.getPluginManager().registerEvents(new WDNFWeaponLevelLimitListener(), this);
+			mainServer.getPluginManager().registerEvents(new WDNFEntityDropItemListener(), this);
+		}
 	}
 
 	public void loadRecipe() {// 读取新的合成表

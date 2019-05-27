@@ -1,4 +1,4 @@
-package wickhamsPlugin.recipe.强化;
+package wickhamsPlugin.recipe.DNFWeapons.strengthen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import wickhamsPlugin.API.shapedRecipe.WShapedRecipe;
-import wickhamsPlugin.recipe.普通.JiChuMuBin;
+import wickhamsPlugin.recipe.DNFWeapons.normal.JiChuMuBin;
 
 public class TieJian_42 {
 
@@ -33,6 +33,10 @@ public class TieJian_42 {
 		lore.add(ChatColor.RESET + "绑定：自由交易");
 		lore.add(ChatColor.RESET+ "基础伤害：7");
 		lore.add(ChatColor.RESET+ "基础攻速：0.625");
+		lore.add(ChatColor.GREEN +"可以合成");
+		lore.add(ChatColor.GREEN +"不可以升级稀有度");
+		lore.add(ChatColor.GREEN +"可以强化");
+		lore.add(ChatColor.RED +"不可升星");
 		meta.setLore(lore);
 		meta.addAttributeModifier(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(new UUID(1, 1), "1", 0.25,
 				AttributeModifier.Operation.ADD_SCALAR, EquipmentSlot.HAND));

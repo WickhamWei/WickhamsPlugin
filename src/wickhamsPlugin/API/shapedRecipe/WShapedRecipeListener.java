@@ -1,9 +1,7 @@
 package wickhamsPlugin.API.shapedRecipe;
 
 import java.util.HashSet;
-import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,7 +41,6 @@ public class WShapedRecipeListener implements Listener {
 						|| (getItemStacks[i].getType() == Material.AIR && contents[i] == null)) {
 					;
 				} else {
-					Bukkit.getLogger().log(Level.INFO, "" + i + contents[0].getItemMeta().getDisplayName());
 					pass = false;
 					break;// 不正确直接返回
 				}
@@ -67,7 +64,6 @@ public class WShapedRecipeListener implements Listener {
 								event.setCancelled(true);
 							}
 						}
-
 					}
 				}
 			}

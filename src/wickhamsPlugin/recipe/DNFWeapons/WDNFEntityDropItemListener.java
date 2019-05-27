@@ -1,4 +1,4 @@
-package wickhamsPlugin.recipe;
+package wickhamsPlugin.recipe.DNFWeapons;
 
 import java.util.Random;
 
@@ -7,10 +7,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
-import wickhamsPlugin.recipe.强化.JiChuTongSuiPian;
-import wickhamsPlugin.recipe.普通.JiChuTieSuiPian;
+import wickhamsPlugin.recipe.DNFWeapons.normal.JiChuTieSuiPian;
+import wickhamsPlugin.recipe.DNFWeapons.strengthen.JiChuTongSuiPian;
 
-public class EntityDeathEventListener implements Listener {
+public class WDNFEntityDropItemListener implements Listener {
 
 	@EventHandler
 	public void zDeath(EntityDeathEvent event) {

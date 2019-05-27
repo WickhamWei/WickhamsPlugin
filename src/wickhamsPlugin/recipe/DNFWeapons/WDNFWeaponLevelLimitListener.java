@@ -1,4 +1,4 @@
-package wickhamsPlugin.recipe;
+package wickhamsPlugin.recipe.DNFWeapons;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -7,10 +7,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class WeaponLevelLimitListener implements Listener{
+public class WDNFWeaponLevelLimitListener implements Listener{
 	@EventHandler
 	public void levelLimit(PlayerMoveEvent event) {
-		if(LoadingAllRecipeListener.allWeaponAndLevel.isEmpty()) {
+		if(WDNFLoadingAllRecipeListener.allWeaponAndLevel.isEmpty()) {
 			return;
 		}
 		Player player=event.getPlayer();
@@ -18,8 +18,8 @@ public class WeaponLevelLimitListener implements Listener{
 			return;
 		}else {
 			ItemStack itemInLeftHandItemStack=player.getInventory().getItemInMainHand();
-			if(LoadingAllRecipeListener.allWeaponAndLevel.get(itemInLeftHandItemStack) != null) {
-				int level=LoadingAllRecipeListener.allWeaponAndLevel.get(itemInLeftHandItemStack);
+			if(WDNFLoadingAllRecipeListener.allWeaponAndLevel.get(itemInLeftHandItemStack) != null) {
+				int level=WDNFLoadingAllRecipeListener.allWeaponAndLevel.get(itemInLeftHandItemStack);
 				if(player.getLevel()<level) {
 					player.sendMessage(ChatColor.RED+"你装备了超出你等级的道具");
 					event.setCancelled(true);
