@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import wickhamsPlugin.WickhamsPluginUpdateChecker;
 import wickhamsPlugin.WickhamsPlugin;
@@ -69,8 +70,14 @@ public class ServerLoadEventListener implements Listener {
 
 	@EventHandler
 	public void pluginMsg(ServerLoadEvent event) {
-		WickhamsPlugin.MAIN.getLogger()
-				.info("WickhamsPlugin 加载完成，版本 V" + mainPlugin.getDescription().getVersion());
-		WickhamsPluginUpdateChecker.UpdateChecker();
+		BukkitRunnable checkUpdateBukkitRunnable=new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				// TODO 自动生成的方法存根
+				WickhamsPluginUpdateChecker.UpdateChecker();
+			}
+		};
+		checkUpdateBukkitRunnable.runTask(mainPlugin);
 	}
 }
