@@ -25,8 +25,9 @@ public abstract class LoginMain {
 	private static FileConfiguration playerPasswordConfig;
 	private static HashMap<String, Integer> keepPlayerLoginHashMap = new HashMap<String, Integer>();
 	private static int loginKeepTime;
+	private static HashMap<String, Integer> loginTimesHashMap = new HashMap<String, Integer>();
 	protected static boolean joinMsgBoolean = WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关");
-	protected static String joinMsgString=WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息");
+	protected static String joinMsgString = WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息");
 
 	public static void createPlayerPasswordConfig() {
 		playerPasswordFile = new File(WICKHAMS_PLUGIN.getDataFolder(), "playerPassword.yml");
@@ -226,15 +227,15 @@ public abstract class LoginMain {
 		playerPasswordConfig.set("playerIP.playerName." + player.getName(), encryptPassword(IPString));
 		savePlayerPasswordConfig();
 	}
-	
+
 	public static boolean hasPlayerIPAddressInConfig(Player player) {
 		return playerPasswordConfig.contains("playerIP.playerName." + player.getName());
 	}
-	
+
 	private static String getPlayerIPAddress(Player player) {
 		return player.getAddress().getAddress().getHostAddress();
 	}
-	
+
 	public static boolean isKeepPlayerLogin(Player player) {
 		if (!keepPlayerLoginHashMap.containsKey(player.getName())) {
 			return false;
@@ -284,7 +285,7 @@ public abstract class LoginMain {
 
 	public static boolean teleportPlayerAfterLogin(Player player) {
 		if (isLogin(player)) {
-			if (playerPasswordConfig.contains("playerLastLocation.playerName." + player.getName() + ".world")){
+			if (playerPasswordConfig.contains("playerLastLocation.playerName." + player.getName() + ".world")) {
 				World world = Bukkit.getWorld(
 						playerPasswordConfig.getString("playerLastLocation.playerName." + player.getName() + ".world"));
 				double X = playerPasswordConfig.getDouble("playerLastLocation.playerName." + player.getName() + ".X");
@@ -294,5 +295,30 @@ public abstract class LoginMain {
 			}
 		}
 		return false;
+	}
+
+	public static void addInLoginTimesHashMap(Player player) {
+		String playerNameString = player.getName();
+		loginTimesHashMap.put(playerNameString, 0);
+	}
+
+	public static void removePlayerInLoginTimesHashMap(Player player) {
+		String playerNameString = player.getName();
+		loginTimesHashMap.remove(playerNameString);
+	}
+
+	public static int getPlayerLoginTimes(Player player) {
+		String playerNameString = player.getName();
+		return loginTimesHashMap.get(playerNameString);
+	}
+
+	public static void addPlayerLoginTimes(Player player) {
+		String playerNameString = player.getName();
+		loginTimesHashMap.put(playerNameString, loginTimesHashMap.get(playerNameString) + 1);
+	}
+
+	public static boolean isInLoginTimesHashmap(Player player) {
+		String playerNameString = player.getName();
+		return loginTimesHashMap.containsKey(playerNameString);
 	}
 }

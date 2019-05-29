@@ -33,18 +33,25 @@ public class LoginLimitListener implements Listener {
 	@EventHandler
 	public void listen(PlayerJoinEvent event) {// 玩家加入
 		Player player = event.getPlayer();
+		if (LoginMain.isInLoginTimesHashmap(player)) {
+			if (LoginMain.getPlayerLoginTimes(player) > 3) {
+				player.kickPlayer("你输错了多次密码，请五分钟后再次尝试");
+				return;
+			}
+		}
 		player.setGameMode(GameMode.SPECTATOR);
 		player.teleport(player.getWorld().getSpawnLocation());
 		if (!LoginMain.isKeepPlayerLogin(player)) {
 			LoginMain.newPlayer(player);
 			LoginTimeLimit.loginTimeLimit(player);
+			LoginMain.addInLoginTimesHashMap(player);
 			if (LoginMain.isRegister(event.getPlayer().getName()))
 				noLogin(event.getPlayer());
 			else
 				noRegister(event.getPlayer());
 			return;
 		} else {
-			WPlayerLoginEvent wPlayerLoginEvent=new WPlayerLoginEvent(player);
+			WPlayerLoginEvent wPlayerLoginEvent = new WPlayerLoginEvent(player);
 			Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
 			if (!(wPlayerLoginEvent.isCancelled())) {
 				player.sendMessage(ChatColor.GREEN + "已自动为你登录，欢迎回来");
@@ -171,7 +178,6 @@ public class LoginLimitListener implements Listener {
 			event.setCancelled(true);
 		}
 	}
-
 
 	@EventHandler
 	public void stop(PlayerInteractEvent event) {

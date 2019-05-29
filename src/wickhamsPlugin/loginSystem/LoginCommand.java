@@ -30,6 +30,7 @@ public class LoginCommand implements CommandExecutor {
 								Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
 								if (!(wPlayerLoginEvent.isCancelled())) {
 									LoginMain.playerLogin(player);
+									LoginMain.removePlayerInLoginTimesHashMap(player);
 									player.sendMessage(wPlayerLoginEvent.getLoginSuccessMsg());
 									if (LoginMain.joinMsgBoolean) {
 										player.sendMessage(ChatColor.GREEN + LoginMain.joinMsgString);
@@ -44,7 +45,13 @@ public class LoginCommand implements CommandExecutor {
 								}
 								return true;
 							} else {
+								LoginMain.addPlayerLoginTimes(player);
 								sender.sendMessage(ChatColor.RED + "密码错误");
+								if(LoginMain.getPlayerLoginTimes(player)>3) {
+									LoginTimesLimit.newLoginTimesLimit(player);
+									player.kickPlayer("你已经输错密码3次了，被踢出了服务器");
+									return true;
+								}
 								return false;
 							}
 						} else {
