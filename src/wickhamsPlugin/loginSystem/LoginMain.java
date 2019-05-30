@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,10 +20,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import wickhamsPlugin.WickhamsPlugin;
 
-public abstract class LoginMain {
+public final class LoginMain {
 	protected static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
 	private static File playerPasswordFile;
 	private static FileConfiguration playerPasswordConfig;
+	private static File playerRegisterIPFile;
+	private static FileConfiguration playerRegisterIPConfig;
 	private static HashMap<String, Integer> keepPlayerLoginHashMap = new HashMap<String, Integer>();
 	private static int loginKeepTime;
 	private static HashMap<String, Integer> loginTimesHashMap = new HashMap<String, Integer>();
@@ -320,5 +323,60 @@ public abstract class LoginMain {
 	public static boolean isInLoginTimesHashmap(Player player) {
 		String playerNameString = player.getName();
 		return loginTimesHashMap.containsKey(playerNameString);
+	}
+	
+	public static void createPlayerRegisterIPConfig() {
+		playerRegisterIPFile = new File(WICKHAMS_PLUGIN.getDataFolder(), "playerRegisterIP.yml");
+		if (!playerRegisterIPFile.exists()) {
+			playerRegisterIPFile.getParentFile().mkdirs();
+			WICKHAMS_PLUGIN.saveResource("playerRegisterIP.yml", false);
+		}
+		playerRegisterIPConfig = new YamlConfiguration();
+		try {
+			playerRegisterIPConfig.load(playerRegisterIPFile);
+		} catch (IOException | InvalidConfigurationException e) {
+			e.printStackTrace();
+			WICKHAMS_PLUGIN.getLogger().log(Level.WARNING, playerRegisterIPFile.getName()+" 读取失败");
+		}
+	}
+
+	public static FileConfiguration getPlayerRegisterIPConfig() {
+		return playerRegisterIPConfig;
+	}
+
+	public static File getPlayerRegisterIPFile() {
+		return playerRegisterIPFile;
+	}
+	
+	public static void savePlayerRegisterIPConfig() {
+		try {
+			playerRegisterIPConfig.save(playerRegisterIPFile);
+		} catch (IOException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			WICKHAMS_PLUGIN.getLogger().warning(playerRegisterIPFile.getName()+ "保存失败");
+		}
+	}
+	
+	public static boolean hasRegisterIP(Player player) {
+		String playerNameString = player.getName();
+		return playerRegisterIPConfig.contains("playerName."+playerNameString);
+	}
+	
+	public static void setRegisterIP(Player player) {
+		String playerNameString = player.getName();
+		playerRegisterIPConfig.set("playerName."+playerNameString, encryptPassword(getPlayerIPAddress(player)));
+	}
+	
+	public static boolean isIPHasBeenUsed(Player player) {
+		String playerIPString=encryptPassword(getPlayerIPAddress(player));
+		Set<String> playerList = playerRegisterIPConfig.getConfigurationSection("playerName")
+				.getKeys(false);
+		for(String playerNameInList:playerList) {
+			if(playerRegisterIPConfig.getString("playerName."+playerNameInList).equals(playerIPString)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

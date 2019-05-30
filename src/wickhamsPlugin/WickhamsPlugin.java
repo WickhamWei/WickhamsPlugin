@@ -66,28 +66,6 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 									// folder by invoking JavaPlugin's saveDefaultConfig() method.
 									// saveDefaultConfig() will not overwrite an existing file.
 
-		checkConfigurationSectionExist(mainConfiguration, "登陆系统");
-		checkConfigurationSectionExist(mainConfiguration, "登录保持时间");
-		checkConfigurationSectionExist(mainConfiguration, "自动保存地图");
-		checkConfigurationSectionExist(mainConfiguration, "自动保存地图时间间隔，单位分钟");
-		checkConfigurationSectionExist(mainConfiguration, "自动公告");
-		checkConfigurationSectionExist(mainConfiguration, "自动公告时间间隔，单位分钟");
-		checkConfigurationSectionExist(mainConfiguration, "公告1");
-		checkConfigurationSectionExist(mainConfiguration, "公告2");
-		checkConfigurationSectionExist(mainConfiguration, "公告3");
-		checkConfigurationSectionExist(mainConfiguration, "玩家加入时给玩家的信息开关");
-		checkConfigurationSectionExist(mainConfiguration, "玩家加入时给玩家的信息");
-		checkConfigurationSectionExist(mainConfiguration, "玩家加入时的插件介绍");
-		checkConfigurationSectionExist(mainConfiguration, "死亡是否保留背包内的物品");
-		checkConfigurationSectionExist(mainConfiguration, "死亡后保留一半等级");
-		checkConfigurationSectionExist(mainConfiguration, "三十级后每升级一级加血量上限");
-		checkConfigurationSectionExist(mainConfiguration, "最大血量上限");
-		checkConfigurationSectionExist(mainConfiguration, "保护耕地不被踩坏");
-		checkConfigurationSectionExist(mainConfiguration, "非OP传送等待时间（秒）");
-		checkConfigurationSectionExist(mainConfiguration, "tpa请求等待时间（秒）");
-		checkConfigurationSectionExist(mainConfiguration, "登录限制时间");
-		checkConfigurationSectionExist(mainConfiguration, "阻止jj怪爆炸破坏地形");
-		checkConfigurationSectionExist(mainConfiguration, "仿DNF武器功能");
 		if (mainConfiguration.getBoolean("登陆系统")) {
 			LoginMain.createPlayerPasswordConfig();
 			LoginMain.copyOldPasswordFile();// ⑨的登录系统配置文件迁移、加密、删除
@@ -138,19 +116,6 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	public void loadRecipe() {// 读取新的合成表
 		if (mainConfiguration.getBoolean("巨大腐肉")) {
 			mainServer.getPluginManager().registerEvents(new HugeRottenFlash(), this);
-		}
-	}
-
-	public static void checkConfigurationSectionExist(FileConfiguration configuration,
-			String configurationSectionString) {// 检查配置项
-		if (configuration.contains(configurationSectionString)) {
-//			WickhamsPlugin.MAIN.getLogger().log(Level.INFO,configurationSectionString+" done");
-			return;
-		} else {
-			WickhamsPlugin.MAIN.getLogger().log(Level.WARNING,
-					"设置项 " + configurationSectionString + " 不存在，请删除配置文件并重启服务器");
-			MAIN.getServer().shutdown();
-			return;
 		}
 	}
 
