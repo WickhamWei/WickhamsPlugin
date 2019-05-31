@@ -67,7 +67,9 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 									// saveDefaultConfig() will not overwrite an existing file.
 
 		if (mainConfiguration.getBoolean("登陆系统")) {
-			LoginMain.createPlayerRegisterIPConfig();
+			if(LoginMain.PLAYER_REGISTER_IP_LIMIT) {
+				LoginMain.createPlayerRegisterIPConfig();
+			}
 			LoginMain.createPlayerPasswordConfig();
 			LoginMain.copyOldPasswordFile();// ⑨的登录系统配置文件迁移、加密、删除
 		}

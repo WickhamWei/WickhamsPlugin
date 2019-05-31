@@ -29,9 +29,11 @@ public final class LoginCommand implements CommandExecutor {
 								WPlayerLoginEvent wPlayerLoginEvent=new WPlayerLoginEvent(player);
 								Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
 								if (!(wPlayerLoginEvent.isCancelled())) {
-									if(!LoginMain.hasRegisterIP(player)) {
-										LoginMain.setRegisterIP(player);
-										LoginMain.savePlayerRegisterIPConfig();
+									if(LoginMain.PLAYER_REGISTER_IP_LIMIT) {
+										if(!LoginMain.hasRegisterIP(player)) {
+											LoginMain.setRegisterIP(player);
+											LoginMain.savePlayerRegisterIPConfig();
+										}
 									}
 									LoginMain.playerLogin(player);
 									LoginMain.removePlayerInLoginTimesHashMap(player);
@@ -63,12 +65,14 @@ public final class LoginCommand implements CommandExecutor {
 								WPlayerRegisterEvent wPlayerRegisterEvent=new WPlayerRegisterEvent(player);
 								Bukkit.getPluginManager().callEvent(wPlayerRegisterEvent);
 								if (!(wPlayerRegisterEvent.isCancelled())) {
-									if(LoginMain.isIPHasBeenUsed(player)) {
-										player.kickPlayer("你的IP地址已被使用，请检查是否曾经注册。如为否请联系管理员");
-										return true;
-									}else {
-										LoginMain.setRegisterIP(player);
-										LoginMain.savePlayerRegisterIPConfig();
+									if(LoginMain.PLAYER_REGISTER_IP_LIMIT) {
+										if(LoginMain.isIPHasBeenUsed(player)) {
+											player.kickPlayer("你的IP地址已被使用，请检查是否曾经注册。如为否请联系管理员");
+											return true;
+										}else {
+											LoginMain.setRegisterIP(player);
+											LoginMain.savePlayerRegisterIPConfig();
+										}
 									}
 									LoginMain.register(player, arg3[0]);
 									LoginMain.playerLogin(player);

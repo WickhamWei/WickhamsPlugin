@@ -26,6 +26,7 @@ public final class LoginMain {
 	private static FileConfiguration playerPasswordConfig;
 	private static File playerRegisterIPFile;
 	private static FileConfiguration playerRegisterIPConfig;
+	public static final boolean PLAYER_REGISTER_IP_LIMIT=WICKHAMS_PLUGIN.getConfig().getBoolean("每个IP只能注册一个账号");
 	private static HashMap<String, Integer> keepPlayerLoginHashMap = new HashMap<String, Integer>();
 	private static int loginKeepTime;
 	private static HashMap<String, Integer> loginTimesHashMap = new HashMap<String, Integer>();
