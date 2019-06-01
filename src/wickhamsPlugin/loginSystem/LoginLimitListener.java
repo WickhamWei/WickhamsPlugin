@@ -34,7 +34,8 @@ public class LoginLimitListener implements Listener {
 	public void listen(PlayerJoinEvent event) {// 玩家加入
 		Player player = event.getPlayer();
 		if (LoginMain.isInLoginTimesHashmap(player)) {
-			if (LoginMain.getPlayerLoginTimes(player) > 3) {
+			if (LoginMain.getPlayerLoginTimes(player) >= 3) {
+				LoginMain.newPlayer(player);
 				player.kickPlayer("你输错了多次密码，请五分钟后再次尝试");
 				return;
 			}

@@ -21,14 +21,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 import wickhamsPlugin.WickhamsPlugin;
 
 public final class LoginMain {
-	protected static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
+	protected static final Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
 	private static File playerPasswordFile;
 	private static FileConfiguration playerPasswordConfig;
 	private static File playerRegisterIPFile;
 	private static FileConfiguration playerRegisterIPConfig;
 	public static final boolean PLAYER_REGISTER_IP_LIMIT=WICKHAMS_PLUGIN.getConfig().getBoolean("每个IP只能注册一个账号");
 	private static HashMap<String, Integer> keepPlayerLoginHashMap = new HashMap<String, Integer>();
-	private static int loginKeepTime;
+	private static final int loginKeepTime = WICKHAMS_PLUGIN.getConfig().getInt("登录保持时间");
 	private static HashMap<String, Integer> loginTimesHashMap = new HashMap<String, Integer>();
 	protected static boolean joinMsgBoolean = WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关");
 	protected static String joinMsgString = WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息");
@@ -199,7 +199,7 @@ public final class LoginMain {
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
-			WICKHAMS_PLUGIN.getLogger().info("保存玩家密码失败");
+			WICKHAMS_PLUGIN.getLogger().warning("玩家密码的文件保存失败");
 		}
 	}
 
@@ -227,7 +227,7 @@ public final class LoginMain {
 	}
 
 	public static void recordPlayerIPAddressInConfig(Player player) {
-		String IPString = player.getAddress().getAddress().getHostAddress();
+		String IPString = getPlayerIPAddress(player);
 		playerPasswordConfig.set("playerIP.playerName." + player.getName(), encryptPassword(IPString));
 		savePlayerPasswordConfig();
 	}
@@ -258,7 +258,6 @@ public final class LoginMain {
 
 	public static void countDownWhenPlayerLeft(Player player) {
 		if (isLogin(player)) {
-			loginKeepTime = WICKHAMS_PLUGIN.getConfig().getInt("登录保持时间");
 			BukkitRunnable countDownBukkitRunnable = new BukkitRunnable() {
 
 				@Override
