@@ -33,17 +33,16 @@ public class LoginLimitListener implements Listener {
 	@EventHandler
 	public void listen(PlayerJoinEvent event) {// 玩家加入
 		Player player = event.getPlayer();
+		LoginMain.newPlayer(player);
 		if (LoginMain.isInLoginTimesHashmap(player)) {
 			if (LoginMain.getPlayerLoginTimes(player) >= 3) {
-				LoginMain.newPlayer(player);
 				player.kickPlayer("你输错了多次密码，请五分钟后再次尝试");
 				return;
 			}
 		}
-		player.setGameMode(GameMode.SPECTATOR);
-		player.teleport(player.getWorld().getSpawnLocation());
 		if (!LoginMain.isKeepPlayerLogin(player)) {
-			LoginMain.newPlayer(player);
+			player.setGameMode(GameMode.SPECTATOR);
+			player.teleport(player.getWorld().getSpawnLocation());
 			LoginTimeLimit.loginTimeLimit(player);
 			LoginMain.addInLoginTimesHashMap(player);
 			if (LoginMain.isRegister(event.getPlayer().getName()))
@@ -55,14 +54,10 @@ public class LoginLimitListener implements Listener {
 			WPlayerLoginEvent wPlayerLoginEvent = new WPlayerLoginEvent(player);
 			Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
 			if (!(wPlayerLoginEvent.isCancelled())) {
+				LoginMain.playerLogin(player);
 				player.sendMessage(ChatColor.GREEN + "已自动为你登录，欢迎回来");
 				Bukkit.broadcastMessage(wPlayerLoginEvent.getJoinMsg());
 				player.setGameMode(GameMode.SURVIVAL);
-				if (LoginMain.teleportPlayerAfterLogin((player))) {
-					player.sendMessage(ChatColor.GREEN + "已经传送到退出游戏时的位置");
-				} else {
-					player.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
-				}
 			}
 			return;
 		}
