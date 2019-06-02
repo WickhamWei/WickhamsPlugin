@@ -1,6 +1,6 @@
 name: WickhamsPlugin
 main: wickhamsPlugin.WickhamsPlugin
-version: 1.2.9.8
+version: 1.2.9.9
 api-version: 1.14
 author: Wickham
 load: STARTUP
