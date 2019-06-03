@@ -33,11 +33,9 @@ public class gm implements CommandExecutor {
 			}
 			if (sender instanceof Player) {
 				Player player = (Player) sender;
-				gamemodeSwitch(gamemode, player, targePlayer);
-				return true;
+				return gamemodeSwitch(gamemode, player, targePlayer);
 			} else {
-				gamemodeSwitch(gamemode, sender, targePlayer);
-				return true;
+				return gamemodeSwitch(gamemode, sender, targePlayer);
 			}
 		} else
 			return false;
@@ -51,7 +49,7 @@ public class gm implements CommandExecutor {
 		sender.sendMessage(ChatColor.RED + "目标玩家不在线");
 	}
 
-	private static void gamemodeSwitch(String gamemodeString, Player sendPlayer, Player targePlayer) {
+	private static boolean gamemodeSwitch(String gamemodeString, Player sendPlayer, Player targePlayer) {
 		switch (gamemodeString) {
 		case "0":
 			targePlayer.setGameMode(GameMode.SURVIVAL);
@@ -69,10 +67,12 @@ public class gm implements CommandExecutor {
 			break;
 		default:
 			sendPlayer.sendMessage(ChatColor.RED + "参数不存在");
+			return false;
 		}
+		return true;
 	}
 
-	private static void gamemodeSwitch(String gamemodeString, CommandSender sender, Player targePlayer) {
+	private static boolean gamemodeSwitch(String gamemodeString, CommandSender sender, Player targePlayer) {
 		switch (gamemodeString) {
 		case "0":
 			targePlayer.setGameMode(GameMode.SURVIVAL);
@@ -86,6 +86,8 @@ public class gm implements CommandExecutor {
 			break;
 		default:
 			sender.sendMessage(ChatColor.RED + "参数不存在");
+			return false;
 		}
+		return true;
 	}
 }

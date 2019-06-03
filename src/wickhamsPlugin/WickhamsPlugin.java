@@ -8,6 +8,7 @@ import wickhamsPlugin.backSystem.BackCommand;
 import wickhamsPlugin.command.Hello;
 import wickhamsPlugin.command.Home;
 import wickhamsPlugin.command.SetHome;
+import wickhamsPlugin.command.SetLevel;
 import wickhamsPlugin.command.Spawn;
 import wickhamsPlugin.command.Tp;
 import wickhamsPlugin.command.TpAll;
@@ -87,6 +88,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		this.getCommand("tpayes").setExecutor(new TpACommandYes());
 		this.getCommand("sethome").setExecutor(new SetHome());
 		this.getCommand("gm").setExecutor(new gm());
+		this.getCommand("setlevel").setExecutor(new SetLevel());
 	}
 
 	public void loadListener() {// 读取事件

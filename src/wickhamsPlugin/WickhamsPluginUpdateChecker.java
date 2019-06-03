@@ -19,6 +19,9 @@ public class WickhamsPluginUpdateChecker {
 	private static HttpURLConnection httpURLConnection;
 	private static URL url;
 	private final static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
+	public static String PluginsNewestVersionString;
+	public static String PluginstheNewestVersionPTimeString;
+	public static String PluginsnowVersionString;
 
 	public static void UpdateChecker() {
 		try {
@@ -34,7 +37,10 @@ public class WickhamsPluginUpdateChecker {
 			String allOriginJsonString = responseReader.readLine();
 			Gson gson = new Gson();
 			Github github = gson.fromJson(allOriginJsonString, Github.class);
-			String nowPluginVersionString = new String("V" + WickhamsPlugin.MAIN.getDescription().getVersion());
+			String nowPluginVersionString = new String("v" + WickhamsPlugin.MAIN.getDescription().getVersion());
+			PluginsNewestVersionString=github.getLastVersion();
+			PluginstheNewestVersionPTimeString=github.getLastVersionPublishedTime();
+			PluginsnowVersionString=nowPluginVersionString;
 			if (!nowPluginVersionString.equalsIgnoreCase(github.getLastVersion())) {
 				Bukkit.getConsoleSender().sendMessage("[WickhamsPlugin] " + ChatColor.GREEN + "WickhamsPlugin 加载完成，版本 "
 						+ ChatColor.YELLOW + "v" + WICKHAMS_PLUGIN.getDescription().getVersion());

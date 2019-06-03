@@ -14,6 +14,9 @@ permissions:
   wickhamsplugin.tpall:
    default: op
    description: 传送所有人到你身旁的权限
+  wickhamsplugin.setlevel:
+   default: op
+   description: 设置玩家等级的权限
   wickhamsplugin.spawn:
    default: true
    description: 传送到出生点的权限
@@ -45,7 +48,7 @@ commands:
    usage: "用法: /<command>"
    description: 一段简单的输出
    permission: wickhamsplugin.你好
-   permission-message: 你没有  wickhamsplugin.你好 权限节点来执行此命令
+   permission-message: 你没有 wickhamsplugin.你好 权限节点来执行此命令
   tp:
    description: 传送到某个人身边
    usage: "用法: /<command> 某个人的名字"
@@ -55,37 +58,37 @@ commands:
    description: 传送到当前世界的出生点
    usage: "用法: /<command>"
    permission: wickhamsplugin.spawn
-   permission-message: 你没有  wickhamsplugin.spawn 权限节点来执行此命令
+   permission-message: 你没有 wickhamsplugin.spawn 权限节点来执行此命令
   home:
    description: 传送到家
    usage: "用法: /<command>"
    permission: wickhamsplugin.home
-   permission-message: 你没有  wickhamsplugin.home 权限节点来执行此命令
+   permission-message: 你没有 wickhamsplugin.home 权限节点来执行此命令
   sethome:
    description: 设置家
    usage: "用法: /<command>"
    permission: wickhamsplugin.sethome
-   permission-message: 你没有  wickhamsplugin.sethome 权限节点来执行此命令
+   permission-message: 你没有 wickhamsplugin.sethome 权限节点来执行此命令
   tpall:
    description: 传送所有人到你身边
    usage: "用法: /<command>"
    permission: wickhamsplugin.tpall
-   permission-message: 你没有  wickhamsplugin.tpall 权限节点来执行此命令
+   permission-message: 你没有 wickhamsplugin.tpall 权限节点来执行此命令
   join:
    description: 注册或登陆
    usage: "用法: /<command> 你的密码"
    permission: wickhamsplugin.join
-   permission-message: 你没有  wickhamsplugin.join 权限节点来执行此命令
+   permission-message: 你没有 wickhamsplugin.join 权限节点来执行此命令
   tpa:
    description: 请求传送到某个人身边
    usage: "用法: /<command> 某个人的名字"
    permission: wickhamsplugin.tpa
-   permission-message: 你没有  wickhamsplugin.tpa 权限节点来执行此命令
+   permission-message: 你没有 wickhamsplugin.tpa 权限节点来执行此命令
   tpayes:
    description: 接受请求
    usage: "用法: /<command>"
    permission: wickhamsplugin.tpa
-   permission-message: 你没有  wickhamsplugin.tpa 权限节点来执行此命令
+   permission-message: 你没有 wickhamsplugin.tpa 权限节点来执行此命令
   back:
    description: 回到上一个位置
    usage: "用法: /<command>"
@@ -96,3 +99,8 @@ commands:
    usage: "用法: /<command> 游戏模式数值 目标玩家"
    permission: wickhamsplugin.gm
    permission-message: 你没有 wickhamsplugin.gm 权限节点来执行此命令
+  setlevel:
+   description: 设置玩家的等级
+   usage: "用法: /<command> 游戏等级数值 目标玩家"
+   permission: wickhamsplugin.setlevel
+   permission-message: 你没有 wickhamsplugin.setlevel 权限节点来执行此命令
