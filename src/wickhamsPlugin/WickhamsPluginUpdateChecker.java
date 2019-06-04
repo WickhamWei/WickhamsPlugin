@@ -19,9 +19,21 @@ public class WickhamsPluginUpdateChecker {
 	private static HttpURLConnection httpURLConnection;
 	private static URL url;
 	private final static Plugin WICKHAMS_PLUGIN = WickhamsPlugin.MAIN;
-	public static String PluginsNewestVersionString;
-	public static String PluginstheNewestVersionPTimeString;
-	public static String PluginsnowVersionString;
+	private static String PluginsNewestVersionString;
+	private static String PluginstheNewestVersionPTimeString;
+	private static String PluginsnowVersionString;
+	
+	public static final String getWickhamsPluginVersion() {
+		return PluginsnowVersionString;
+	}
+	
+	public static final String getWickhamsPluginLastestVersion() {
+		return PluginsNewestVersionString;
+	}
+	
+	public static final String getWickhamsPluginLastestVersionPublishedTime() {
+		return PluginstheNewestVersionPTimeString;
+	}
 
 	public static void UpdateChecker() {
 		try {

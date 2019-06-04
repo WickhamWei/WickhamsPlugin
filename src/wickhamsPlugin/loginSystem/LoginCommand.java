@@ -50,10 +50,10 @@ public final class LoginCommand implements CommandExecutor {
 										player.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
 									}
 									if(player.isOp()) {
-										if(!WickhamsPluginUpdateChecker.PluginsNewestVersionString.equals(WickhamsPluginUpdateChecker.PluginsnowVersionString)) {
-											player.sendMessage(ChatColor.YELLOW+"管理员请注意，本服务器的 WickhamsPlugin 插件版本为 "+ChatColor.RED+WickhamsPluginUpdateChecker.PluginsnowVersionString);
-											player.sendMessage(ChatColor.YELLOW+"WickhamsPlugin 插件的最新版本为 "+ChatColor.GREEN+WickhamsPluginUpdateChecker.PluginsNewestVersionString);
-											player.sendMessage(ChatColor.YELLOW+"更新于 "+ChatColor.GREEN+WickhamsPluginUpdateChecker.PluginstheNewestVersionPTimeString);
+										if(!WickhamsPluginUpdateChecker.getWickhamsPluginVersion().equals(WickhamsPluginUpdateChecker.getWickhamsPluginLastestVersion())) {
+											player.sendMessage(ChatColor.YELLOW+"管理员请注意，本服务器的 WickhamsPlugin 插件版本为 "+ChatColor.RED+WickhamsPluginUpdateChecker.getWickhamsPluginVersion());
+											player.sendMessage(ChatColor.YELLOW+"WickhamsPlugin 插件的最新版本为 "+ChatColor.GREEN+WickhamsPluginUpdateChecker.getWickhamsPluginLastestVersion());
+											player.sendMessage(ChatColor.YELLOW+"更新于 "+ChatColor.GREEN+WickhamsPluginUpdateChecker.getWickhamsPluginLastestVersionPublishedTime());
 											player.sendMessage(ChatColor.YELLOW+"请及时更新以确保漏洞修复和功能完善");
 										}
 									}
