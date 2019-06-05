@@ -1,4 +1,4 @@
-package wickhamsPlugin.entitySpawn;
+package wickhamsPlugin.levelEntitySpawn;
 
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Zombie;
@@ -12,8 +12,11 @@ public class EntitySpawnEventListener implements Listener {
 		if (event.getEntity() instanceof Zombie) {
 			Zombie targeEntity = (Zombie) event.getEntity();
 			double targeEntityMaxHeatlh = targeEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
-			if (event.getLocation().getX() >= 100 && event.getLocation().getX() < 200) {
+			double X=targeEntity.getLocation().getX();
+			double Y=targeEntity.getLocation().getY();
+			if (X>=100&&X<200&&Y>=100&&Y<200) {
 				targeEntity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(targeEntityMaxHeatlh * 1.1);
+				return;
 			}
 		}
 	}
