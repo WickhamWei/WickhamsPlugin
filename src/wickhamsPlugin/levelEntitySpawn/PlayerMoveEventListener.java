@@ -50,14 +50,15 @@ public class PlayerMoveEventListener implements Listener {
 				}
 				if (PlayerLocationSave.playerLocationHashMap.get(targePlayer.getName()) == locationChunk) {
 					return;
-				}else {
-					if(locationChunk==0) {
+				} else {
+					if (locationChunk == 0) {
 						new Title().send(targePlayer, "主城", ChatColor.GREEN, "相对安全的地方", ChatColor.YELLOW, 1, 3, 1);
 						PlayerLocationSave.playerLocationHashMap.put(targePlayer.getName(), 0);
 						return;
 					}
-					if(locationChunk==1) {
-						new Title().send(targePlayer, "主城郊区", ChatColor.YELLOW, "僵尸生命和攻击力乘数1.1", ChatColor.RED, 1, 3, 1);
+					if (locationChunk == 1) {
+						new Title().send(targePlayer, "主城郊区", ChatColor.YELLOW, "僵尸生命和攻击力乘数1.1", ChatColor.RED, 1, 3,
+								1);
 						PlayerLocationSave.playerLocationHashMap.put(targePlayer.getName(), 0);
 						return;
 					}

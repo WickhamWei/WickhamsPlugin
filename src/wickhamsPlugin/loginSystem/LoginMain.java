@@ -26,7 +26,7 @@ public final class LoginMain {
 	private static FileConfiguration playerPasswordConfig;
 	private static File playerRegisterIPFile;
 	private static FileConfiguration playerRegisterIPConfig;
-	public static final boolean PLAYER_REGISTER_IP_LIMIT=WICKHAMS_PLUGIN.getConfig().getBoolean("每个IP只能注册一个账号");
+	public static final boolean PLAYER_REGISTER_IP_LIMIT = WICKHAMS_PLUGIN.getConfig().getBoolean("每个IP只能注册一个账号");
 	private static HashMap<String, Integer> keepPlayerLoginHashMap = new HashMap<String, Integer>();
 	private static final int loginKeepTime = WICKHAMS_PLUGIN.getConfig().getInt("登录保持时间");
 	private static HashMap<String, Integer> loginTimesHashMap = new HashMap<String, Integer>();
@@ -324,7 +324,7 @@ public final class LoginMain {
 		String playerNameString = player.getName();
 		return loginTimesHashMap.containsKey(playerNameString);
 	}
-	
+
 	public static void createPlayerRegisterIPConfig() {
 		playerRegisterIPFile = new File(WICKHAMS_PLUGIN.getDataFolder(), "playerRegisterIP.yml");
 		if (!playerRegisterIPFile.exists()) {
@@ -336,7 +336,7 @@ public final class LoginMain {
 			playerRegisterIPConfig.load(playerRegisterIPFile);
 		} catch (IOException | InvalidConfigurationException e) {
 			e.printStackTrace();
-			WICKHAMS_PLUGIN.getLogger().log(Level.WARNING, playerRegisterIPFile.getName()+" 读取失败");
+			WICKHAMS_PLUGIN.getLogger().log(Level.WARNING, playerRegisterIPFile.getName() + " 读取失败");
 		}
 	}
 
@@ -347,39 +347,38 @@ public final class LoginMain {
 	public static File getPlayerRegisterIPFile() {
 		return playerRegisterIPFile;
 	}
-	
+
 	public static void savePlayerRegisterIPConfig() {
 		try {
 			playerRegisterIPConfig.save(playerRegisterIPFile);
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
-			WICKHAMS_PLUGIN.getLogger().warning(playerRegisterIPFile.getName()+ "保存失败");
+			WICKHAMS_PLUGIN.getLogger().warning(playerRegisterIPFile.getName() + "保存失败");
 		}
 	}
-	
+
 	public static boolean hasRegisterIP(Player player) {
 		String playerNameString = player.getName();
-		return playerRegisterIPConfig.contains("playerName."+playerNameString);
+		return playerRegisterIPConfig.contains("playerName." + playerNameString);
 	}
-	
+
 	public static void setRegisterIP(Player player) {
 		String playerNameString = player.getName();
-		playerRegisterIPConfig.set("playerName."+playerNameString, encryptPassword(getPlayerIPAddress(player)));
+		playerRegisterIPConfig.set("playerName." + playerNameString, encryptPassword(getPlayerIPAddress(player)));
 	}
-	
+
 	public static boolean isIPHasBeenUsed(Player player) {
-		String playerIPString=encryptPassword(getPlayerIPAddress(player));
-		Set<String> playerList = playerRegisterIPConfig.getConfigurationSection("playerName")
-				.getKeys(false);
-		for(String playerNameInList:playerList) {
-			if(playerRegisterIPConfig.getString("playerName."+playerNameInList).equals(playerIPString)) {
+		String playerIPString = encryptPassword(getPlayerIPAddress(player));
+		Set<String> playerList = playerRegisterIPConfig.getConfigurationSection("playerName").getKeys(false);
+		for (String playerNameInList : playerList) {
+			if (playerRegisterIPConfig.getString("playerName." + playerNameInList).equals(playerIPString)) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public static boolean loginSystemIsEnable() {
 		return WICKHAMS_PLUGIN.getConfig().getBoolean("登录系统");
 	}
