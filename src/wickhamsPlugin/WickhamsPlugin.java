@@ -4,6 +4,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import wickhamsPlugin.API.shapedRecipe.WShapedRecipeListener;
 import wickhamsPlugin.API.teleport.WTeleportCancelListener;
+import wickhamsPlugin.RPG.WRPGEntitySpawnEventListener;
+import wickhamsPlugin.RPG.WRPGPlayerMoveEventListener;
 import wickhamsPlugin.backSystem.BackCommand;
 import wickhamsPlugin.command.Hello;
 import wickhamsPlugin.command.Home;
@@ -27,9 +29,9 @@ import wickhamsPlugin.loginSystem.LoginCommand;
 import wickhamsPlugin.loginSystem.LoginLimitListener;
 import wickhamsPlugin.loginSystem.LoginMain;
 import wickhamsPlugin.recipe.HugeRottenFlash;
-import wickhamsPlugin.recipe.DNFWeapons.WDNFEntityDropItemListener;
-import wickhamsPlugin.recipe.DNFWeapons.WDNFLoadingAllRecipeListener;
-import wickhamsPlugin.recipe.DNFWeapons.WDNFWeaponLevelLimitListener;
+import wickhamsPlugin.recipe.RPGWeapons.WDNFEntityDropItemListener;
+import wickhamsPlugin.recipe.RPGWeapons.WDNFLoadingAllRecipeListener;
+import wickhamsPlugin.recipe.RPGWeapons.WDNFWeaponLevelLimitListener;
 import wickhamsPlugin.tpASystem.TpACommand;
 import wickhamsPlugin.tpASystem.TpACommandYes;
 
@@ -48,6 +50,9 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	public static WickhamsPlugin MAIN;// 主类静态变量
 	public final FileConfiguration mainConfiguration = getConfig();// 终态配置文件
 	public final Server mainServer = getServer();// 终态服务器
+	public boolean loginSystemBoolean = mainConfiguration.getBoolean("登陆系统");
+	public boolean RPGBoolean = mainConfiguration.getBoolean("RPG模式");
+	public boolean jjProtectBoolean = mainConfiguration.getBoolean("阻止jj怪爆炸破坏地形");
 
 	@Override
 	public void onEnable() {// 插件启动
@@ -67,7 +72,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 									// folder by invoking JavaPlugin's saveDefaultConfig() method.
 									// saveDefaultConfig() will not overwrite an existing file.
 
-		if (mainConfiguration.getBoolean("登陆系统")) {
+		if (loginSystemBoolean) {
 			if(LoginMain.PLAYER_REGISTER_IP_LIMIT) {
 				LoginMain.createPlayerRegisterIPConfig();
 			}
@@ -92,10 +97,10 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 	}
 
 	public void loadListener() {// 读取事件
-		if (mainConfiguration.getBoolean("登陆系统")) {
+		if (loginSystemBoolean) {
 			mainServer.getPluginManager().registerEvents(new LoginLimitListener(), this);
 		}
-		if (mainConfiguration.getBoolean("阻止jj怪爆炸破坏地形")) {
+		if (jjProtectBoolean) {
 			mainServer.getPluginManager().registerEvents(new EntityExplodeEventListener(), this);
 		}
 		mainServer.getPluginManager().registerEvents(this, this);
@@ -111,10 +116,12 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		mainServer.getPluginManager().registerEvents(new WPlayerRegisterEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new WShapedRecipeListener(), this);
 
-		if (mainConfiguration.getBoolean("仿DNF武器功能")) {
+		if (RPGBoolean) {
 			mainServer.getPluginManager().registerEvents(new WDNFLoadingAllRecipeListener(), this);
 			mainServer.getPluginManager().registerEvents(new WDNFWeaponLevelLimitListener(), this);
 			mainServer.getPluginManager().registerEvents(new WDNFEntityDropItemListener(), this);
+			mainServer.getPluginManager().registerEvents(new WRPGEntitySpawnEventListener(), this);
+			mainServer.getPluginManager().registerEvents(new WRPGPlayerMoveEventListener(), this);
 		}
 	}
 
