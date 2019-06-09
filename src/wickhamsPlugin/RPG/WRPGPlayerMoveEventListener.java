@@ -6,37 +6,38 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import wickhamsPlugin.WickhamsPlugin;
 import wickhamsPlugin.loginSystem.LoginMain;
 
 public class WRPGPlayerMoveEventListener implements Listener {
 
 	@EventHandler
 	public void listen(PlayerMoveEvent event) {
-		if (LoginMain.loginSystemIsEnable()) {
+		if (WickhamsPlugin.MAIN.loginSystemBoolean) {
 			if (LoginMain.isLogin(event.getPlayer())) {
 				Player targePlayer = event.getPlayer();
 				int locationChunk = 0;
 				double X = targePlayer.getLocation().getX();
-				double Y = targePlayer.getLocation().getY();
-				if (X >= 100 || X <= -100 || Y >= 100 || Y <= -100) {
+				double Z = targePlayer.getLocation().getZ();
+				if (X >= 100 || X <= -100 || Z >= 100 || Z <= -100) {
 					locationChunk = 1;
-					if (X >= 200 || X <= -200 || Y >= 200 || Y <= -200) {
+					if (X >= 200 || X <= -200 || Z >= 200 || Z <= -200) {
 						locationChunk = 2;
-						if (X >= 300 || X <= -300 || Y >= 300 || Y <= -300) {
+						if (X >= 300 || X <= -300 || Z >= 300 || Z <= -300) {
 							locationChunk = 3;
-							if (X >= 400 || X <= -400 || Y >= 400 || Y <= -400) {
+							if (X >= 400 || X <= -400 || Z >= 400 || Z <= -400) {
 								locationChunk = 4;
-								if (X >= 500 || X <= -500 || Y >= 500 || Y <= -500) {
+								if (X >= 500 || X <= -500 || Z >= 500 || Z <= -500) {
 									locationChunk = 5;
-									if (X >= 600 || X <= -600 || Y >= 600 || Y <= -600) {
+									if (X >= 600 || X <= -600 || Z >= 600 || Z <= -600) {
 										locationChunk = 6;
-										if (X >= 700 || X <= -700 || Y >= 700 || Y <= -700) {
+										if (X >= 700 || X <= -700 || Z >= 700 || Z <= -700) {
 											locationChunk = 7;
-											if (X >= 800 || X <= -800 || Y >= 800 || Y <= -800) {
+											if (X >= 800 || X <= -800 || Z >= 800 || Z <= -800) {
 												locationChunk = 8;
-												if (X >= 900 || X <= -900 || Y >= 900 || Y <= -900) {
+												if (X >= 900 || X <= -900 || Z >= 900 || Z <= -900) {
 													locationChunk = 9;
-													if (X >= 1000 || X <= -1000 || Y >= 1000 || Y <= -1000) {
+													if (X >= 1000 || X <= -1000 || Z >= 1000 || Z <= -1000) {
 														locationChunk = 10;
 													}
 												}
@@ -48,18 +49,20 @@ public class WRPGPlayerMoveEventListener implements Listener {
 						}
 					}
 				}
+				if( !PlayerLocationSave.playerLocationHashMap.containsKey(targePlayer.getName())) {
+					PlayerLocationSave.playerLocationHashMap.put(targePlayer.getName(), -1);
+				}
 				if (PlayerLocationSave.playerLocationHashMap.get(targePlayer.getName()) == locationChunk) {
 					return;
 				} else {
 					if (locationChunk == 0) {
-						new Title().send(targePlayer, "主城", ChatColor.GREEN, "相对安全的地方", ChatColor.YELLOW, 1, 3, 1);
+						targePlayer.sendTitle(ChatColor.GREEN+"主城", ChatColor.YELLOW+ "相对安全的地方", 10, 70, 20);
 						PlayerLocationSave.playerLocationHashMap.put(targePlayer.getName(), 0);
 						return;
 					}
 					if (locationChunk == 1) {
-						new Title().send(targePlayer, "主城郊区", ChatColor.YELLOW, "僵尸生命和攻击力乘数1.1", ChatColor.RED, 1, 3,
-								1);
-						PlayerLocationSave.playerLocationHashMap.put(targePlayer.getName(), 0);
+						targePlayer.sendTitle(ChatColor.YELLOW+"主城郊区", ChatColor.YELLOW+ "怪物生命和攻击力乘数1.1", 10, 70, 20);
+						PlayerLocationSave.playerLocationHashMap.put(targePlayer.getName(), 1);
 						return;
 					}
 				}

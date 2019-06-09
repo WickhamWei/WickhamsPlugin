@@ -115,7 +115,6 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		mainServer.getPluginManager().registerEvents(new WPlayerLoginEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new WPlayerRegisterEventListener(), this);
 		mainServer.getPluginManager().registerEvents(new WShapedRecipeListener(), this);
-
 		if (RPGBoolean) {
 			mainServer.getPluginManager().registerEvents(new WDNFLoadingAllRecipeListener(), this);
 			mainServer.getPluginManager().registerEvents(new WDNFWeaponLevelLimitListener(), this);

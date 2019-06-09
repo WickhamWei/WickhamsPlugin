@@ -378,8 +378,4 @@ public final class LoginMain {
 		}
 		return false;
 	}
-
-	public static boolean loginSystemIsEnable() {
-		return WICKHAMS_PLUGIN.getConfig().getBoolean("登录系统");
-	}
 }
