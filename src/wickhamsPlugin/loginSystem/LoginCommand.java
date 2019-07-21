@@ -19,7 +19,7 @@ public final class LoginCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String arg2, String[] arg3) {
 		if (WickhamsPlugin.MAIN.getConfig().getBoolean("登陆系统")) {
 			if (sender instanceof Player) {
-				Player player=(Player) sender;
+				Player player = (Player) sender;
 				if (cmd.getName().equalsIgnoreCase("join") && arg3.length == 1) {
 					if (LoginMain.isLogin(player.getName())) {
 						player.sendMessage(ChatColor.YELLOW + "你已经登陆啦");
@@ -27,18 +27,18 @@ public final class LoginCommand implements CommandExecutor {
 						if (LoginMain.isRegister(player.getName())) {
 							if (LoginMain.checkPasswordDtell(arg3[0])
 									&& LoginMain.checkPasswordReal(player.getName(), arg3[0])) {
-								WPlayerLoginEvent wPlayerLoginEvent=new WPlayerLoginEvent(player);
+								WPlayerLoginEvent wPlayerLoginEvent = new WPlayerLoginEvent(player);
 								Bukkit.getPluginManager().callEvent(wPlayerLoginEvent);
 								if (!(wPlayerLoginEvent.isCancelled())) {
-									if(LoginMain.PLAYER_REGISTER_IP_LIMIT) {
-										if(!LoginMain.hasRegisterIP(player)) {
+									if (LoginMain.PLAYER_REGISTER_IP_LIMIT) {
+										if (!LoginMain.hasRegisterIP(player)) {
 											LoginMain.setRegisterIP(player);
 											LoginMain.savePlayerRegisterIPConfig();
 										}
 									}
 									LoginMain.playerLogin(player);
 									LoginMain.removePlayerInLoginTimesHashMap(player);
-									player.sendMessage(wPlayerLoginEvent.getLoginSuccessMsg());
+									player.sendTitle("", wPlayerLoginEvent.getLoginSuccessMsg(), 5, 70, 5);
 									if (LoginMain.joinMsgBoolean) {
 										player.sendMessage(ChatColor.GREEN + LoginMain.joinMsgString);
 									}
@@ -49,12 +49,19 @@ public final class LoginCommand implements CommandExecutor {
 									} else {
 										player.sendMessage(ChatColor.RED + "退出游戏时的位置已丢失，已在出生点");
 									}
-									if(player.isOp()) {
-										if(!WickhamsPluginUpdateChecker.getWickhamsPluginVersion().equals(WickhamsPluginUpdateChecker.getWickhamsPluginLastestVersion())) {
-											player.sendMessage(ChatColor.YELLOW+"管理员请注意，本服务器的 WickhamsPlugin 插件版本为 "+ChatColor.RED+WickhamsPluginUpdateChecker.getWickhamsPluginVersion());
-											player.sendMessage(ChatColor.YELLOW+"WickhamsPlugin 插件的最新版本为 "+ChatColor.GREEN+WickhamsPluginUpdateChecker.getWickhamsPluginLastestVersion());
-											player.sendMessage(ChatColor.YELLOW+"更新于 "+ChatColor.GREEN+WickhamsPluginUpdateChecker.getWickhamsPluginLastestVersionPublishedTime());
-											player.sendMessage(ChatColor.YELLOW+"请及时更新以确保漏洞修复和功能完善");
+									if (player.isOp()) {
+										if (!WickhamsPluginUpdateChecker.getWickhamsPluginVersion().equals(
+												WickhamsPluginUpdateChecker.getWickhamsPluginLastestVersion())) {
+											player.sendMessage(ChatColor.YELLOW + "管理员请注意，本服务器的 WickhamsPlugin 插件版本为 "
+													+ ChatColor.RED
+													+ WickhamsPluginUpdateChecker.getWickhamsPluginVersion());
+											player.sendMessage(ChatColor.YELLOW + "WickhamsPlugin 插件的最新版本为 "
+													+ ChatColor.GREEN
+													+ WickhamsPluginUpdateChecker.getWickhamsPluginLastestVersion());
+											player.sendMessage(ChatColor.YELLOW + "更新于 " + ChatColor.GREEN
+													+ WickhamsPluginUpdateChecker
+															.getWickhamsPluginLastestVersionPublishedTime());
+											player.sendMessage(ChatColor.YELLOW + "请及时更新以确保漏洞修复和功能完善");
 										}
 									}
 								}
@@ -62,7 +69,7 @@ public final class LoginCommand implements CommandExecutor {
 							} else {
 								LoginMain.addPlayerLoginTimes(player);
 								sender.sendMessage(ChatColor.RED + "密码错误");
-								if(LoginMain.getPlayerLoginTimes(player)>3) {
+								if (LoginMain.getPlayerLoginTimes(player) > 3) {
 									LoginTimesLimit.newLoginTimesLimit(player);
 									player.kickPlayer("你已经输错密码3次了，被踢出了服务器");
 									return true;
@@ -71,25 +78,24 @@ public final class LoginCommand implements CommandExecutor {
 							}
 						} else {
 							if (LoginMain.checkPasswordDtell(arg3[0])) {
-								WPlayerRegisterEvent wPlayerRegisterEvent=new WPlayerRegisterEvent(player);
+								WPlayerRegisterEvent wPlayerRegisterEvent = new WPlayerRegisterEvent(player);
 								Bukkit.getPluginManager().callEvent(wPlayerRegisterEvent);
 								if (!(wPlayerRegisterEvent.isCancelled())) {
-									if(LoginMain.PLAYER_REGISTER_IP_LIMIT) {
-										if(LoginMain.isIPHasBeenUsed(player)) {
+									if (LoginMain.PLAYER_REGISTER_IP_LIMIT) {
+										if (LoginMain.isIPHasBeenUsed(player)) {
 											player.kickPlayer("你的IP地址已被使用，请检查是否曾经注册。如为否请联系管理员");
 											return true;
-										}else {
+										} else {
 											LoginMain.setRegisterIP(player);
 											LoginMain.savePlayerRegisterIPConfig();
 										}
 									}
 									LoginMain.register(player, arg3[0]);
 									LoginMain.playerLogin(player);
-									player.sendMessage(wPlayerRegisterEvent.getRegisterSuccessMsg());
+									player.sendTitle("", wPlayerRegisterEvent.getRegisterSuccessMsg(), 5, 70, 5);
 									player.setGameMode(GameMode.SURVIVAL);
 									if (LoginMain.joinMsgBoolean) {
-										player.sendMessage(
-												ChatColor.GREEN + LoginMain.joinMsgString);
+										player.sendMessage(ChatColor.GREEN + LoginMain.joinMsgString);
 									}
 									Bukkit.broadcastMessage(wPlayerRegisterEvent.getJoinMsg());
 								}

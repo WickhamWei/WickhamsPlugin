@@ -3,7 +3,6 @@ package wickhamsPlugin.loginSystem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,15 +18,16 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import wickhamsPlugin.WickhamsPlugin;
 import wickhamsPlugin.event.WPlayerLoginEvent;
 
 public class LoginLimitListener implements Listener {
-	public void noRegister(HumanEntity humanEntity) {// 未注册的信息
-		humanEntity.sendMessage(ChatColor.RED + "你还没注册，输入/join 你的密码 来注册");
+	public void noRegister(Player player) {// 未注册的信息
+		player.sendTitle("", ChatColor.RED + "你还没注册，输入/join 你的密码 来注册", 5, 70, 5);
 	}
 
-	public void noLogin(HumanEntity humanEntity) {// 未登录的信息
-		humanEntity.sendMessage(ChatColor.RED + "你还没登陆，输入/join 你的密码 来登陆");
+	public void noLogin(Player player) {// 未登录的信息
+		player.sendTitle("", ChatColor.RED + "你还没登陆，输入/join 你的密码 来登陆", 5, 70, 5);
 	}
 
 	@EventHandler
@@ -193,10 +193,10 @@ public class LoginLimitListener implements Listener {
 		if (LoginMain.isLogin(event.getPlayer().getName())) {
 			return;
 		} else if (!LoginMain.isRegister(event.getPlayer().getName())) {
-			noRegister(event.getPlayer());
+			noRegister(WickhamsPlugin.MAIN.getServer().getPlayer(event.getPlayer().getName()));
 			event.setCancelled(true);
 		} else {
-			noLogin(event.getPlayer());
+			noLogin(WickhamsPlugin.MAIN.getServer().getPlayer(event.getPlayer().getName()));
 			event.setCancelled(true);
 		}
 	}
