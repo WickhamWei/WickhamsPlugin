@@ -11,6 +11,7 @@ import wickhamsPlugin.command.Hello;
 import wickhamsPlugin.command.Home;
 import wickhamsPlugin.command.SetHome;
 import wickhamsPlugin.command.SetLevel;
+import wickhamsPlugin.command.SetSpawn;
 import wickhamsPlugin.command.Spawn;
 import wickhamsPlugin.command.Tp;
 import wickhamsPlugin.command.TpAll;
@@ -94,6 +95,7 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 		this.getCommand("sethome").setExecutor(new SetHome());
 		this.getCommand("gm").setExecutor(new gm());
 		this.getCommand("setlevel").setExecutor(new SetLevel());
+		this.getCommand("setspawn").setExecutor(new SetSpawn());
 	}
 
 	public void loadListener() {// 读取事件
@@ -154,5 +156,9 @@ public class WickhamsPlugin extends JavaPlugin implements Listener {
 			e.printStackTrace();
 			MAIN.getLogger().log(Level.WARNING, fileNameString + " 配置文件保存失败");
 		}
+	}
+	
+	public static void test() {
+		WickhamsPlugin.MAIN.getServer().getLogger().warning("test");
 	}
 }

@@ -28,6 +28,7 @@ public class PlayerQuitEventListener implements Listener {
 				LoginMain.countDownWhenPlayerLeft(player);
 				LoginMain.playerQuit(player);
 				LoginMain.savePlayerLastLocation(player, player.getLocation());
+				LoginMain.recordPlayerIPAddressInConfig(player);
 				return;
 			}
 		} else {

@@ -1,6 +1,6 @@
 name: WickhamsPlugin
 main: wickhamsPlugin.WickhamsPlugin
-version: 1.3.0.0
+version: 1.3.0.1
 api-version: 1.14
 author: Wickham
 load: STARTUP
@@ -14,6 +14,9 @@ permissions:
   wickhamsplugin.tpall:
    default: op
    description: 传送所有人到你身旁的权限
+  wickhamsplugin.setspawn:
+   default: op
+   description: 设置本世界出生地的权限
   wickhamsplugin.setlevel:
    default: op
    description: 设置玩家等级的权限
@@ -104,3 +107,8 @@ commands:
    usage: "用法: /<command> 游戏等级数值 目标玩家"
    permission: wickhamsplugin.setlevel
    permission-message: 你没有 wickhamsplugin.setlevel 权限节点来执行此命令
+  setspawn:
+   description: 设置本世界的出生地在此位置
+   usage: "用法: /<command>"
+   permission: wickhamsplugin.setspawn
+   permission-message: 你没有 wickhamsplugin.setspawn 权限节点来执行此命令
