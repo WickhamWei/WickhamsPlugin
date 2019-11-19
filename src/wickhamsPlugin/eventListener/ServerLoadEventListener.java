@@ -16,12 +16,12 @@ import wickhamsPlugin.WickhamsPluginUpdateChecker;
 import wickhamsPlugin.WickhamsPlugin;
 
 public class ServerLoadEventListener implements Listener {
-	private Plugin mainPlugin=WickhamsPlugin.MAIN;
-	private FileConfiguration config=mainPlugin.getConfig();
-	private final boolean saveBoolean=mainPlugin.getConfig().getBoolean("自动保存地图");
-	private final int saveTimes=mainPlugin.getConfig().getInt("自动保存地图时间间隔，单位分钟");
-	private final boolean msgBoolean=mainPlugin.getConfig().getBoolean("自动公告");
-	private final int msgTimes=mainPlugin.getConfig().getInt("自动公告时间间隔，单位分钟");
+	private Plugin mainPlugin = WickhamsPlugin.MAIN;
+	private FileConfiguration config = mainPlugin.getConfig();
+	private final boolean saveBoolean = mainPlugin.getConfig().getBoolean("自动保存地图");
+	private final int saveTimes = mainPlugin.getConfig().getInt("自动保存地图时间间隔，单位分钟");
+	private final boolean msgBoolean = mainPlugin.getConfig().getBoolean("自动公告");
+	private final int msgTimes = mainPlugin.getConfig().getInt("自动公告时间间隔，单位分钟");
 
 	@EventHandler
 	public void 自动保存地图计时器(ServerLoadEvent event) {// 服务器启动完成后执行
@@ -49,19 +49,19 @@ public class ServerLoadEventListener implements Listener {
 			Bukkit.getScheduler().runTaskTimer(mainPlugin, new Runnable() {
 				@Override
 				public void run() {
-					Bukkit.broadcastMessage(config.getString("公告1"));
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', config.getString("公告1")));
 				}
 			}, 0, msgTimes * 60 * 20 * 3);// 三次错开执行
 			Bukkit.getScheduler().runTaskTimer(mainPlugin, new Runnable() {
 				@Override
 				public void run() {
-					Bukkit.broadcastMessage(config.getString("公告2"));
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', config.getString("公告2")));
 				}
 			}, msgTimes * 60 * 20, msgTimes * 60 * 20 * 3);// 三次错开执行
 			Bukkit.getScheduler().runTaskTimer(mainPlugin, new Runnable() {
 				@Override
 				public void run() {
-					Bukkit.broadcastMessage(config.getString("公告3"));
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', config.getString("公告3")));
 				}
 			}, msgTimes * 60 * 20 * 2, msgTimes * 60 * 20 * 3);// 三次错开执行
 		} else
@@ -70,8 +70,8 @@ public class ServerLoadEventListener implements Listener {
 
 	@EventHandler
 	public void pluginMsg(ServerLoadEvent event) {
-		BukkitRunnable checkUpdateBukkitRunnable=new BukkitRunnable() {
-			
+		BukkitRunnable checkUpdateBukkitRunnable = new BukkitRunnable() {
+
 			@Override
 			public void run() {
 				// TODO 自动生成的方法存根

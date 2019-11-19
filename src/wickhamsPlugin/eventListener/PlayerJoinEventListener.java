@@ -54,7 +54,7 @@ public class PlayerJoinEventListener implements Listener {
 		event.setJoinMessage("");
 		if (welcomeMsgBoolean && !loginSystemBoolean) {
 			Player player = event.getPlayer();
-			player.sendMessage(ChatColor.GREEN + mainConfiguration.getString("玩家加入时给玩家的信息"));
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', mainConfiguration.getString("玩家加入时给玩家的信息")));
 		}
 		if (!loginSystemBoolean) {
 			Bukkit.broadcastMessage(ChatColor.GREEN + event.getPlayer().getName() + " 加入了游戏");

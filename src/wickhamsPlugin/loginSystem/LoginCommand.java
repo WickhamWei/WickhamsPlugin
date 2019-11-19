@@ -39,9 +39,6 @@ public final class LoginCommand implements CommandExecutor {
 									LoginMain.playerLogin(player);
 									LoginMain.removePlayerInLoginTimesHashMap(player);
 									player.sendTitle("", wPlayerLoginEvent.getLoginSuccessMsg(), 5, 70, 5);
-									if (LoginMain.joinMsgBoolean) {
-										player.sendMessage(ChatColor.GREEN + LoginMain.joinMsgString);
-									}
 									Bukkit.broadcastMessage(wPlayerLoginEvent.getJoinMsg());
 									player.setGameMode(GameMode.SURVIVAL);
 									if (LoginMain.teleportPlayerAfterLogin((player))) {
@@ -94,9 +91,6 @@ public final class LoginCommand implements CommandExecutor {
 									LoginMain.playerLogin(player);
 									player.sendTitle("", wPlayerRegisterEvent.getRegisterSuccessMsg(), 5, 70, 5);
 									player.setGameMode(GameMode.SURVIVAL);
-									if (LoginMain.joinMsgBoolean) {
-										player.sendMessage(ChatColor.GREEN + LoginMain.joinMsgString);
-									}
 									Bukkit.broadcastMessage(wPlayerRegisterEvent.getJoinMsg());
 								}
 								return true;

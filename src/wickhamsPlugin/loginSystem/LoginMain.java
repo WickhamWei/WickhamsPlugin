@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -31,7 +32,7 @@ public final class LoginMain {
 	private static final int loginKeepTime = WICKHAMS_PLUGIN.getConfig().getInt("登录保持时间");
 	private static HashMap<String, Integer> loginTimesHashMap = new HashMap<String, Integer>();
 	protected static boolean joinMsgBoolean = WickhamsPlugin.MAIN.getConfig().getBoolean("玩家加入时给玩家的信息开关");
-	protected static String joinMsgString = WickhamsPlugin.MAIN.getConfig().getString("玩家加入时给玩家的信息");
+	private static FileConfiguration mainConfiguration=WickhamsPlugin.MAIN.mainConfiguration;
 
 	public static void createPlayerPasswordConfig() {
 		playerPasswordFile = new File(WICKHAMS_PLUGIN.getDataFolder(), "playerPassword.yml");
@@ -108,10 +109,12 @@ public final class LoginMain {
 
 	public static void playerLogin(Player player) {// 设置登陆状态
 		unLoginList.remove(player.getName());
+		player.sendMessage(ChatColor.translateAlternateColorCodes('&', mainConfiguration.getString("玩家加入时给玩家的信息")));
 	}
 
 	public static void playerLogin(String playerNameString) {// 设置登陆状态
 		unLoginList.remove(playerNameString);
+		WICKHAMS_PLUGIN.getServer().getPlayer(playerNameString).sendMessage(ChatColor.translateAlternateColorCodes('&', mainConfiguration.getString("玩家加入时给玩家的信息")));
 	}
 
 	public static void playerQuit(Player player) {// 设置登陆状态
