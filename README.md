@@ -16,9 +16,12 @@
 
 ## 下载地址  
 
- [发布页面](https://github.com/WickhamWei/WickhamsPlugin/releases)
+ [发布页面](https://github.com/WickhamWei/WickhamsPlugin/releases)  
+   
+  支持spigot 1.15.1。  
+   这个作品是我的第一个插件作品，后续将不提供除了bug修复以外的新的更新。我会继续开发其他插件。
 
-## API  
+## API（非标准调用）  
   
   1. chunkLoading  
   将指定位置的区块加载指定的秒数，使用方法：  
